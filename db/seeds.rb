@@ -5,3 +5,42 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.destroy_all
+Post.destroy_all
+Comment.destroy_all
+
+puts '🌱🌱🌱 Seeding users... 🌱🌱🌱'
+puts '🌱🌱🌱 Seeding posts... 🌱🌱🌱'
+puts '🌱🌱🌱 Seeding comments... 🌱🌱🌱'
+
+# create 5 random users
+5.times do
+  user = User.create(
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    password: 'password',
+    gender: Faker::Gender.binary_type,
+    birthday: Faker::Date.birthday(min_age: 16, max_age: 100)
+  )
+
+  # create 5 random posts for each user
+  5.times do
+    post = Post.create(
+      author_id: user.id,
+      body: Faker::Quote.famous_last_words
+    )
+  end
+end
+
+# create 5 random comments for each post
+Post.all.each do |post|
+  5.times do
+    Comment.create(
+      author_id: rand(User.all.length)+1,
+      post_id: post.id,
+      body: Faker::Quote.famous_last_words
+    )
+  end
+end
