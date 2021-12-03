@@ -11,6 +11,7 @@
 #  birthday        :date
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  friends_list    :text             default("")
 #
 class User < ApplicationRecord
 
@@ -27,5 +28,19 @@ class User < ApplicationRecord
     primary_key: :id,
     foreign_key: :author_id,
     class_name: :Comment
+  
+  has_many :assertive_friendships,  # may need to change this method name later
+    primary_key: :id,
+    foreign_key: :user_id,
+    class_name: :Friendship
+  
+  has_many :passive_friendships,  # may need to change this method name later
+    primary_key: :id,
+    foreign_key: :friend_id,
+    class_name: :Friendship
+
+  has_many :friends,
+    through: :assertive_friendships,
+    source: :friend
 
 end
