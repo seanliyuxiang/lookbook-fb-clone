@@ -1,6 +1,6 @@
 import NavBar from './NavBar';
 import {Route, Switch} from 'react-router-dom';
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import Signup from './Signup';
 import HomeFeed from './HomeFeed';
 import UserProfile from './UserProfile';
