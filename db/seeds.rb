@@ -44,3 +44,15 @@ Post.all.each do |post|
     )
   end
 end
+
+# create random friends for each user
+User.all.each do |user|
+  total_friends = rand(User.all.length)
+
+  # possible user id's that can be friends
+  possible_friend_ids = (1..(User.all.length)).to_a
+  possible_friend_ids.delete(user.id)
+
+  user.friends_list = possible_friend_ids.sample(total_friends).sort.join(',')
+  user.save
+end
