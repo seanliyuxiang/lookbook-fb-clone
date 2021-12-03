@@ -45,7 +45,7 @@ Post.all.each do |post|
   end
 end
 
-# create random friends for each user
+# create random friendships for each user
 User.all.each do |user|
   total_friends = rand(User.all.length)
 
@@ -53,6 +53,18 @@ User.all.each do |user|
   possible_friend_ids = (1..(User.all.length)).to_a
   possible_friend_ids.delete(user.id)
 
-  user.friends_list = possible_friend_ids.sample(total_friends).sort.join(',')
+  # random user id's that are friends
+  random_friend_ids = possible_friend_ids.sample(total_friends).sort
+
+  # create `friends_list` column in `users` table
+  user.friends_list = random_friend_ids.join(',')
   user.save
+
+
+  # create friendships in `friendships` table
+  if !random_friend_ids.empty?
+    random_friend_ids.each do |id|
+      Friendship.create(user_id: user.id, friend_id: id)
+    end
+  end
 end
