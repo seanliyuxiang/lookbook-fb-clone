@@ -30,7 +30,7 @@ function NavBar({user, setUser}) {
   // if an user is logged in
   return (
     <div id='nav-bar'>
-      <NavLink exact to='/home' id='nav-bar-logo'>
+      <NavLink exact to='/home_feed' id='nav-bar-logo'>
         l👀kbook
       </NavLink>
       <NavLink exact to='/me'>
