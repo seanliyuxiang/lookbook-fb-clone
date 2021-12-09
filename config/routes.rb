@@ -3,9 +3,12 @@ Rails.application.routes.draw do
 
   namespace :api do
 
-    # create a new user, show user profile page
+    # create a new user, show home feed page
     post '/signup', to: 'users#create'
-    get '/me', to: 'users#show'
+    get '/home_feed', to: 'users#show_home_feed'
+
+    # RESTful routes for users controller
+    resources :users, only: [:show]
 
     # create a session, destroy a session
     post '/login', to: 'sessions#create'
