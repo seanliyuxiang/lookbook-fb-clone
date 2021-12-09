@@ -10,10 +10,19 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  def show
+  # def show_home_feed
+  #   user = User.find_by(id: session[:user_id])
+  #   if user
+  #     render json: user, include: ['friends', 'friends.posts.comments']
+  #   else
+  #     render json: {error: 'Not authorized'}, status: :unauthorized
+  #   end
+  # end
+
+  def show_home_feed
     user = User.find_by(id: session[:user_id])
     if user
-      render json: user
+      render json: user.friends, each_serializer: UsersFriendSerializer, include: ['posts', 'posts.comments']
     else
       render json: {error: 'Not authorized'}, status: :unauthorized
     end
