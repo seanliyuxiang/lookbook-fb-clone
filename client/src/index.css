@@ -23,3 +23,15 @@ code {
   font-size: 50px;
   font-weight: bold;
 }
+
+.post {
+  /* margin: blue 2px; */
+  border: black solid 1px;
+  padding: 20px;
+}
+
+.comment {
+  /* margin: blue 2px; */
+  border: black solid 1px;
+  padding: 20px;
+}
