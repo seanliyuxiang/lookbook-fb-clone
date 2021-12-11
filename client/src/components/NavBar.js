@@ -33,7 +33,7 @@ function NavBar({user, setUser}) {
       <NavLink exact to='/home_feed' id='nav-bar-logo'>
         l👀kbook
       </NavLink>
-      <NavLink exact to='/me'>
+      <NavLink exact to={`/users/${user.id}`}>
         {user.first_name}
       </NavLink>
       <button onClick={logoutHandler}>Logout</button>

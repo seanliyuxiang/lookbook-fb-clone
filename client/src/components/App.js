@@ -30,7 +30,7 @@ function App() {
         <Route exact path='/home_feed'>
           <HomeFeed />
         </Route>
-        <Route exact path='/me'>
+        <Route exact path='/users/:id'>
           <UserProfile />
         </Route>
       </Switch>
