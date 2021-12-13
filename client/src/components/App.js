@@ -28,7 +28,7 @@ function App() {
       <NavBar user={user} setUser={setUser} />
       <Switch>
         <Route exact path='/home_feed'>
-          <HomeFeed />
+          <HomeFeed user={user} />
         </Route>
         <Route exact path='/users/:id'>
           <UserProfile />
