@@ -18,7 +18,8 @@ function UserProfile() {
     return <h1>Loading...</h1>;
   }
 
-  const arbitraryUsersPostsArrJSX = arbitraryUser.posts.map(
+  // need to reverse the order so that the user's posts are from the newest to the oldest
+  const arbitraryUsersPostsArrJSX = arbitraryUser.posts.reverse().map(
     arbitraryUsersPost => {
       return (
         <Post key={arbitraryUsersPost.id} post={arbitraryUsersPost} />

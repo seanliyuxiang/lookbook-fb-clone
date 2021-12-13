@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
     # posts
     get '/home_feed', to: 'posts#show_home_feed'
+    resources :posts, only: [:create]
     
     # sessions
     post '/login', to: 'sessions#create'

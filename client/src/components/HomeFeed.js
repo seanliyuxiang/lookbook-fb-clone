@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react';
 import Post from './Post';
+import FormToSubmitPost from './FormToSubmitPost';
 
 // container component for logged-in user's friends' posts
-function HomeFeed() {
+function HomeFeed({user}) {
 
   const [friendsPosts, setFriendsPosts] = useState([]);
 
@@ -20,9 +21,18 @@ function HomeFeed() {
     }
   );
 
+  /*
+  once a new post is submitted from the home feed page,
+  the new post is immediately appended to the top of the home feed page
+  */
+  function setFriendsPostsWrapper(newPost) {
+    setFriendsPosts([newPost, ...friendsPosts]);
+  }
+
   return (
     <div>
       <h1>coming from HomeFeed.js</h1>
+      <FormToSubmitPost user={user} setFriendsPostsWrapper={setFriendsPostsWrapper} />
       {friendsPostsArrJSX}
     </div>
   );

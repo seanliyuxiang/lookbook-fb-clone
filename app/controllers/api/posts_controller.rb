@@ -1,5 +1,14 @@
 class Api::PostsController < ApplicationController
 
+  def create
+    post = Post.new(post_params)
+    if post.save
+      render json: post, status: :created
+    else
+      render json: {error: 'Post unsuccessful'}, status: :unprocessable_entity
+    end
+  end
+
   # logged-in user's friends' posts ---> friends' posts' comments
   def show_home_feed
     user = User.find_by(id: session[:user_id])
@@ -20,6 +29,12 @@ class Api::PostsController < ApplicationController
     else
       render json: {error: 'Not authorized'}, status: :unauthorized
     end
+  end
+
+  private
+
+  def post_params
+    params.permit(:author_id, :body)
   end
 
 end
