@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Post from './Post';
 
-function UserProfile() {
+function UserProfile({user}) {
 
   const [arbitraryUser, setArbitraryUser] = useState(null);
   const params = useParams();
@@ -22,7 +22,7 @@ function UserProfile() {
   const arbitraryUsersPostsArrJSX = arbitraryUser.posts.reverse().map(
     arbitraryUsersPost => {
       return (
-        <Post key={arbitraryUsersPost.id} post={arbitraryUsersPost} />
+        <Post key={arbitraryUsersPost.id} post={arbitraryUsersPost} user={user} />
       );
     }
   );
