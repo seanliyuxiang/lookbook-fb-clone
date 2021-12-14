@@ -25,7 +25,7 @@ function FormToSubmitPost({user, setFriendsPostsWrapper}) {
       body: JSON.stringify(postFormData)
     })
     .then(response => response.json())
-    .then(post => setFriendsPostsWrapper(post));
+    .then(post => setFriendsPostsWrapper(post));  // may need to change this line of code to render errors based on the response status
   }
 
   return (

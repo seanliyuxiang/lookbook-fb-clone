@@ -16,7 +16,7 @@ function HomeFeed({user}) {
   const friendsPostsArrJSX = friendsPosts.map(
     friendsPost => {
       return (
-        <Post key={friendsPost.id} post={friendsPost} />
+        <Post key={friendsPost.id} post={friendsPost} user={user} />
       );
     }
   );
