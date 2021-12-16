@@ -1,6 +1,9 @@
 import {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
 function Login({setUser}) {
+
+  const history = useHistory();
 
   const [loginFormData, setLoginFormData] = useState({
     email: '',
@@ -28,7 +31,10 @@ function Login({setUser}) {
     })
     .then(response => {
       if (response.ok) {
-        response.json().then(jsonData => setUser(jsonData));
+        response.json().then(jsonData => {
+          setUser(jsonData);
+          history.push('/home_feed'); // automatically go to home feed page after login
+        });
       }
     });
   }
