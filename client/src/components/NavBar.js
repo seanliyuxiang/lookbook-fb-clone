@@ -1,7 +1,9 @@
 import Login from './Login';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useHistory} from 'react-router-dom';
 
 function NavBar({user, setUser}) {
+
+  const history = useHistory();
 
   // logout
   function logoutHandler() {
@@ -11,6 +13,7 @@ function NavBar({user, setUser}) {
     .then(response => {
       if (response.ok) {
         setUser(null);
+        history.push('/');  // automatically go to login/signup page after logout
       }
     });
   }

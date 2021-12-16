@@ -40,7 +40,7 @@ function UserProfile({user}) {
       ...arbitraryUser,
       posts: [
         ...arbitraryUser.posts,
-        newPost
+        newPost // newly submitted post
       ]
     });
   }
