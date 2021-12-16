@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
 function Signup({setUser}) {
 
@@ -12,6 +13,8 @@ function Signup({setUser}) {
     birthdayDay: '',
     birthdayYear: ''
   });
+
+  const history = useHistory();
 
   function changeSignupFormDataHandler(event) {
     setSignupFormData({
@@ -39,7 +42,10 @@ function Signup({setUser}) {
     })
     .then(response => {
       if (response.ok) {
-        response.json().then(jsonData => setUser(jsonData));
+        response.json().then(jsonData => {
+          setUser(jsonData);
+          history.push('/home_feed'); // automatically go to home feed page after signup
+        });
       }
     });
   }
