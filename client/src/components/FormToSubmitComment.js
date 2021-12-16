@@ -26,7 +26,7 @@ function FormToSubmitComment({post, user, setPostsCommentsWrapper}) {
       body: JSON.stringify(commentFormData)
     })
     .then(response => response.json())
-    .then(comment => setPostsCommentsWrapper(comment)); // may need to change this line of code to render errors based on the response status
+    .then(comment => setPostsCommentsWrapper(comment)); // may need to change the 2nd `.then()` to render errors based on the response status
   }
 
   return (
