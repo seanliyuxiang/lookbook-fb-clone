@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import Post from './Post';
+import FormToSubmitPost from './FormToSubmitPost';
 
 function UserProfile({user}) {
 
@@ -34,11 +35,22 @@ function UserProfile({user}) {
     }
   );
 
+  function setArbitraryUserWrapper(newPost) {
+    setArbitraryUser({
+      ...arbitraryUser,
+      posts: [
+        ...arbitraryUser.posts,
+        newPost
+      ]
+    });
+  }
+
   return (
     <div>
       <h1>coming from UserProfile.js</h1>
       <h1>User profile: {`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
       <h1>{arbitraryUser.email}</h1>
+      <FormToSubmitPost user={user} setArbitraryUserWrapper={setArbitraryUserWrapper} />
       {arbitraryUsersPostsArrJSX}
     </div>
   );
