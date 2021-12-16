@@ -11,6 +11,9 @@ function UserProfile({user}) {
     fetch(`/api/users/${params.id}`)
     .then(response => response.json())
     .then(user => setArbitraryUser(user));
+
+    // scroll to top of user's page after user's name is clicked
+    window.scrollTo(0, 0);
   }, [params.id]);
 
   // need this if-statement for `TypeError: Cannot read properties of null`
@@ -18,8 +21,12 @@ function UserProfile({user}) {
     return <h1>Loading...</h1>;
   }
 
-  // need to reverse the order so that the user's posts are from the newest to the oldest
-  const arbitraryUsersPostsArrJSX = arbitraryUser.posts.reverse().map(
+  /*
+  need to make a copy of the user's posts first,
+  then reverse the order of that copied array,
+  so that the user's posts are from the newest to the oldest
+  */
+  const arbitraryUsersPostsArrJSX = [...arbitraryUser.posts].reverse().map(
     arbitraryUsersPost => {
       return (
         <Post key={arbitraryUsersPost.id} post={arbitraryUsersPost} user={user} />
