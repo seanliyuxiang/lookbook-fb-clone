@@ -22,6 +22,13 @@ function UserProfile({user}) {
     return <h1>Loading...</h1>;
   }
 
+  function setArbitraryUserWrapperToRemovePost(deletedPost) {
+    setArbitraryUser({
+      ...arbitraryUser,
+      posts: arbitraryUser.posts.filter(post => post.id !== deletedPost.id) // filter out the deleted post
+    });
+  }
+
   /*
   need to make a copy of the user's posts first,
   then reverse the order of that copied array,
@@ -30,7 +37,12 @@ function UserProfile({user}) {
   const arbitraryUsersPostsArrJSX = [...arbitraryUser.posts].reverse().map(
     arbitraryUsersPost => {
       return (
-        <Post key={arbitraryUsersPost.id} post={arbitraryUsersPost} user={user} />
+        <Post
+          key={arbitraryUsersPost.id}
+          post={arbitraryUsersPost}
+          user={user}
+          setArbitraryUserWrapperToRemovePost={setArbitraryUserWrapperToRemovePost}
+        />
       );
     }
   );
