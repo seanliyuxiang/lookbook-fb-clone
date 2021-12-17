@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
     # posts
     get '/home_feed', to: 'posts#show_home_feed'
-    resources :posts, only: [:create]
+    resources :posts, only: [:create, :destroy]
     
     # sessions
     post '/login', to: 'sessions#create'
