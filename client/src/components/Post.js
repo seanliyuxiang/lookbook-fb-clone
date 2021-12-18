@@ -15,7 +15,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
     }
   );
 
-  function setPostsCommentsWrapper(newComment) {
+  function setPostsCommentsWrapperToAddNewComment(newComment) {
     setPostsComments([...postsComments, newComment]);
   }
 
@@ -49,7 +49,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
         </>
       : null}
       {postsCommentsArrJSX}
-      <FormToSubmitComment post={post} user={user} setPostsCommentsWrapper={setPostsCommentsWrapper} />
+      <FormToSubmitComment post={post} user={user} setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment} />
     </div>
   );
 }

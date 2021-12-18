@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function FormToSubmitComment({post, user, setPostsCommentsWrapper}) {
+function FormToSubmitComment({post, user, setPostsCommentsWrapperToAddNewComment}) {
 
   const [commentFormData, setCommentFormData] = useState({
     author_id: user.id,
@@ -26,7 +26,7 @@ function FormToSubmitComment({post, user, setPostsCommentsWrapper}) {
       body: JSON.stringify(commentFormData)
     })
     .then(response => response.json())
-    .then(comment => setPostsCommentsWrapper(comment)); // may need to change the 2nd `.then()` to render errors based on the response status
+      .then(comment => setPostsCommentsWrapperToAddNewComment(comment)); // may need to change the 2nd `.then()` to render errors based on the response status
   }
 
   return (
