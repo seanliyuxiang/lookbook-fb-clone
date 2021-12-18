@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function FormToSubmitPost({user, setFriendsPostsWrapper, setArbitraryUserWrapper}) {
+function FormToSubmitPost({user, setFriendsPostsWrapperToAddNewPost, setArbitraryUserWrapperToAddNewPost}) {
 
   const [postFormData, setPostFormData] = useState({
     author_id: user.id,
@@ -26,10 +26,10 @@ function FormToSubmitPost({user, setFriendsPostsWrapper, setArbitraryUserWrapper
     })
     .then(response => response.json())
     .then(post => {
-      if (!setArbitraryUserWrapper) {
-        setFriendsPostsWrapper(post);
+      if (!setArbitraryUserWrapperToAddNewPost) {
+        setFriendsPostsWrapperToAddNewPost(post);
       } else {
-        setArbitraryUserWrapper(post);
+        setArbitraryUserWrapperToAddNewPost(post);
       }
     });  // may need to change the 2nd `.then()` to render errors based on the response status
   }

@@ -47,7 +47,7 @@ function UserProfile({user}) {
     }
   );
 
-  function setArbitraryUserWrapper(newPost) {
+  function setArbitraryUserWrapperToAddNewPost(newPost) {
     setArbitraryUser({
       ...arbitraryUser,
       posts: [
@@ -62,7 +62,7 @@ function UserProfile({user}) {
       <h1>coming from UserProfile.js</h1>
       <h1>User profile: {`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
       <h1>{arbitraryUser.email}</h1>
-      <FormToSubmitPost user={user} setArbitraryUserWrapper={setArbitraryUserWrapper} />
+      <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewPost={setArbitraryUserWrapperToAddNewPost} />
       {arbitraryUsersPostsArrJSX}
     </div>
   );
