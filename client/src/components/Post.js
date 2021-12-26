@@ -7,10 +7,21 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
 
   const [postsComments, setPostsComments] = useState(post.comments);
 
+  function setPostsCommentsWrapperToRemoveComment(deletedComment) {
+    setPostsComments(postsComments.filter(
+      comment => comment.id !== deletedComment.id
+    ));
+  }
+
   const postsCommentsArrJSX = postsComments.map(
     postsComment => {
       return (
-        <Comment key={postsComment.id} postsComment={postsComment} />
+        <Comment
+          key={postsComment.id}
+          postsComment={postsComment}
+          user={user}
+          setPostsCommentsWrapperToRemoveComment={setPostsCommentsWrapperToRemoveComment}
+        />
       );
     }
   );
