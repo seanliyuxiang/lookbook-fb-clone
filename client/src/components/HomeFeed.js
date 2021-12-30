@@ -17,6 +17,16 @@ function HomeFeed({user}) {
     setFriendsPosts(friendsPosts.filter(post => post.id !== deletedPost.id)); // filter out the deleted post
   }
 
+  function setFriendsPostsWrapperToUpdatePost(updatedPost) {
+    setFriendsPosts(friendsPosts.map(post => {
+      if (post.id === updatedPost.id) {
+        return updatedPost; // replace with the updated post
+      } else {
+        return post;
+      }
+    }));
+  }
+
   const friendsPostsArrJSX = friendsPosts.map(
     friendsPost => {
       return (
@@ -25,6 +35,7 @@ function HomeFeed({user}) {
           post={friendsPost}
           user={user}
           setFriendsPostsWrapperToRemovePost={setFriendsPostsWrapperToRemovePost}
+          setFriendsPostsWrapperToUpdatePost={setFriendsPostsWrapperToUpdatePost}
         />
       );
     }

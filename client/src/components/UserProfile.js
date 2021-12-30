@@ -29,6 +29,19 @@ function UserProfile({user}) {
     });
   }
 
+  function setArbitraryUserWrapperToUpdatePost(updatedPost) {
+    setArbitraryUser({
+      ...arbitraryUser,
+      posts: arbitraryUser.posts.map(post => {
+        if (post.id === updatedPost.id) {
+          return updatedPost; // replace with the updated post
+        } else {
+          return post;
+        }
+      })
+    });
+  }
+
   /*
   need to make a copy of the user's posts first,
   then reverse the order of that copied array,
@@ -42,6 +55,7 @@ function UserProfile({user}) {
           post={arbitraryUsersPost}
           user={user}
           setArbitraryUserWrapperToRemovePost={setArbitraryUserWrapperToRemovePost}
+          setArbitraryUserWrapperToUpdatePost={setArbitraryUserWrapperToUpdatePost}
         />
       );
     }
@@ -52,7 +66,7 @@ function UserProfile({user}) {
       ...arbitraryUser,
       posts: [
         ...arbitraryUser.posts,
-        newPost // newly submitted post
+        newPost // add the newly submitted post
       ]
     });
   }
