@@ -2,10 +2,12 @@ import Comment from './Comment';
 import {Link} from 'react-router-dom';
 import FormToSubmitComment from './FormToSubmitComment';
 import {useState} from 'react';
+import FormToEditPost from './FormToEditPost';
 
-function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsWrapperToRemovePost}) {
+function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsWrapperToRemovePost, setArbitraryUserWrapperToUpdatePost, setFriendsPostsWrapperToUpdatePost}) {
 
   const [postsComments, setPostsComments] = useState(post.comments);
+  const [isEditing, setIsEditing] = useState(false);
 
   function setPostsCommentsWrapperToRemoveComment(deletedComment) {
     setPostsComments(postsComments.filter(
@@ -25,6 +27,20 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
       );
     }
   );
+
+  if (isEditing) {
+    return (
+      <div>
+        <FormToEditPost
+          post={post}
+          setArbitraryUserWrapperToUpdatePost={setArbitraryUserWrapperToUpdatePost}
+          setIsEditing={setIsEditing}
+          setFriendsPostsWrapperToUpdatePost={setFriendsPostsWrapperToUpdatePost}
+        />
+        {postsCommentsArrJSX}
+      </div>
+    );
+  }
 
   function setPostsCommentsWrapperToAddNewComment(newComment) {
     setPostsComments([...postsComments, newComment]);
@@ -47,6 +63,10 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
     });
   }
 
+  function editPostHandler() {
+    setIsEditing(!isEditing);
+  }
+
   return (
     <div className='post'>
       <h1>coming from Post.js</h1>
@@ -56,7 +76,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
       {post.author_id === user.id ?
         <>
           <button onClick={deletePostHandler}>Delete</button>
-          <button>Edit</button>
+          <button onClick={editPostHandler}>Edit</button>
         </>
       : null}
       {postsCommentsArrJSX}
