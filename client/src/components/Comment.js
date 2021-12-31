@@ -1,6 +1,20 @@
 import {Link} from 'react-router-dom';
+import {useState} from 'react';
+import FormToEditComment from './FormToEditComment';
 
-function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment}) {
+function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment, setPostsCommentsWrapperToUpdateComment}) {
+
+  const [isEditingComment, setIsEditingComment] = useState(false);
+
+  if (isEditingComment) {
+    return (
+      <FormToEditComment
+        postsComment={postsComment}
+        setPostsCommentsWrapperToUpdateComment={setPostsCommentsWrapperToUpdateComment}
+        setIsEditingComment={setIsEditingComment}
+      />
+    );
+  }
 
   function deleteCommentHandler() {
     fetch(`/api/comments/${postsComment.id}`, {
@@ -13,6 +27,10 @@ function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment}) {
     });
   }
 
+  function editCommentHandler() {
+    setIsEditingComment(!isEditingComment);
+  }
+
   return (
     <div className='comment'>
       <h1>coming from Comment.js</h1>
@@ -21,7 +39,7 @@ function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment}) {
       {postsComment.author_id === user.id ?
         <>
           <button onClick={deleteCommentHandler}>Delete</button>
-          <button>Edit</button>
+          <button onClick={editCommentHandler}>Edit</button>
         </>
       : null}
     </div>

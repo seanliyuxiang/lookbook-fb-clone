@@ -15,6 +15,15 @@ class Api::CommentsController < ApplicationController
     render json: comment
   end
 
+  def update
+    comment = Comment.find_by(id: params[:id])
+    if comment.update(comment_params)
+      render json: comment
+    else
+      render json: {error: 'Edit unsucessful'}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def comment_params
