@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function FormToEditPost({post, setArbitraryUserWrapperToUpdatePost, setIsEditing, setFriendsPostsWrapperToUpdatePost}) {
+function FormToEditPost({post, setArbitraryUserWrapperToUpdatePost, setIsEditingPost, setFriendsPostsWrapperToUpdatePost}) {
 
   const [editedPostFormData, setEditedPostFormData] = useState({
     body: post.body
@@ -31,7 +31,7 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdatePost, setIsEditing
           } else {
             setFriendsPostsWrapperToUpdatePost(post);
           }
-          setIsEditing(false);
+          setIsEditingPost(false);
         });
       }
     });

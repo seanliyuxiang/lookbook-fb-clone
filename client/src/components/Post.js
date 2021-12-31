@@ -7,7 +7,7 @@ import FormToEditPost from './FormToEditPost';
 function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsWrapperToRemovePost, setArbitraryUserWrapperToUpdatePost, setFriendsPostsWrapperToUpdatePost}) {
 
   const [postsComments, setPostsComments] = useState(post.comments);
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditingPost, setIsEditingPost] = useState(false);
 
   function setPostsCommentsWrapperToRemoveComment(deletedComment) {
     setPostsComments(postsComments.filter(
@@ -39,13 +39,13 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
     }
   );
 
-  if (isEditing) {
+  if (isEditingPost) {
     return (
       <div>
         <FormToEditPost
           post={post}
           setArbitraryUserWrapperToUpdatePost={setArbitraryUserWrapperToUpdatePost}
-          setIsEditing={setIsEditing}
+          setIsEditingPost={setIsEditingPost}
           setFriendsPostsWrapperToUpdatePost={setFriendsPostsWrapperToUpdatePost}
         />
         {postsCommentsArrJSX}
@@ -75,7 +75,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
   }
 
   function editPostHandler() {
-    setIsEditing(!isEditing);
+    setIsEditingPost(!isEditingPost);
   }
 
   return (
