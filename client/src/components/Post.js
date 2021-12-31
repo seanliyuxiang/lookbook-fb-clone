@@ -15,6 +15,16 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
     ));
   }
 
+  function setPostsCommentsWrapperToUpdateComment(updatedComment) {
+    setPostsComments(postsComments.map(comment => {
+      if (comment.id === updatedComment.id) {
+        return updatedComment;
+      } else {
+        return comment;
+      }
+    }));
+  }
+
   const postsCommentsArrJSX = postsComments.map(
     postsComment => {
       return (
@@ -23,6 +33,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
           postsComment={postsComment}
           user={user}
           setPostsCommentsWrapperToRemoveComment={setPostsCommentsWrapperToRemoveComment}
+          setPostsCommentsWrapperToUpdateComment={setPostsCommentsWrapperToUpdateComment}
         />
       );
     }

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
 
     # comments
-    resources :comments, only: [:create, :destroy]
+    resources :comments, only: [:create, :destroy, :update]
 
     # posts
     get '/home_feed', to: 'posts#show_home_feed'
