@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     # comments
     resources :comments, only: [:create, :destroy, :update]
 
+    # likes
+    resources :likes, only: [:create, :destroy]
+
     # posts
     get '/home_feed', to: 'posts#show_home_feed'
     resources :posts, only: [:create, :destroy, :update]
