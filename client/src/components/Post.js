@@ -8,6 +8,9 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
 
   const [postsComments, setPostsComments] = useState(post.comments);
   const [isEditingPost, setIsEditingPost] = useState(false);
+  const [isPostLiked, setIsPostLiked] = useState(
+    post.likers.map(liker => liker.id).includes(user.id)
+  );
 
   function setPostsCommentsWrapperToRemoveComment(deletedComment) {
     setPostsComments(postsComments.filter(
@@ -78,6 +81,26 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
     setIsEditingPost(!isEditingPost);
   }
 
+  function toggleLikePostHandler() {
+    if (!isPostLiked) {
+      fetch('/api/likes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          liker_id: user.id,
+          post_id: post.id
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          response.json().then(() => setIsPostLiked(true));
+        }
+      })
+    }
+  }
+
   return (
     <div className='post'>
       <h1>coming from Post.js</h1>
@@ -88,8 +111,10 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
         <>
           <button onClick={deletePostHandler}>Delete</button>
           <button onClick={editPostHandler}>Edit</button>
+          <br />
         </>
       : null}
+      <button onClick={toggleLikePostHandler}>{isPostLiked ? 'Liked' : 'Not liked'}</button>
       {postsCommentsArrJSX}
       <FormToSubmitComment post={post} user={user} setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment} />
     </div>
