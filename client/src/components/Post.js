@@ -97,7 +97,23 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
         if (response.ok) {
           response.json().then(() => setIsPostLiked(true));
         }
+      });
+    } else {
+      let likeID;
+      for (let like of post.likes) {
+        if (like.liker_id === user.id && like.post_id === post.id) {
+          likeID = like.id;
+        }
+      }
+
+      fetch(`/api/likes/${likeID}`, {
+        method: 'DELETE'
       })
+      .then(response => {
+        if (response.ok) {
+          response.json().then(() => setIsPostLiked(false));
+        }
+      });
     }
   }
 
