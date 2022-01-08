@@ -9,6 +9,12 @@ class Api::LikesController < ApplicationController
     end
   end
 
+  def destroy
+    like = Like.find_by(id: params[:id])
+    like.destroy
+    render json: like
+  end
+
   private
 
   def like_params
