@@ -12,5 +12,5 @@ class PostSerializer < ActiveModel::Serializer
 
   has_many :comments
 
-  has_many :likers
+  has_many :likes
 end

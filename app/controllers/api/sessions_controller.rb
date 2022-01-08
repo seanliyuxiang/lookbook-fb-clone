@@ -12,7 +12,7 @@ class Api::SessionsController < ApplicationController
 
   def destroy
     if session[:user_id]
-      session.delete(:user_id)
+      session.delete(:user_id)  # Ruby method to delete a key-value pair from a hash
       head :no_content
     else
       render json: {error: 'No logged in user'}, status: :unauthorized
