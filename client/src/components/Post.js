@@ -8,9 +8,9 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
 
   const [postsComments, setPostsComments] = useState(post.comments);
   const [isEditingPost, setIsEditingPost] = useState(false);
-  const [isPostLiked, setIsPostLiked] = useState(
-    post.likes.map(like => like.liker_id).includes(user.id)
-  );
+  
+  const [postsLikes, setPostsLikes] = useState(post.likes);
+  const isPostLiked = postsLikes.map(like => like.liker_id).includes(user.id);
 
   function setPostsCommentsWrapperToRemoveComment(deletedComment) {
     setPostsComments(postsComments.filter(
@@ -95,12 +95,12 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
       })
       .then(response => {
         if (response.ok) {
-          response.json().then(() => setIsPostLiked(true));
+          response.json().then(newLike => setPostsLikes([...postsLikes, newLike]));
         }
       });
     } else {
       let likeID;
-      for (let like of post.likes) {
+      for (let like of postsLikes) {
         if (like.liker_id === user.id && like.post_id === post.id) {
           likeID = like.id;
         }
@@ -111,7 +111,9 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
       })
       .then(response => {
         if (response.ok) {
-          response.json().then(() => setIsPostLiked(false));
+          response.json().then(deletedLike => setPostsLikes(
+            postsLikes.filter(postsLike => postsLike.id !== deletedLike.id)
+          ));
         }
       });
     }
