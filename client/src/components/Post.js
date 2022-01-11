@@ -82,7 +82,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
   }
 
   function toggleLikePostHandler() {
-    if (!isPostLiked) {
+    if (!isPostLiked) { // if post is NOT already liked, create a like
       fetch('/api/likes', {
         method: 'POST',
         headers: {
@@ -98,7 +98,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
           response.json().then(newLike => setPostsLikes([...postsLikes, newLike]));
         }
       });
-    } else {
+    } else {  // if post is already liked, delete a like
       let likeID;
       for (let like of postsLikes) {
         if (like.liker_id === user.id && like.post_id === post.id) {
@@ -132,6 +132,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsPostsW
           <br />
         </>
       : null}
+      <p>{postsLikes.length > 1 ? `${postsLikes.length} Likes` : (postsLikes.length === 1 ? '1 Like' : null)}</p> {/* ternary within a ternary */}
       <button onClick={toggleLikePostHandler}>{isPostLiked ? 'Liked' : 'Not liked'}</button>
       {postsCommentsArrJSX}
       <FormToSubmitComment post={post} user={user} setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment} />
