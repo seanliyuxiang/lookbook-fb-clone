@@ -76,6 +76,9 @@ function UserProfile({user}) {
       <h1>coming from UserProfile.js</h1>
       <h1>User profile: {`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
       <h1>{arbitraryUser.email}</h1>
+      {arbitraryUser.id === user.id ?
+        <button>Add Cover Photo</button>
+      : (arbitraryUser.friends.map(friend => friend.id).includes(user.id) ? <button>Friends</button> : <button>Add Friend</button>)}  {/* ternary within a ternary */}
       <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewPost={setArbitraryUserWrapperToAddNewPost} />
       {arbitraryUsersPostsArrJSX}
     </div>
