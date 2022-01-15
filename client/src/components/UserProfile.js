@@ -79,6 +79,30 @@ function UserProfile({user}) {
     }
   );
 
+  function addFriendshipHandler() {
+    fetch('/api/friendships', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: user.id,
+        friend_id: arbitraryUser.id
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        response.json().then(newFriend => setArbitraryUser({
+          ...arbitraryUser,
+          friends: [
+            ...arbitraryUser.friends,
+            newFriend // add the new friend
+          ]
+        }));
+      }
+    });
+  }
+
   return (
     <div>
       <h1>coming from UserProfile.js</h1>
@@ -86,7 +110,7 @@ function UserProfile({user}) {
       <h1>{arbitraryUser.email}</h1>
       {arbitraryUser.id === user.id ?
         <button>Add Cover Photo</button>
-      : (arbitraryUser.friends.map(friend => friend.id).includes(user.id) ? <button>Friends</button> : <button>Add Friend</button>)}  {/* ternary within a ternary */}
+      : (arbitraryUser.friends.map(friend => friend.id).includes(user.id) ? <button>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
       <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewPost={setArbitraryUserWrapperToAddNewPost} />
       {arbitraryUsersPostsArrJSX}
       <div>
