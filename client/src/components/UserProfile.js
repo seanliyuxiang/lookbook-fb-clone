@@ -71,6 +71,14 @@ function UserProfile({user}) {
     });
   }
 
+  const arbitraryUsersFriendsArrJSX = arbitraryUser.friends.map(
+    arbitraryUsersFriend => {
+      return (
+        <p key={arbitraryUsersFriend.id}>{`${arbitraryUsersFriend.first_name} ${arbitraryUsersFriend.last_name}`}</p>
+      );
+    }
+  );
+
   return (
     <div>
       <h1>coming from UserProfile.js</h1>
@@ -81,6 +89,10 @@ function UserProfile({user}) {
       : (arbitraryUser.friends.map(friend => friend.id).includes(user.id) ? <button>Friends</button> : <button>Add Friend</button>)}  {/* ternary within a ternary */}
       <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewPost={setArbitraryUserWrapperToAddNewPost} />
       {arbitraryUsersPostsArrJSX}
+      <div>
+        <p>Friends</p>
+        {arbitraryUsersFriendsArrJSX}
+      </div>
     </div>
   );
 }
