@@ -3,7 +3,7 @@ class Api::FriendshipsController < ApplicationController
   def create
     friendship = Friendship.new(friendship_params)
     if friendship.save
-      render json: friendship, include: [], status: :created # render an instance of User, don't need to serialize this instance's posts and friends
+      render json: friendship.friend, include: [], status: :created # render an instance of User, don't need to serialize this instance's posts and friends
     else
       render json: {error: 'Friendship unsuccessful'}, status: :unprocessable_entity
     end

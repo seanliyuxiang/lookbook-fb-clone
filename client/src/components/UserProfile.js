@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
 
-function UserProfile({user}) {
+function UserProfile({user, setUser}) {
 
   const [arbitraryUser, setArbitraryUser] = useState(null);
   const params = useParams();
@@ -92,6 +92,29 @@ function UserProfile({user}) {
     })
     .then(response => {
       if (response.ok) {
+        response.json().then(newFriend => setUser({
+          ...user,
+          friends: [
+            ...user.friends,
+            newFriend // add the new friend
+          ]
+        }));
+      }
+    });
+
+    // if a friendship gets created for user1 and user2, then by default a friendship also gets created for user2 and user1
+    fetch('/api/friendships', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        user_id: arbitraryUser.id,
+        friend_id: user.id
+      })
+    })
+    .then(response => {
+      if (response.ok) {
         response.json().then(newFriend => setArbitraryUser({
           ...arbitraryUser,
           friends: [
@@ -110,7 +133,7 @@ function UserProfile({user}) {
       <h1>{arbitraryUser.email}</h1>
       {arbitraryUser.id === user.id ?
         <button>Add Cover Photo</button>
-      : (arbitraryUser.friends.map(friend => friend.id).includes(user.id) ? <button>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
+      : (user.friends.map(friend => friend.id).includes(arbitraryUser.id) ? <button>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
       <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewPost={setArbitraryUserWrapperToAddNewPost} />
       {arbitraryUsersPostsArrJSX}
       <div>

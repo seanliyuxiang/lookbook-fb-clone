@@ -31,7 +31,7 @@ function App() {
           <HomeFeed user={user} />
         </Route>
         <Route exact path='/users/:id'>
-          <UserProfile user={user} />
+          <UserProfile user={user} setUser={setUser} />
         </Route>
       </Switch>
     </div>
