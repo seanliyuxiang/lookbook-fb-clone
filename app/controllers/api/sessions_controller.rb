@@ -4,7 +4,7 @@ class Api::SessionsController < ApplicationController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      render json: user, status: :created
+      render json: user, include: ['posts', 'assertive_friendships', 'assertive_friendships.friend'], status: :created
     else
       render json: {error: 'Invalid email or password'}, status: :unauthorized
     end
