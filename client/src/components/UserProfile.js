@@ -126,6 +126,47 @@ function UserProfile({user, setUser}) {
     });
   }
 
+  function deleteFriendshipHandler() {
+    let friendshipID1;
+    for (let friendship of user.assertive_friendships) {
+      if (friendship.user_id === user.id && friendship.friend_id === arbitraryUser.id) {
+        friendshipID1 = friendship.id;
+      }
+    }
+
+    fetch(`/api/friendships/${friendshipID1}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (response.ok) {
+        response.json().then(deletedFriendship => setUser({
+          ...user,
+          assertive_friendships: user.assertive_friendships.filter(assertiveFriendship => assertiveFriendship.id !== deletedFriendship.id)
+        }));
+      }
+    });
+
+    // if a friendship gets deleted for user and friend, then by default a friendship also gets deleted for friend and user
+    let friendshipID2;
+    for (let friendship of arbitraryUser.assertive_friendships) {
+      if (friendship.user_id === arbitraryUser.id && friendship.friend_id === user.id) {
+        friendshipID2 = friendship.id;
+      }
+    }
+
+    fetch(`/api/friendships/${friendshipID2}`, {
+      method: 'DELETE'
+    })
+    .then(response => {
+      if (response.ok) {
+        response.json().then(deletedFriendship => setArbitraryUser({
+          ...arbitraryUser,
+          assertive_friendships: arbitraryUser.assertive_friendships.filter(assertiveFriendship => assertiveFriendship.id !== deletedFriendship.id)
+        }));
+      }
+    });
+  }
+
   return (
     <div>
       <h1>coming from UserProfile.js</h1>
@@ -133,7 +174,7 @@ function UserProfile({user, setUser}) {
       <h1>{arbitraryUser.email}</h1>
       {arbitraryUser.id === user.id ?
         <button>Add Cover Photo</button>
-      : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
+      : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button onClick={deleteFriendshipHandler}>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
       <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewPost={setArbitraryUserWrapperToAddNewPost} />
       {arbitraryUsersPostsArrJSX}
       <div>
