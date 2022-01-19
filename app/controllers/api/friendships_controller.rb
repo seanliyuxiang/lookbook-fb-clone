@@ -9,6 +9,12 @@ class Api::FriendshipsController < ApplicationController
     end
   end
 
+  def destroy
+    friendship = Friendship.find_by(id: params[:id])
+    friendship.destroy
+    render json: friendship
+  end
+
   private
 
   def friendship_params
