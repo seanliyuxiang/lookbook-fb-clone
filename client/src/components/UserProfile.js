@@ -71,10 +71,10 @@ function UserProfile({user, setUser}) {
     });
   }
 
-  const arbitraryUsersFriendsArrJSX = arbitraryUser.friends.map(
-    arbitraryUsersFriend => {
+  const arbitraryUsersFriendsArrJSX = arbitraryUser.assertive_friendships.map(
+    assertiveFriendship => {
       return (
-        <p key={arbitraryUsersFriend.id}>{`${arbitraryUsersFriend.first_name} ${arbitraryUsersFriend.last_name}`}</p>
+        <p key={assertiveFriendship.friend.id}>{`${assertiveFriendship.friend.first_name} ${assertiveFriendship.friend.last_name}`}</p>
       );
     }
   );
@@ -92,17 +92,17 @@ function UserProfile({user, setUser}) {
     })
     .then(response => {
       if (response.ok) {
-        response.json().then(newFriend => setUser({
+        response.json().then(newFriendship => setUser({
           ...user,
-          friends: [
-            ...user.friends,
-            newFriend // add the new friend
+          assertive_friendships: [
+            ...user.assertive_friendships,
+            newFriendship // add the new friendship
           ]
         }));
       }
     });
 
-    // if a friendship gets created for user1 and user2, then by default a friendship also gets created for user2 and user1
+    // if a friendship gets created for user and friend, then by default a friendship also gets created for friend and user
     fetch('/api/friendships', {
       method: 'POST',
       headers: {
@@ -115,11 +115,11 @@ function UserProfile({user, setUser}) {
     })
     .then(response => {
       if (response.ok) {
-        response.json().then(newFriend => setArbitraryUser({
+        response.json().then(newFriendship => setArbitraryUser({
           ...arbitraryUser,
-          friends: [
-            ...arbitraryUser.friends,
-            newFriend // add the new friend
+          assertive_friendships: [
+            ...arbitraryUser.assertive_friendships,
+            newFriendship // add the new friendship
           ]
         }));
       }
@@ -133,7 +133,7 @@ function UserProfile({user, setUser}) {
       <h1>{arbitraryUser.email}</h1>
       {arbitraryUser.id === user.id ?
         <button>Add Cover Photo</button>
-      : (user.friends.map(friend => friend.id).includes(arbitraryUser.id) ? <button>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
+      : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
       <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewPost={setArbitraryUserWrapperToAddNewPost} />
       {arbitraryUsersPostsArrJSX}
       <div>
