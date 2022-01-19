@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
-    render json: user, include: ['posts', 'posts.comments', 'posts.likes', 'friends']
+    render json: user, include: ['posts', 'posts.comments', 'posts.likes', 'assertive_friendships', 'assertive_friendships.friend']
   end
 
   private

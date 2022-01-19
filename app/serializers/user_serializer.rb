@@ -12,6 +12,6 @@ class UserSerializer < ActiveModel::Serializer
 
   has_many :posts
 
-  has_many :friends
+  has_many :assertive_friendships
 
 end
