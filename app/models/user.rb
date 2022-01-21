@@ -19,7 +19,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  has_many :posts,
+  has_many :authored_posts,
     primary_key: :id,
     foreign_key: :author_id,
     class_name: :Post
@@ -51,5 +51,10 @@ class User < ApplicationRecord
   has_many :liked_posts,
     through: :likes,
     source: :post
+  
+  has_many :wall_posts,
+    primary_key: :id,
+    foreign_key: :recipient_id,
+    class_name: :Post
 
 end
