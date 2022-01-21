@@ -2,11 +2,12 @@
 #
 # Table name: posts
 #
-#  id         :bigint           not null, primary key
-#  author_id  :integer
-#  body       :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :bigint           not null, primary key
+#  author_id    :integer
+#  body         :text
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  recipient_id :integer
 #
 class Post < ApplicationRecord
 
@@ -28,5 +29,10 @@ class Post < ApplicationRecord
   has_many :likers,
     through: :likes,
     source: :liker
+
+  belongs_to :wall,
+    primary_key: :id,
+    foreign_key: :recipient_id,
+    class_name: :User
 
 end

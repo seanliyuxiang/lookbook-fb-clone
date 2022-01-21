@@ -10,7 +10,7 @@ class UserSerializer < ActiveModel::Serializer
     end
   end
 
-  has_many :posts
+  has_many :wall_posts
 
   has_many :assertive_friendships
 

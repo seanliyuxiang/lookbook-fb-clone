@@ -18,7 +18,7 @@ puts '🌱🌱🌱 Seeding comments... 🌱🌱🌱'
 
 # create 5 random users
 5.times do
-  user = User.create(
+  User.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
@@ -26,17 +26,20 @@ puts '🌱🌱🌱 Seeding comments... 🌱🌱🌱'
     gender: Faker::Gender.binary_type,
     birthday: Faker::Date.birthday(min_age: 16, max_age: 100)
   )
+end
 
-  # create 5 random posts for each user
+# create 5 random posts on each user's wall with random authors
+User.all.each do |user|
   5.times do
-    post = Post.create(
-      author_id: user.id,
-      body: Faker::Quote.famous_last_words
+    Post.create(
+      author_id: rand(User.all.length)+1,
+      body: Faker::Quote.famous_last_words,
+      recipient_id: user.id
     )
   end
 end
 
-# create 5 random comments for each post
+# create 5 random comments for each post with random authors
 Post.all.each do |post|
   5.times do
     Comment.create(

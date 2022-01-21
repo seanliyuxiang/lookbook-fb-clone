@@ -9,23 +9,23 @@ class Api::PostsController < ApplicationController
     end
   end
 
-  # logged-in user's friends' posts ---> friends' posts' comments
+  # logged-in user's friends' authored posts ---> friends' authored posts' comments
   def show_home_feed
     user = User.find_by(id: session[:user_id])
 
     if user
-      friends_posts = []
+      friends_authored_posts = []
 
       user.friends.each do |users_friend|
-        users_friend.posts.each do |users_friends_post|
-          friends_posts << users_friends_post
+        users_friend.authored_posts.each do |users_friends_authored_post|
+          friends_authored_posts << users_friends_authored_post
         end
       end
 
-      friends_posts_ids = friends_posts.map { |friends_post| friends_post.id }
-      friends_posts_new_to_old = Post.where(id: friends_posts_ids).order(created_at: :desc)
+      friends_authored_posts_ids = friends_authored_posts.map { |friends_authored_post| friends_authored_post.id }
+      friends_authored_posts_new_to_old = Post.where(id: friends_authored_posts_ids).order(created_at: :desc)
 
-      render json: friends_posts_new_to_old
+      render json: friends_authored_posts_new_to_old
     else
       render json: {error: 'Not authorized'}, status: :unauthorized
     end
@@ -49,7 +49,7 @@ class Api::PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:author_id, :body)
+    params.permit(:author_id, :body, :recipient_id)
   end
 
 end
