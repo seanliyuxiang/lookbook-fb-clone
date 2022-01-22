@@ -22,51 +22,51 @@ function UserProfile({user, setUser}) {
     return <h1>Loading...</h1>;
   }
 
-  function setArbitraryUserWrapperToRemovePost(deletedPost) {
+  function setArbitraryUserWrapperToRemoveWallPost(deletedWallPost) {
     setArbitraryUser({
       ...arbitraryUser,
-      posts: arbitraryUser.posts.filter(post => post.id !== deletedPost.id) // filter out the deleted post
+      wall_posts: arbitraryUser.wall_posts.filter(wallPost => wallPost.id !== deletedWallPost.id) // filter out the deleted wall post
     });
   }
 
-  function setArbitraryUserWrapperToUpdatePost(updatedPost) {
+  function setArbitraryUserWrapperToUpdateWallPost(updatedWallPost) {
     setArbitraryUser({
       ...arbitraryUser,
-      posts: arbitraryUser.posts.map(post => {
-        if (post.id === updatedPost.id) {
-          return updatedPost; // replace with the updated post
+      wall_posts: arbitraryUser.wall_posts.map(wallPost => {
+        if (wallPost.id === updatedWallPost.id) {
+          return updatedWallPost; // replace with the updated wall post
         } else {
-          return post;
+          return wallPost;
         }
       })
     });
   }
 
   /*
-  need to make a copy of the user's posts first,
+  need to make a copy of the user's wall posts first,
   then reverse the order of that copied array,
-  so that the user's posts are from the newest to the oldest
+  so that the user's wall posts are from the newest to the oldest
   */
-  const arbitraryUsersPostsArrJSX = [...arbitraryUser.posts].reverse().map(
-    arbitraryUsersPost => {
+  const arbitraryUsersWallPostsArrJSX = [...arbitraryUser.wall_posts].reverse().map(
+    arbitraryUsersWallPost => {
       return (
         <Post
-          key={arbitraryUsersPost.id}
-          post={arbitraryUsersPost}
+          key={arbitraryUsersWallPost.id}
+          post={arbitraryUsersWallPost}
           user={user}
-          setArbitraryUserWrapperToRemovePost={setArbitraryUserWrapperToRemovePost}
-          setArbitraryUserWrapperToUpdatePost={setArbitraryUserWrapperToUpdatePost}
+          setArbitraryUserWrapperToRemoveWallPost={setArbitraryUserWrapperToRemoveWallPost}
+          setArbitraryUserWrapperToUpdateWallPost={setArbitraryUserWrapperToUpdateWallPost}
         />
       );
     }
   );
 
-  function setArbitraryUserWrapperToAddNewPost(newPost) {
+  function setArbitraryUserWrapperToAddNewWallPost(newWallPost) {
     setArbitraryUser({
       ...arbitraryUser,
-      posts: [
-        ...arbitraryUser.posts,
-        newPost // add the newly submitted post
+      wall_posts: [
+        ...arbitraryUser.wall_posts,
+        newWallPost // add the newly submitted wall post
       ]
     });
   }
@@ -175,8 +175,8 @@ function UserProfile({user, setUser}) {
       {arbitraryUser.id === user.id ?
         <button>Add Cover Photo</button>
       : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button onClick={deleteFriendshipHandler}>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
-      <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewPost={setArbitraryUserWrapperToAddNewPost} />
-      {arbitraryUsersPostsArrJSX}
+      <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewWallPost={setArbitraryUserWrapperToAddNewWallPost} arbitraryUser={arbitraryUser} />
+      {arbitraryUsersWallPostsArrJSX}
       <div>
         <p>Friends</p>
         {arbitraryUsersFriendsArrJSX}
