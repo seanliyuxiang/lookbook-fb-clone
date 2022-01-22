@@ -5,55 +5,55 @@ import FormToSubmitPost from './FormToSubmitPost';
 // container component for logged-in user's friends' posts
 function HomeFeed({user}) {
 
-  const [friendsPosts, setFriendsPosts] = useState([]);
+  const [friendsAuthoredPosts, setFriendsAuthoredPosts] = useState([]);
 
   useEffect(() => {
     fetch('/api/home_feed')
     .then(response => response.json())
-    .then(posts => setFriendsPosts(posts));
+    .then(posts => setFriendsAuthoredPosts(posts));
   }, []);
 
-  function setFriendsPostsWrapperToRemovePost(deletedPost) {
-    setFriendsPosts(friendsPosts.filter(post => post.id !== deletedPost.id)); // filter out the deleted post
+  function setFriendsAuthoredPostsWrapperToRemoveAuthoredPost(deletedAuthoredPost) {
+    setFriendsAuthoredPosts(friendsAuthoredPosts.filter(authoredPost => authoredPost.id !== deletedAuthoredPost.id)); // filter out the deleted authored post
   }
 
-  function setFriendsPostsWrapperToUpdatePost(updatedPost) {
-    setFriendsPosts(friendsPosts.map(post => {
-      if (post.id === updatedPost.id) {
-        return updatedPost; // replace with the updated post
+  function setFriendsAuthoredPostsWrapperToUpdateAuthoredPost(updatedAuthoredPost) {
+    setFriendsAuthoredPosts(friendsAuthoredPosts.map(authoredPost => {
+      if (authoredPost.id === updatedAuthoredPost.id) {
+        return updatedAuthoredPost; // replace with the updated authored post
       } else {
-        return post;
+        return authoredPost;
       }
     }));
   }
 
-  const friendsPostsArrJSX = friendsPosts.map(
-    friendsPost => {
+  const friendsAuthoredPostsArrJSX = friendsAuthoredPosts.map(
+    friendsAuthoredPost => {
       return (
         <Post
-          key={friendsPost.id}
-          post={friendsPost}
+          key={friendsAuthoredPost.id}
+          post={friendsAuthoredPost}
           user={user}
-          setFriendsPostsWrapperToRemovePost={setFriendsPostsWrapperToRemovePost}
-          setFriendsPostsWrapperToUpdatePost={setFriendsPostsWrapperToUpdatePost}
+          setFriendsAuthoredPostsWrapperToRemoveAuthoredPost={setFriendsAuthoredPostsWrapperToRemoveAuthoredPost}
+          setFriendsAuthoredPostsWrapperToUpdateAuthoredPost={setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}
         />
       );
     }
   );
 
   /*
-  once a new post is submitted from the home feed page,
-  the new post is immediately appended to the top of the home feed page
+  once a new authored post is submitted from the home feed page,
+  the new authored post is immediately appended to the top of the home feed page
   */
-  function setFriendsPostsWrapperToAddNewPost(newPost) {
-    setFriendsPosts([newPost, ...friendsPosts]);
+  function setFriendsAuthoredPostsWrapperToAddNewAuthoredPost(newAuthoredPost) {
+    setFriendsAuthoredPosts([newAuthoredPost, ...friendsAuthoredPosts]);
   }
 
   return (
     <div>
       <h1>coming from HomeFeed.js</h1>
-      <FormToSubmitPost user={user} setFriendsPostsWrapperToAddNewPost={setFriendsPostsWrapperToAddNewPost} />
-      {friendsPostsArrJSX}
+      <FormToSubmitPost user={user} setFriendsAuthoredPostsWrapperToAddNewAuthoredPost={setFriendsAuthoredPostsWrapperToAddNewAuthoredPost} />
+      {friendsAuthoredPostsArrJSX}
     </div>
   );
 }

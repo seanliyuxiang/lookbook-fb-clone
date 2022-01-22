@@ -1,10 +1,11 @@
 import {useState} from 'react';
 
-function FormToSubmitPost({user, setFriendsPostsWrapperToAddNewPost, setArbitraryUserWrapperToAddNewPost}) {
+function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredPost, setArbitraryUserWrapperToAddNewWallPost, arbitraryUser}) {
 
   const [postFormData, setPostFormData] = useState({
     author_id: user.id,
-    body: ''
+    body: '',
+    recipient_id: (!arbitraryUser ? user.id : arbitraryUser.id)
   });
 
   function changePostFormDataHandler(event) {
@@ -26,10 +27,10 @@ function FormToSubmitPost({user, setFriendsPostsWrapperToAddNewPost, setArbitrar
     })
     .then(response => response.json())
     .then(post => {
-      if (!setArbitraryUserWrapperToAddNewPost) {
-        setFriendsPostsWrapperToAddNewPost(post);
+      if (!setArbitraryUserWrapperToAddNewWallPost) {
+        setFriendsAuthoredPostsWrapperToAddNewAuthoredPost(post);
       } else {
-        setArbitraryUserWrapperToAddNewPost(post);
+        setArbitraryUserWrapperToAddNewWallPost(post);
       }
     });  // may need to change the 2nd `.then()` to render errors based on the response status
   }
