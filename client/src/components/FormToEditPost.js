@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-function FormToEditPost({post, setArbitraryUserWrapperToUpdatePost, setIsEditingPost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}) {
+function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEditingPost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}) {
 
   const [editedPostFormData, setEditedPostFormData] = useState({
     body: post.body
@@ -27,7 +27,7 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdatePost, setIsEditing
       if (response.ok) {
         response.json().then(post => {
           if (!setFriendsAuthoredPostsWrapperToUpdateAuthoredPost) {
-            setArbitraryUserWrapperToUpdatePost(post);
+            setArbitraryUserWrapperToUpdateWallPost(post);
           } else {
             setFriendsAuthoredPostsWrapperToUpdateAuthoredPost(post);
           }

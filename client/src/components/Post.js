@@ -4,7 +4,7 @@ import FormToSubmitComment from './FormToSubmitComment';
 import {useState} from 'react';
 import FormToEditPost from './FormToEditPost';
 
-function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsAuthoredPostsWrapperToRemoveAuthoredPost, setArbitraryUserWrapperToUpdatePost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}) {
+function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAuthoredPostsWrapperToRemoveAuthoredPost, setArbitraryUserWrapperToUpdateWallPost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}) {
 
   const [postsComments, setPostsComments] = useState(post.comments);
   const [isEditingPost, setIsEditingPost] = useState(false);
@@ -47,7 +47,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsAuthor
       <div>
         <FormToEditPost
           post={post}
-          setArbitraryUserWrapperToUpdatePost={setArbitraryUserWrapperToUpdatePost}
+          setArbitraryUserWrapperToUpdateWallPost={setArbitraryUserWrapperToUpdateWallPost}
           setIsEditingPost={setIsEditingPost}
           setFriendsAuthoredPostsWrapperToUpdateAuthoredPost={setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}
         />
@@ -68,7 +68,7 @@ function Post({post, user, setArbitraryUserWrapperToRemovePost, setFriendsAuthor
       if (response.ok) {
         response.json().then(post => {
           if (!setFriendsAuthoredPostsWrapperToRemoveAuthoredPost) {
-            setArbitraryUserWrapperToRemovePost(post);
+            setArbitraryUserWrapperToRemoveWallPost(post);
           } else {
             setFriendsAuthoredPostsWrapperToRemoveAuthoredPost(post);
           }
