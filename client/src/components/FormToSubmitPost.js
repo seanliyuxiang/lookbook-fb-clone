@@ -4,8 +4,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
 
   const [postFormData, setPostFormData] = useState({
     author_id: user.id,
-    body: '',
-    recipient_id: (!arbitraryUser ? user.id : arbitraryUser.id)
+    body: ''
   });
 
   function changePostFormDataHandler(event) {
@@ -23,7 +22,10 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(postFormData)
+      body: JSON.stringify({
+        ...postFormData,
+        recipient_id: (!arbitraryUser ? user.id : arbitraryUser.id)
+      })
     })
     .then(response => response.json())
     .then(post => {
