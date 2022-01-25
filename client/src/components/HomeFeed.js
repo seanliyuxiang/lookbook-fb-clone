@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
 
-// container component for logged-in user's friends' posts
+// container component for logged-in user's friends' authored posts
 function HomeFeed({user}) {
 
   const [friendsAuthoredPosts, setFriendsAuthoredPosts] = useState([]);

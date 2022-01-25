@@ -26,7 +26,13 @@ function FormToSubmitComment({post, user, setPostsCommentsWrapperToAddNewComment
       body: JSON.stringify(commentFormData)
     })
     .then(response => response.json())
-      .then(comment => setPostsCommentsWrapperToAddNewComment(comment)); // may need to change the 2nd `.then()` to render errors based on the response status
+    .then(comment => setPostsCommentsWrapperToAddNewComment(comment)); // may need to change the 2nd `.then()` to render errors based on the response status
+
+    /*
+    may need to use 'setCommentFormData' setter function to clear out user input data after submit
+    'HTMLFormElement.reset()' doesn't seem to work in React!
+    */
+    commentFormData.body = '';
   }
 
   return (
