@@ -35,6 +35,12 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         setArbitraryUserWrapperToAddNewWallPost(post);
       }
     });  // may need to change the 2nd `.then()` to render errors based on the response status
+
+    /*
+    may need to use 'setPostFormData' setter function to clear out user input data after submit
+    'HTMLFormElement.reset()' doesn't seem to work in React!
+    */
+    postFormData.body = '';
   }
 
   return (
