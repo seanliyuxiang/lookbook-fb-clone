@@ -19,4 +19,13 @@ class Api::SessionsController < ApplicationController
     end
   end
 
+  def auto_login
+    user = User.find_by(id: session[:user_id])
+    if user
+      render json: user, include: ['wall_posts', 'assertive_friendships', 'assertive_friendships.friend'], status: :created
+    else
+      render json: {error: 'No logged in user'}, status: :unauthorized
+    end
+  end
+
 end

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     # sessions
     post '/login', to: 'sessions#create'
     delete '/logout', to: 'sessions#destroy'
+    get '/auto_login', to: 'sessions#auto_login'
     
     # users
     post '/signup', to: 'users#create'
