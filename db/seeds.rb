@@ -50,26 +50,32 @@ Post.all.each do |post|
   end
 end
 
-# create random friendships for each user
-User.all.each do |user|
-  total_friends = rand(User.all.length)
+# create 16 random friendships
+while Friendship.all.length < 16
+  possible_user_ids = (1..(User.all.length)).to_a
+  user_id = possible_user_ids.sample
 
-  # possible user id's that can be friends
-  possible_friend_ids = (1..(User.all.length)).to_a
-  possible_friend_ids.delete(user.id)
+  possible_friend_ids = possible_user_ids[0..-1]
+  possible_friend_ids.delete(user_id)
+  friend_id = possible_friend_ids.sample
 
-  # random user id's that are friends
-  random_friend_ids = possible_friend_ids.sample(total_friends).sort
+  if !(Friendship.find_by(user_id: user_id, friend_id: friend_id))
+    Friendship.create(user_id: user_id, friend_id: friend_id)
+  end
 
-  # create `friends_list` column in `users` table
-  user.friends_list = random_friend_ids.join(',')
-  user.save
+  if !(Friendship.find_by(user_id: friend_id, friend_id: user_id))
+    Friendship.create(user_id: friend_id, friend_id: user_id)
+  end
 
+  user = User.find(user_id)
+  if !(user.friends_list.split(',').include?(friend_id.to_s))
+    user.friends_list = user.friends_list.split(',').push(friend_id).join(',')
+    user.save
+  end
 
-  # create friendships in `friendships` table
-  if !random_friend_ids.empty?
-    random_friend_ids.each do |id|
-      Friendship.create(user_id: user.id, friend_id: id)
-    end
+  friend = User.find(friend_id)
+  if !(friend.friends_list.split(',').include?(user_id.to_s))
+    friend.friends_list = friend.friends_list.split(',').push(user_id).join(',')
+    friend.save
   end
 end
