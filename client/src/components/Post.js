@@ -125,6 +125,9 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
       
       <h1>Posted by: <Link to={`/users/${post.author_id}`}>{post.author_full_name}</Link></h1>
       <h1>post body: {post.body}</h1>
+      {post.post_photo_url ?
+        <img src={post.post_photo_url} alt='' />
+      : null}
       {post.author_id === user.id ?
         <>
           <button onClick={deletePostHandler}>Delete</button>

@@ -49,7 +49,7 @@ class Api::PostsController < ApplicationController
   private
 
   def post_params
-    params.permit(:author_id, :body, :recipient_id)
+    params.permit(:author_id, :body, :recipient_id, :post_photo)
   end
 
 end
