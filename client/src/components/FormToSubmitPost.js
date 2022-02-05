@@ -17,15 +17,19 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
   function submitPostFormDataHandler(event) {
     event.preventDefault();
 
+    /*
+    when calling the `.append` method,
+    don't nest the keys under `post` because strong params is not required in the backend
+    */
+    const postFormDataWithImage = new FormData();
+    postFormDataWithImage.append('author_id', postFormData.author_id);
+    postFormDataWithImage.append('body', postFormData.body);
+    postFormDataWithImage.append('recipient_id', (!arbitraryUser ? user.id : arbitraryUser.id));
+    postFormDataWithImage.append('post_photo', event.target.post_photo.files[0], event.target.post_photo.value);
+
     fetch('/api/posts', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        ...postFormData,
-        recipient_id: (!arbitraryUser ? user.id : arbitraryUser.id)
-      })
+      body: postFormDataWithImage
     })
     .then(response => response.json())
     .then(post => {
@@ -53,6 +57,9 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         value={postFormData.body}
         onChange={changePostFormDataHandler}
       />
+      <br />
+      <input type='file' name='post_photo' />
+      <br />
       <button>Post</button>
     </form>
   );
