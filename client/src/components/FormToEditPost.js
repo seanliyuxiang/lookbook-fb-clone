@@ -47,6 +47,9 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
           value={editedPostFormData.body}
           onChange={changeEditedPostFormDataHandler}
         />
+        {post.post_photo_url ?
+          <img src={post.post_photo_url} alt='' />
+        : null}
         <button>Save</button>
       </form>
     </div>
