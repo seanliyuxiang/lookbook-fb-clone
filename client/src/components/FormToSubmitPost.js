@@ -25,7 +25,9 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
     postFormDataWithImage.append('author_id', postFormData.author_id);
     postFormDataWithImage.append('body', postFormData.body);
     postFormDataWithImage.append('recipient_id', (!arbitraryUser ? user.id : arbitraryUser.id));
-    postFormDataWithImage.append('post_photo', event.target.post_photo.files[0], event.target.post_photo.value);
+    if (event.target.post_photo.files.length > 0) { // if there is file attached
+      postFormDataWithImage.append('post_photo', event.target.post_photo.files[0], event.target.post_photo.value);
+    }
 
     fetch('/api/posts', {
       method: 'POST',
