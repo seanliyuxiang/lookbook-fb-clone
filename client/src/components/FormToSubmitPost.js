@@ -60,6 +60,8 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         onChange={changePostFormDataHandler}
       />
       <br />
+      {/* file input is currently not set up as controlled form,
+      need to change it in the future if want to have image preview */}
       <input type='file' name='post_photo' />
       <br />
       <button>Post</button>
