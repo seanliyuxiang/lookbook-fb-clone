@@ -15,6 +15,15 @@ class Api::UsersController < ApplicationController
     render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.likes', 'assertive_friendships', 'assertive_friendships.friend']
   end
 
+  def attach_new_profile_picture
+    user = User.find_by(id: params[:id])
+    if user.profile_picture.attached?   # need to remove the attachment from the model first before attaching another
+      user.profile_picture.purge_later  # `.purge_later` or `.purge` ???; purging deletes the blob and the file from the storage service
+    end
+    user.profile_picture.attach(params[:profile_picture])
+    render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.likes', 'assertive_friendships', 'assertive_friendships.friend']
+  end
+
   private
 
   def user_params
@@ -25,7 +34,8 @@ class Api::UsersController < ApplicationController
       :password,
       :password_confirmation,
       :gender,
-      :birthday
+      :birthday,
+      :profile_picture
     )
   end
 

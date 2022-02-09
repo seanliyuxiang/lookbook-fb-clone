@@ -167,14 +167,40 @@ function UserProfile({user, setUser}) {
     });
   }
 
+  function submitProfilePictureHandler(event) {
+    event.preventDefault();
+
+    const profilePicture = new FormData();
+    if (event.target.profile_picture.files.length > 0) {  // if there is file attached
+      profilePicture.append('profile_picture', event.target.profile_picture.files[0], event.target.profile_picture.value);
+    }
+
+    fetch(`/api/users/${arbitraryUser.id}/attach_new_profile_picture`, {
+      method: 'POST',
+      body: profilePicture
+    })
+    .then(response => response.json())
+    .then(user => setArbitraryUser(user));
+  }
+
   return (
     <div>
       <h1>coming from UserProfile.js</h1>
-      <h1>User profile: {`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
-      <h1>{arbitraryUser.email}</h1>
       {arbitraryUser.id === user.id ?
         <button>Add Cover Photo</button>
       : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button onClick={deleteFriendshipHandler}>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
+      <h1>User profile: {`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
+      <h1>{arbitraryUser.email}</h1>
+      <img
+        src={!arbitraryUser.profile_picture_url ? 'https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png' : arbitraryUser.profile_picture_url}
+        alt=''
+      />
+      {arbitraryUser.id === user.id ?
+        <form onSubmit={submitProfilePictureHandler}>
+          <input type='file' name='profile_picture' />
+          <button>Update Profile Picture</button>
+        </form>
+      : null}
       <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewWallPost={setArbitraryUserWrapperToAddNewWallPost} arbitraryUser={arbitraryUser} />
       {arbitraryUsersWallPostsArrJSX}
       <div>
