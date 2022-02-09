@@ -25,6 +25,7 @@ Rails.application.routes.draw do
     post '/signup', to: 'users#create'
     resources :users, only: [:show]
     post '/users/:id/attach_new_profile_picture', to: 'users#attach_new_profile_picture'
+    post '/users/:id/attach_new_cover_photo', to: 'users#attach_new_cover_photo'
 
   end
 end
