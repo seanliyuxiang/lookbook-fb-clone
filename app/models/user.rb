@@ -58,4 +58,7 @@ class User < ApplicationRecord
     class_name: :Post
 
   has_one_attached :profile_picture
+
+  has_one_attached :cover_photo
+  
 end

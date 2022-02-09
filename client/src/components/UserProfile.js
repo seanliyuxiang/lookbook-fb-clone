@@ -170,6 +170,10 @@ function UserProfile({user, setUser}) {
   function submitProfilePictureHandler(event) {
     event.preventDefault();
 
+    /*
+    when calling the `.append` method,
+    don't nest the key under `user` because strong params is not required in the backend
+    */
     const profilePicture = new FormData();
     if (event.target.profile_picture.files.length > 0) {  // if there is file attached
       profilePicture.append('profile_picture', event.target.profile_picture.files[0], event.target.profile_picture.value);
@@ -183,11 +187,40 @@ function UserProfile({user, setUser}) {
     .then(user => setArbitraryUser(user));
   }
 
+  function submitCoverPhotoHandler(event) {
+    event.preventDefault();
+
+    /*
+    when calling the `.append` method,
+    don't nest the key under `user` because strong params is not required in the backend
+    */
+    const coverPhoto = new FormData();
+    if (event.target.cover_photo.files.length > 0) {  // if there is file attached
+      coverPhoto.append('cover_photo', event.target.cover_photo.files[0], event.target.cover_photo.value);
+    }
+
+    fetch(`/api/users/${arbitraryUser.id}/attach_new_cover_photo`, {
+      method: 'POST',
+      body: coverPhoto
+    })
+    .then(response => response.json())
+    .then(user => setArbitraryUser(user));
+  }
+
   return (
     <div>
       <h1>coming from UserProfile.js</h1>
+      <img
+        src={!arbitraryUser.cover_photo_url ? 'https://9cover.com/images/ccovers/1362683987smooth-grey-abstract.jpg' : arbitraryUser.cover_photo_url}
+        alt=''
+      />
       {arbitraryUser.id === user.id ?
-        <button>Add Cover Photo</button>
+        <form onSubmit={submitCoverPhotoHandler}>
+          {/* file input is currently not set up as controlled form,
+          need to change it in the future if want to have image preview */}
+          <input type='file' name='cover_photo' />
+          <button>Add Cover Photo</button>
+        </form>
       : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button onClick={deleteFriendshipHandler}>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
       <h1>User profile: {`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
       <h1>{arbitraryUser.email}</h1>
@@ -197,6 +230,8 @@ function UserProfile({user, setUser}) {
       />
       {arbitraryUser.id === user.id ?
         <form onSubmit={submitProfilePictureHandler}>
+          {/* file input is currently not set up as controlled form,
+          need to change it in the future if want to have image preview */}
           <input type='file' name='profile_picture' />
           <button>Update Profile Picture</button>
         </form>
