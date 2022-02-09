@@ -57,4 +57,5 @@ class User < ApplicationRecord
     foreign_key: :recipient_id,
     class_name: :Post
 
+  has_one_attached :profile_picture
 end
