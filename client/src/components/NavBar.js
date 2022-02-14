@@ -1,5 +1,6 @@
 import Login from './Login';
 import {NavLink, useHistory} from 'react-router-dom';
+import SearchLookbook from './SearchLookbook';
 
 function NavBar({user, setUser}) {
 
@@ -36,6 +37,7 @@ function NavBar({user, setUser}) {
       <NavLink exact to='/home_feed' id='nav-bar-logo'>
         l👀kbook
       </NavLink>
+      <SearchLookbook />
       <NavLink exact to={`/users/${user.id}`}>
         {user.first_name}
       </NavLink>

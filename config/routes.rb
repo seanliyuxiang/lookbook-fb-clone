@@ -23,7 +23,7 @@ Rails.application.routes.draw do
     
     # users
     post '/signup', to: 'users#create'
-    resources :users, only: [:show]
+    resources :users, only: [:index, :show]
     post '/users/:id/attach_new_profile_picture', to: 'users#attach_new_profile_picture'
     post '/users/:id/attach_new_cover_photo', to: 'users#attach_new_cover_photo'
 
