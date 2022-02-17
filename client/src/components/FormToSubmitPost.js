@@ -55,7 +55,11 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
       <input
         type='text'
         name='body'
-        placeholder={`What's on your mind, ${user.first_name}?`}
+        placeholder={
+          setFriendsAuthoredPostsWrapperToAddNewAuthoredPost !== undefined ?
+            `What's on your mind, ${user.first_name}?`
+          : (arbitraryUser.id === user.id ? `What's on your mind?` : `Write something to ${arbitraryUser.first_name}...`)
+        }
         value={postFormData.body}
         onChange={changePostFormDataHandler}
       />
