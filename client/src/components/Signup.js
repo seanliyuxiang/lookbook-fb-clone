@@ -94,42 +94,47 @@ function Signup({setUser}) {
   }
 
   return (
-    <form onSubmit={submitSignupFormDataHandler}>
-      <label>First Name:</label>
-      <input type='text' name='first_name' value={signupFormData.first_name} onChange={changeSignupFormDataHandler} />
-      <br />
-      <label>Last Name:</label>
-      <input type='text' name='last_name' value={signupFormData.last_name} onChange={changeSignupFormDataHandler} />
-      <br />
-      <label>Your Email:</label>
-      <input type='text' name='email' value={signupFormData.email} onChange={changeSignupFormDataHandler} />
-      <br />
-      <label>New Password:</label>
-      <input type='password' name='password' value={signupFormData.password} onChange={changeSignupFormDataHandler} />
-      <br />
-      <label>I am:</label>
-      <select name='gender' onChange={changeSignupFormDataHandler}>
-        <option>Select Sex:</option>
-        <option value='Female'>Female</option>
-        <option value='Male'>Male</option>
-      </select>
-      <br />
-      <label>Birthday:</label>
-      <select name='birthdayMonth' onChange={changeSignupFormDataHandler}>
-        <option>Month:</option>
-        {generateMonthOptionTags()}
-      </select>
-      <select name='birthdayDay' onChange={changeSignupFormDataHandler}>
-        <option>Day:</option>
-        {generateDayOptionTags()}
-      </select>
-      <select name='birthdayYear' onChange={changeSignupFormDataHandler}>
-        <option>Year:</option>
-        {generateYearOptionTags()}
-      </select>
-      <br />
-      <button>Sign Up</button>
-    </form>
+    <div id='signup-page'>
+      <p id='welcome-message'>L👀kbook helps you connect and share with the people in your life.</p>
+      <form onSubmit={submitSignupFormDataHandler} id='signup-form'>
+        <p>Sign Up</p>
+        <p>It's free and anyone can join</p>
+        <label>First Name:</label>
+        <input type='text' name='first_name' value={signupFormData.first_name} onChange={changeSignupFormDataHandler} />
+        <br />
+        <label>Last Name:</label>
+        <input type='text' name='last_name' value={signupFormData.last_name} onChange={changeSignupFormDataHandler} />
+        <br />
+        <label>Your Email:</label>
+        <input type='text' name='email' value={signupFormData.email} onChange={changeSignupFormDataHandler} />
+        <br />
+        <label>New Password:</label>
+        <input type='password' name='password' value={signupFormData.password} onChange={changeSignupFormDataHandler} />
+        <br />
+        <label>I am:</label>
+        <select name='gender' onChange={changeSignupFormDataHandler}>
+          <option>Select Sex:</option>
+          <option value='Female'>Female</option>
+          <option value='Male'>Male</option>
+        </select>
+        <br />
+        <label>Birthday:</label>
+        <select name='birthdayMonth' onChange={changeSignupFormDataHandler}>
+          <option>Month:</option>
+          {generateMonthOptionTags()}
+        </select>
+        <select name='birthdayDay' onChange={changeSignupFormDataHandler}>
+          <option>Day:</option>
+          {generateDayOptionTags()}
+        </select>
+        <select name='birthdayYear' onChange={changeSignupFormDataHandler}>
+          <option>Year:</option>
+          {generateYearOptionTags()}
+        </select>
+        <br />
+        <button id='signup-btn'>Sign Up</button>
+      </form>
+    </div>
   );
 }
 
