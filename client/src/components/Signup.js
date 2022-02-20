@@ -94,9 +94,9 @@ function Signup({setUser}) {
   }
 
   return (
-    <div id='signup-page'>
-      <p id='welcome-message'>L👀kbook helps you connect and share with the people in your life.</p>
-      <form onSubmit={submitSignupFormDataHandler} id='signup-form'>
+    <div className='signup-page'>
+      <p className='welcome-message'>L👀kbook helps you connect and share with the people in your life.</p>
+      <form onSubmit={submitSignupFormDataHandler} className='signup-form'>
         <p>Sign Up</p>
         <p>It's free and anyone can join</p>
         <label>First Name:</label>
@@ -132,7 +132,7 @@ function Signup({setUser}) {
           {generateYearOptionTags()}
         </select>
         <br />
-        <button id='signup-btn'>Sign Up</button>
+        <button className='signup-btn'>Sign Up</button>
       </form>
     </div>
   );
