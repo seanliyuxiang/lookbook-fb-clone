@@ -39,30 +39,58 @@ function Login({setUser}) {
     });
   }
 
+  function submitDemoUserLoginFormDataHandler(event) {
+    event.preventDefault();
+
+    fetch('/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: 'zuckerberg@fb.com',
+        password: 'password'
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        response.json().then(jsonData => {
+          setUser(jsonData);
+          history.push('/home_feed'); // automatically go to home feed page after login as demo user
+        });
+      }
+    });
+  }
+
   return (
-    <form onSubmit={submitLoginFormDataHandler} className='login-form'>
-      <div>
-        <label>Email</label>
-        <input
-          type='text'
-          name='email'
-          value={loginFormData.email}
-          onChange={changeLoginFormDataHandler}
-          className='login-email-input-field'
-        />
-      </div>
-      <div>
-        <label>Password</label>
-        <input
-          type='password'
-          name='password'
-          value={loginFormData.password}
-          onChange={changeLoginFormDataHandler}
-          className='login-password-input-field'
-        />
-      </div>
-      <button className='login-btn'>Login</button>
-    </form>
+    <div>
+      <form onSubmit={submitLoginFormDataHandler} className='login-form'>
+        <div>
+          <label>Email</label>
+          <input
+            type='text'
+            name='email'
+            value={loginFormData.email}
+            onChange={changeLoginFormDataHandler}
+            className='login-email-input-field'
+          />
+        </div>
+        <div>
+          <label>Password</label>
+          <input
+            type='password'
+            name='password'
+            value={loginFormData.password}
+            onChange={changeLoginFormDataHandler}
+            className='login-password-input-field'
+          />
+        </div>
+        <button className='login-btn'>Login</button>
+      </form>
+      <form onSubmit={submitDemoUserLoginFormDataHandler}>
+        <button>Demo User</button>
+      </form>
+    </div>
   );
 }
 
