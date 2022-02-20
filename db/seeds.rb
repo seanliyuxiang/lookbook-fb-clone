@@ -6,6 +6,8 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+require 'date'  # seem to not need it when creating demo user's birthday
+
 User.destroy_all
 Post.destroy_all
 Comment.destroy_all
@@ -15,9 +17,20 @@ Friendship.destroy_all
 puts '🌱🌱🌱 Seeding users... 🌱🌱🌱'
 puts '🌱🌱🌱 Seeding posts... 🌱🌱🌱'
 puts '🌱🌱🌱 Seeding comments... 🌱🌱🌱'
+puts '🌱🌱🌱 Seeding friendships... 🌱🌱🌱'
 
-# create 5 random users
-5.times do
+# create demo user
+User.create(
+  first_name: 'Mark',
+  last_name: 'Zuckerberg',
+  email: 'zuckerberg@fb.com',
+  password: 'password',
+  gender: 'Male',
+  birthday: Date.new(1984, 5, 14)
+)
+
+# create 4 random users
+4.times do
   User.create(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -32,7 +45,7 @@ end
 User.all.each do |user|
   5.times do
     Post.create(
-      author_id: rand(User.all.length)+1,
+      author_id: User.all.map { |u| u.id }.sample,
       body: Faker::Quote.famous_last_words,
       recipient_id: user.id
     )
@@ -43,7 +56,7 @@ end
 Post.all.each do |post|
   5.times do
     Comment.create(
-      author_id: rand(User.all.length)+1,
+      author_id: User.all.map { |u| u.id }.sample,
       post_id: post.id,
       body: Faker::Quote.famous_last_words
     )
@@ -52,7 +65,7 @@ end
 
 # create 16 random friendships
 while Friendship.all.length < 16
-  possible_user_ids = (1..(User.all.length)).to_a
+  possible_user_ids = User.all.map { |u| u.id }
   user_id = possible_user_ids.sample
 
   possible_friend_ids = possible_user_ids[0..-1]
