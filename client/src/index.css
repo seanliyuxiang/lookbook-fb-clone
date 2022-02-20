@@ -12,12 +12,12 @@ code {
     monospace;
 } */
 
-#nav-bar {
+.nav-bar {
   background-color: rgb(65,89,147);
   padding-top: 20px;
 }
 
-#nav-bar-logo {
+.nav-bar-logo {
   text-decoration: none;
   color: white;
   font-family: sans-serif;
@@ -46,17 +46,17 @@ input[name='body'] {
   margin: 0 auto;
 } */
 
-#login-email-input-field {
+.login-email-input-field {
   display: inline;
   margin: 10px;
 }
 
-#login-password-input-field {
+.login-password-input-field {
   display: inline;
   margin: 10px;
 }
 
-#login-form {
+.login-form {
   float: right;
   padding: 10px;
   color: white;
@@ -64,13 +64,13 @@ input[name='body'] {
   font-size: 14px;
 }
 
-#login-btn {
+.login-btn {
   background-color: rgb(97, 117, 165);
   color: white;
   border: 1px solid rgb(46, 68, 122);
 }
 
-#signup-page {
+.signup-page {
   background-color: rgb(190, 198, 219);
   background-image: -webkit-linear-gradient(rgb(247, 248, 250), rgb(190, 198, 219));
   font-family: sans-serif;
@@ -80,7 +80,7 @@ input[name='body'] {
   /* border: 1px solid black; */
 }
 
-#welcome-message {
+.welcome-message {
   display: inline-block;
   font-weight: bold;
   font-size: 20px;
@@ -88,22 +88,22 @@ input[name='body'] {
   /* border: 1px solid black; */
 }
 
-#signup-form {
+.signup-form {
   float: right;
   /* border: 1px solid black; */
 }
 
-#signup-form p {
+.signup-form p {
   font-size: 20px;
   font-weight: bold;
 }
 
-#signup-btn {
+.signup-btn {
   background-color: rgb(112, 154, 83);
   color: white;
   border: 1px solid rgb(54, 87, 31);
 }
 
-#signup-form p, #signup-form input, #signup-form select {
+.signup-form p, .signup-form input, .signup-form select {
   margin: 2 px;
 }

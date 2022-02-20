@@ -22,8 +22,8 @@ function NavBar({user, setUser}) {
   // if no user is logged in
   if (!user) {
     return (
-      <div id='nav-bar'>
-        <NavLink exact to='/' id='nav-bar-logo'>
+      <div className='nav-bar'>
+        <NavLink exact to='/' className='nav-bar-logo'>
           l👀kbook
         </NavLink>
         <Login setUser={setUser} />
@@ -33,8 +33,8 @@ function NavBar({user, setUser}) {
 
   // if an user is logged in
   return (
-    <div id='nav-bar'>
-      <NavLink exact to='/home_feed' id='nav-bar-logo'>
+    <div className='nav-bar'>
+      <NavLink exact to='/home_feed' className='nav-bar-logo'>
         l👀kbook
       </NavLink>
       <SearchLookbook />
