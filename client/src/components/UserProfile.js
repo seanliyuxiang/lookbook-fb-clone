@@ -2,6 +2,8 @@ import {useState, useEffect} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
+import blankCoverPhoto from '../images/blank_cover_photo.png';
+import blankProfilePicture from '../images/blank_profile_picture.png';
 
 function UserProfile({user, setUser}) {
 
@@ -215,7 +217,7 @@ function UserProfile({user, setUser}) {
     <div>
       <h1>coming from UserProfile.js</h1>
       <img
-        src={!arbitraryUser.cover_photo_url ? 'https://9cover.com/images/ccovers/1362683987smooth-grey-abstract.jpg' : arbitraryUser.cover_photo_url}
+        src={!arbitraryUser.cover_photo_url ? blankCoverPhoto : arbitraryUser.cover_photo_url}
         alt=''
       />
       {arbitraryUser.id === user.id ?
@@ -229,7 +231,7 @@ function UserProfile({user, setUser}) {
       <h1>User profile: {`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
       <h1>{arbitraryUser.email}</h1>
       <img
-        src={!arbitraryUser.profile_picture_url ? 'https://www.tenforums.com/geek/gars/images/2/types/thumb_15951118880user.png' : arbitraryUser.profile_picture_url}
+        src={!arbitraryUser.profile_picture_url ? blankProfilePicture : arbitraryUser.profile_picture_url}
         alt=''
       />
       {arbitraryUser.id === user.id ?
