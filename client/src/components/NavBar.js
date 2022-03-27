@@ -22,27 +22,40 @@ function NavBar({user, setUser}) {
   // if no user is logged in
   if (!user) {
     return (
-      <div className='nav-bar'>
-        <NavLink exact to='/' className='nav-bar-logo'>
-          l👀kbook
-        </NavLink>
-        <Login setUser={setUser} />
-      </div>
+      <header className='header'>
+        <nav className='header-nav'>
+          <h1 className='header-logo'>
+            <NavLink exact to='/'>
+              l👀kbook
+            </NavLink>
+          </h1>
+          <Login setUser={setUser} />
+        </nav>
+      </header>
     );
   }
 
   // if an user is logged in
   return (
-    <div className='nav-bar'>
-      <NavLink exact to='/home_feed' className='nav-bar-logo'>
-        l👀kbook
-      </NavLink>
-      <SearchLookbook />
-      <NavLink exact to={`/users/${user.id}`}>
-        {user.first_name}
-      </NavLink>
-      <button onClick={logoutHandler}>Logout</button>
-    </div>
+    <header className='header'>
+      <nav className='header-nav'>
+        <h1 className='header-logo'>
+          <NavLink exact to='/home_feed'>
+            l👀kbook
+          </NavLink>
+        </h1>
+        <SearchLookbook />
+        <ul className='header-list'>
+          <li>
+            <NavLink exact to={`/users/${user.id}`}>
+              {user.first_name}
+            </NavLink>
+          </li>
+          <li>Notifications</li>
+          <li><button onClick={logoutHandler}>Logout</button></li>
+        </ul>
+      </nav>
+    </header>
   );
 }
 
