@@ -6,6 +6,7 @@ import {BrowserRouter} from 'react-router-dom';
 import './styles/my_reset.css';
 // import './styles/index.css';
 import './styles/NavBar.css';
+import './styles/layout.css';
 
 ReactDOM.render(
   <BrowserRouter>

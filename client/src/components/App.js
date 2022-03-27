@@ -34,7 +34,7 @@ function App() {
 
   // if an user is logged in
   return (
-    <div>
+    <>
       <NavBar user={user} setUser={setUser} />
       <Switch>
         <Route exact path='/'>
@@ -47,7 +47,7 @@ function App() {
           <UserProfile user={user} setUser={setUser} />
         </Route>
       </Switch>
-    </div>
+    </>
   );
 }
 
