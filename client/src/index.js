@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './components/App';
 import {BrowserRouter} from 'react-router-dom';
 
-import './my_reset.css';
-import './index.css';
+import './styles/my_reset.css';
+// import './styles/index.css';
+import './styles/NavBar.css';
 
 ReactDOM.render(
   <BrowserRouter>
