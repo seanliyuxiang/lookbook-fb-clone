@@ -7,6 +7,7 @@ import './styles/my_reset.css';
 // import './styles/index.css';
 import './styles/NavBar.css';
 import './styles/layout.css';
+import './styles/Footer.css';
 
 ReactDOM.render(
   <BrowserRouter>
