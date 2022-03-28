@@ -4,6 +4,7 @@ import {useState, useEffect} from 'react';
 import Signup from './Signup';
 import HomeFeed from './HomeFeed';
 import UserProfile from './UserProfile';
+import Footer from './Footer';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -28,6 +29,7 @@ function App() {
             <Signup setUser={setUser} />
           </Route>
         </Switch>
+        <Footer />
       </div>
     );
   }
@@ -47,6 +49,7 @@ function App() {
           <UserProfile user={user} setUser={setUser} />
         </Route>
       </Switch>
+      <Footer />
     </>
   );
 }
