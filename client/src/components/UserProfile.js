@@ -228,6 +228,23 @@ function UserProfile({user, setUser}) {
       </header>
 
       <section className='content-sidebar'>
+        <img
+          src={!arbitraryUser.profile_picture_url ? blankProfilePicture : arbitraryUser.profile_picture_url}
+          alt=''
+          className='profile-picture'
+        />
+        <div className='profile-info'>
+          <h2>{arbitraryUser.first_name}</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+        </div>
+        <ul className='profile-nav'>
+          <li><a href=''>Wall</a></li>
+          <li><a href=''>About</a></li>
+          <li><a href=''>Friends</a></li>
+          <li><a href=''>Photos</a></li>
+        </ul>
         <p>Friends</p>
         {arbitraryUsersFriendsArrJSX}
       </section>

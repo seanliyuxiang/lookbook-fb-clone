@@ -9,6 +9,7 @@ import './styles/NavBar.css';
 import './styles/layout.css';
 import './styles/Footer.css';
 import './styles/cover_photo.css';
+import './styles/sidebar.css';
 
 ReactDOM.render(
   <BrowserRouter>
