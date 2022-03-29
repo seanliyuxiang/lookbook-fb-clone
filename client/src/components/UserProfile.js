@@ -215,16 +215,16 @@ function UserProfile({user, setUser}) {
 
   return (
     <main className='content'>
-      <header className='content-header'>
+      <header className='content-header' style={{ background: `url(${!arbitraryUser.cover_photo_url ? blankCoverPhoto : arbitraryUser.cover_photo_url})`}}>
         <h1>{`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
         {arbitraryUser.id === user.id ?
           <form onSubmit={submitCoverPhotoHandler}>
             {/* file input is currently not set up as controlled form,
             need to change it in the future if want to have image preview */}
             <input type='file' name='cover_photo' />
-            <button>Add Cover Photo</button>
+            <button className='content-header-btn'>Add Cover Photo</button>
           </form>
-          : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button onClick={deleteFriendshipHandler}>Friends</button> : <button onClick={addFriendshipHandler}>Add Friend</button>)}  {/* ternary within a ternary */}
+          : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button onClick={deleteFriendshipHandler} className='content-header-btn'>Friends</button> : <button onClick={addFriendshipHandler} className='content-header-btn'>Add Friend</button>)}  {/* ternary within a ternary */}
       </header>
 
       <section className='content-sidebar'>
