@@ -10,6 +10,7 @@ import './styles/layout.css';
 import './styles/Footer.css';
 import './styles/cover_photo.css';
 import './styles/sidebar.css';
+import './styles/thumbs.css'
 
 ReactDOM.render(
   <BrowserRouter>

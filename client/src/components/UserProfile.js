@@ -76,14 +76,29 @@ function UserProfile({user, setUser}) {
   const arbitraryUsersFriendsArrJSX = arbitraryUser.assertive_friendships.map(
     assertiveFriendship => {
       return (
-        <p key={assertiveFriendship.friend.id}>
-          <Link to={`/users/${assertiveFriendship.friend.id}`}>
-            {`${assertiveFriendship.friend.first_name} ${assertiveFriendship.friend.last_name}`}
+        <li key={assertiveFriendship.friend.id}>
+          <Link to={`/users/${assertiveFriendship.friend.id}`} title={assertiveFriendship.friend.first_name} className='thumb'>
+            <img
+              src={!assertiveFriendship.friend.profile_picture_url ? blankProfilePicture : assertiveFriendship.friend.profile_picture_url}
+              alt=''
+            />
           </Link>
-        </p>
+        </li>
       );
     }
   );
+
+  // const arbitraryUsersFriendsArrJSX = arbitraryUser.assertive_friendships.map(
+  //   assertiveFriendship => {
+  //     return (
+  //       <p key={assertiveFriendship.friend.id}>
+  //         <Link to={`/users/${assertiveFriendship.friend.id}`}>
+  //           {`${assertiveFriendship.friend.first_name} ${assertiveFriendship.friend.last_name}`}
+  //         </Link>
+  //       </p>
+  //     );
+  //   }
+  // );
 
   function addFriendshipHandler() {
     fetch('/api/friendships', {
@@ -245,8 +260,9 @@ function UserProfile({user, setUser}) {
           <li><a href=''>Friends</a></li>
           <li><a href=''>Photos</a></li>
         </ul>
-        <p>Friends</p>
-        {arbitraryUsersFriendsArrJSX}
+        <ul className='profile-friends'>
+          {arbitraryUsersFriendsArrJSX}
+        </ul>
       </section>
 
       <section className='content-main'>
