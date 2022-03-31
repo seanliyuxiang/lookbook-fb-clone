@@ -88,18 +88,6 @@ function UserProfile({user, setUser}) {
     }
   );
 
-  // const arbitraryUsersFriendsArrJSX = arbitraryUser.assertive_friendships.map(
-  //   assertiveFriendship => {
-  //     return (
-  //       <p key={assertiveFriendship.friend.id}>
-  //         <Link to={`/users/${assertiveFriendship.friend.id}`}>
-  //           {`${assertiveFriendship.friend.first_name} ${assertiveFriendship.friend.last_name}`}
-  //         </Link>
-  //       </p>
-  //     );
-  //   }
-  // );
-
   function addFriendshipHandler() {
     fetch('/api/friendships', {
       method: 'POST',
