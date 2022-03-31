@@ -254,15 +254,6 @@ function UserProfile({user, setUser}) {
       </section>
 
       <section className='content-main'>
-        <img
-          src={!arbitraryUser.cover_photo_url ? blankCoverPhoto : arbitraryUser.cover_photo_url}
-          alt=''
-        />
-        <h1>{arbitraryUser.email}</h1>
-        <img
-          src={!arbitraryUser.profile_picture_url ? blankProfilePicture : arbitraryUser.profile_picture_url}
-          alt=''
-        />
         {arbitraryUser.id === user.id ?
           <form onSubmit={submitProfilePictureHandler}>
             {/* file input is currently not set up as controlled form,

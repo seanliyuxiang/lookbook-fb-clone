@@ -1,0 +1,70 @@
+.form-to-submit-post {
+  margin: 0 0 20px 0;
+  display: flex;
+}
+
+.form-to-submit-post-fieldset {
+  margin: 0 0 0 20px;
+  padding: 19px;
+  width: 500px;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-to-submit-post-input {
+  margin: 0 0 20px 0;
+}
+
+.form-to-submit-post-input > input {
+  display: block;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: calc(100% - 22px);
+  border-radius: 5px;
+}
+
+.form-to-submit-post-input > input:focus {
+  border-color: rgb(40, 73, 125);
+}
+
+.form-to-submit-post-submit {
+  margin: 20px 0 0 0;
+  padding: 0 0 3px 0;
+}
+
+.form-to-submit-post-submit > button {
+  position: relative;
+  padding: 10px 20px;
+  color: #fff;
+  background: rgb(65, 89, 147);
+  font-weight: 700;
+  border-radius: 5px;
+  box-shadow: 0 3px 0 0 rgb(8, 15, 27);
+}
+
+.form-to-submit-post-submit > button:hover {
+  background: rgb(40, 73, 125);
+}
+
+.form-to-submit-post-submit > button:active {
+  top: 3px;
+  background: rgb(33, 60, 103);
+  box-shadow: none;
+}
+
+.btn-alternative {
+  padding: 0 0 0 5px;
+}
+
+.btn-alternative strong {
+  padding: 0 0 0 5px;
+  font-weight: bold;
+  cursor: pointer;
+  color: gray;
+}
+
+.btn-alternative strong:hover {
+  color: black;
+}

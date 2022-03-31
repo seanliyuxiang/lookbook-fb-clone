@@ -10,7 +10,8 @@ import './styles/layout.css';
 import './styles/Footer.css';
 import './styles/cover_photo.css';
 import './styles/sidebar.css';
-import './styles/thumbs.css'
+import './styles/thumbs.css';
+import './styles/FormToSubmitPost.css';
 
 ReactDOM.render(
   <BrowserRouter>

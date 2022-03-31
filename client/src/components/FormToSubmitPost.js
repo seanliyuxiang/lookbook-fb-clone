@@ -1,4 +1,5 @@
 import {useState} from 'react';
+import {Link} from 'react-router-dom';
 
 function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredPost, setArbitraryUserWrapperToAddNewWallPost, arbitraryUser}) {
 
@@ -50,25 +51,36 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
   }
 
   return (
-    <form onSubmit={submitPostFormDataHandler}>
-      <h1>coming from FormToSubmitPost.js</h1>
-      <input
-        type='text'
-        name='body'
-        placeholder={
-          setFriendsAuthoredPostsWrapperToAddNewAuthoredPost !== undefined ?
-            `What's on your mind, ${user.first_name}?`
-          : (arbitraryUser.id === user.id ? `What's on your mind?` : `Write something to ${arbitraryUser.first_name}...`)
-        }
-        value={postFormData.body}
-        onChange={changePostFormDataHandler}
-      />
-      <br />
-      {/* file input is currently not set up as controlled form,
-      need to change it in the future if want to have image preview */}
-      <input type='file' name='post_photo' />
-      <br />
-      <button>Post</button>
+    <form onSubmit={submitPostFormDataHandler} className='form-to-submit-post'>
+      <Link to={`/users/${user.id}`} title={user.first_name} className='thumb'>
+        <img
+          src={user.profile_picture_url}
+          alt=''
+        />
+      </Link>
+      <fieldset className='form-to-submit-post-fieldset'>
+        <div className='form-to-submit-post-input'>
+          <input
+            type='text'
+            name='body'
+            placeholder={
+              setFriendsAuthoredPostsWrapperToAddNewAuthoredPost !== undefined ?
+                `What's on your mind, ${user.first_name}?`
+              : (arbitraryUser.id === user.id ? `What's on your mind?` : `Write something to ${arbitraryUser.first_name}...`)
+            }
+            value={postFormData.body}
+            onChange={changePostFormDataHandler}
+          />
+        </div>
+        {/* file input is currently not set up as controlled form,
+        need to change it in the future if want to have image preview */}
+        <input type='file' name='post_photo' />
+        <br />
+        <div className='form-to-submit-post-submit'>
+          <button>Post to Wall</button>
+          <span className='btn-alternative'>or <strong>Cancel</strong></span>
+        </div>
+      </fieldset>
     </form>
   );
 }
