@@ -265,7 +265,9 @@ function UserProfile({user, setUser}) {
         {((arbitraryUser.id !== user.id) && (!arbitraryUser.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend_id).includes(user.id))) ?
           null
         : <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewWallPost={setArbitraryUserWrapperToAddNewWallPost} arbitraryUser={arbitraryUser} />}
-        {arbitraryUsersWallPostsArrJSX}
+        <div className='posts'>
+          {arbitraryUsersWallPostsArrJSX}
+        </div>
       </section>
 
     </main>

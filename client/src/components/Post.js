@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import FormToSubmitComment from './FormToSubmitComment';
 import {useState} from 'react';
 import FormToEditPost from './FormToEditPost';
+import blankProfilePicture from '../images/blank_profile_picture.png';
 
 function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAuthoredPostsWrapperToRemoveAuthoredPost, setArbitraryUserWrapperToUpdateWallPost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}) {
 
@@ -120,26 +121,40 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
   }
 
   return (
-    <div className='post'>
-      <h1>coming from Post.js</h1>
-      
-      <h1>Posted by: <Link to={`/users/${post.author_id}`}>{post.author_full_name}</Link></h1>
-      <h1>post body: {post.body}</h1>
-      {post.post_photo_url ?
-        <img src={post.post_photo_url} alt='' />
-      : null}
-      {post.author_id === user.id ?
-        <>
-          <button onClick={deletePostHandler}>Delete</button>
-          <button onClick={editPostHandler}>Edit</button>
-          <br />
-        </>
-      : null}
-      <p>{postsLikes.length > 1 ? `${postsLikes.length} Likes` : (postsLikes.length === 1 ? '1 Like' : null)}</p> {/* ternary within a ternary */}
-      <button onClick={toggleLikePostHandler}>{isPostLiked ? 'Liked' : 'Not liked'}</button>
-      {postsCommentsArrJSX}
-      <FormToSubmitComment post={post} user={user} setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment} />
-    </div>
+    <article className='post'>
+      <Link to={`/users/${post.author_id}`} title={post.author.first_name} className='thumb'>
+        <img
+          src={!post.author.profile_picture_url ? blankProfilePicture : post.author.profile_picture_url}
+          alt=''
+        />
+      </Link>
+      <div className='post-body'>
+        <h2>
+          <Link to={`/users/${post.author.id}`}>
+            {`${post.author.first_name} ${post.author.last_name}`}
+          </Link>
+        </h2>
+        <p>{post.body}</p>
+        {post.post_photo_url ?
+          <img src={post.post_photo_url} alt='' />
+        : null}
+        <footer className='post-footer'>
+          <ul className='post-footer-tools'>
+            <li><button onClick={toggleLikePostHandler}>{isPostLiked ? 'Liked' : 'Not liked'}</button></li>
+            <li>Comment</li>
+            {post.author_id === user.id ?
+              <>
+                <li><button onClick={deletePostHandler}>Delete</button></li>
+                <li><button onClick={editPostHandler}>Edit</button></li>
+              </>
+            : null}
+          </ul>
+        </footer>
+        <p>{postsLikes.length > 1 ? `${postsLikes.length} Likes` : (postsLikes.length === 1 ? '1 Like' : null)}</p> {/* ternary within a ternary */}
+        {postsCommentsArrJSX}
+        <FormToSubmitComment post={post} user={user} setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment} />
+      </div>
+    </article>
   );
 }
 
