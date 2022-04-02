@@ -22,4 +22,6 @@ class PostSerializer < ActiveModel::Serializer
       Rails.application.routes.url_helpers.url_for(self.object.post_photo)
     end
   end
+
+  belongs_to :author
 end

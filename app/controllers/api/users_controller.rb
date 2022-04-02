@@ -17,7 +17,7 @@ class Api::UsersController < ApplicationController
 
   def show
     user = User.find_by(id: params[:id])
-    render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.likes', 'assertive_friendships', 'assertive_friendships.friend']
+    render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.likes', 'wall_posts.author', 'assertive_friendships', 'assertive_friendships.friend']
   end
 
   def attach_new_profile_picture
@@ -26,7 +26,7 @@ class Api::UsersController < ApplicationController
       user.profile_picture.purge_later  # `.purge_later` or `.purge` ???; purging deletes the blob and the file from the storage service
     end
     user.profile_picture.attach(params[:profile_picture])
-    render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.likes', 'assertive_friendships', 'assertive_friendships.friend']
+    render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.likes', 'wall_posts.author', 'assertive_friendships', 'assertive_friendships.friend']
   end
 
   def attach_new_cover_photo
@@ -35,7 +35,7 @@ class Api::UsersController < ApplicationController
       user.cover_photo.purge_later  # `.purge_later` or `.purge` ???; purging deletes the blob and the file from the storage service
     end
     user.cover_photo.attach(params[:cover_photo])
-    render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.likes', 'assertive_friendships', 'assertive_friendships.friend']
+    render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.likes', 'wall_posts.author', 'assertive_friendships', 'assertive_friendships.friend']
   end
 
   private

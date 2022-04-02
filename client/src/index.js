@@ -12,6 +12,7 @@ import './styles/cover_photo.css';
 import './styles/sidebar.css';
 import './styles/thumbs.css';
 import './styles/FormToSubmitPost.css';
+import './styles/posts.css';
 
 ReactDOM.render(
   <BrowserRouter>

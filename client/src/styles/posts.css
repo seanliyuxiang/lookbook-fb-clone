@@ -1,0 +1,30 @@
+.posts {
+  margin: 20px 0 0 0;
+}
+
+.post {
+  display: flex;
+  border-top: 1px solid #ccc;
+  margin: 20px 0 0 0;
+  padding: 20px 0 0 0;
+}
+
+.post-body {
+  margin: 0 0 0 20px;
+  width: 540px;
+}
+
+.post-body > h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+}
+
+.post-body > p {
+  margin: 0 0 20px 0;
+}
+
+.post-footer-tools {
+  display: flex;
+  justify-content: space-between;
+}
