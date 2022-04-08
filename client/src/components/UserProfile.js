@@ -193,7 +193,10 @@ function UserProfile({user, setUser}) {
       body: profilePicture
     })
     .then(response => response.json())
-    .then(user => setArbitraryUser(user));
+    .then(user => {
+      setArbitraryUser(user);
+      setUser(user);
+    });
   }
 
   function submitCoverPhotoHandler(event) {
@@ -213,7 +216,10 @@ function UserProfile({user, setUser}) {
       body: coverPhoto
     })
     .then(response => response.json())
-    .then(user => setArbitraryUser(user));
+    .then(user => {
+      setArbitraryUser(user);
+      setUser(user);
+    });
   }
 
   return (
