@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
 import FormToEditComment from './FormToEditComment';
+import blankProfilePicture from '../images/blank_profile_picture.png';
 
 function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment, setPostsCommentsWrapperToUpdateComment}) {
 
@@ -32,17 +33,32 @@ function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment, se
   }
 
   return (
-    <div className='comment'>
-      <h1>coming from Comment.js</h1>
-      <h1>Commented by: <Link to={`/users/${postsComment.author_id}`}>{postsComment.author_full_name}</Link></h1>
-      <h1>comment body: {postsComment.body}</h1>
-      {postsComment.author_id === user.id ?
-        <>
-          <button onClick={deleteCommentHandler}>Delete</button>
-          <button onClick={editCommentHandler}>Edit</button>
-        </>
-      : null}
-    </div>
+    <article className='comment'>
+      <Link to={`/users/${postsComment.author_id}`} title={postsComment.author.first_name} className='thumb'>
+        <img
+          src={!postsComment.author.profile_picture_url ? blankProfilePicture : postsComment.author.profile_picture_url}
+          alt=''
+        />
+      </Link>
+      <div className='comment-body'>
+        <h2>
+          <Link to={`/users/${postsComment.author.id}`}>
+            {`${postsComment.author.first_name} ${postsComment.author.last_name}`}
+          </Link>
+        </h2>
+        <p>{postsComment.body}</p>
+        <footer className='comment-footer'>
+          <ul className='comment-footer-tools'>
+            {postsComment.author_id === user.id ?
+              <>
+                <li><button onClick={deleteCommentHandler}>Delete</button></li>
+                <li><button onClick={editCommentHandler}>Edit</button></li>
+              </>
+            : null}
+          </ul>
+        </footer>
+      </div>
+    </article>
   );
 }
 

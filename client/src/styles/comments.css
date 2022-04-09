@@ -1,31 +1,31 @@
-.posts {
+.comments {
   margin: 20px 0 0 0;
 }
 
-.post {
+.comment {
   display: flex;
   border-top: 1px solid #ccc;
   margin: 20px 0 0 0;
   padding: 20px 0 0 0;
 }
 
-.post-body {
+.comment-body {
   margin: 0 0 0 20px;
-  /* (.content-main width) - (.thumb width) - (.thumb border) - (.post-body margin-left) */
-  width: 540px;
+  /* (.post-body width) - (.thumb width) - (.thumb border) - (.comment-body margin-left) */
+  width: 460px;
 }
 
-.post-body > h2 {
-  font-size: 24px;
+.comment-body > h2 {
+  font-size: 16px;
   font-weight: 700;
   margin: 0 0 20px 0;
 }
 
-.post-body > p {
+.comment-body > p {
   margin: 0 0 20px 0;
 }
 
-.post-footer-tools {
+.comment-footer-tools {
   display: flex;
   justify-content: space-between;
 }
