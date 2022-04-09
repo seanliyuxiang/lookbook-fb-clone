@@ -4,4 +4,6 @@ class CommentSerializer < ActiveModel::Serializer
   def author_full_name
     "#{self.object.author.first_name} #{self.object.author.last_name}"
   end
+
+  belongs_to :author
 end

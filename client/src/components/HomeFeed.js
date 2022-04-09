@@ -50,11 +50,10 @@ function HomeFeed({user}) {
   }
 
   return (
-    <div>
-      <h1>coming from HomeFeed.js</h1>
+    <main className='content'>
       <FormToSubmitPost user={user} setFriendsAuthoredPostsWrapperToAddNewAuthoredPost={setFriendsAuthoredPostsWrapperToAddNewAuthoredPost} />
       {friendsAuthoredPostsArrJSX}
-    </div>
+    </main>
   );
 }
 

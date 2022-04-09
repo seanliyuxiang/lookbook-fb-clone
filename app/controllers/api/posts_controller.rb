@@ -25,7 +25,7 @@ class Api::PostsController < ApplicationController
       friends_authored_posts_ids = friends_authored_posts.map { |friends_authored_post| friends_authored_post.id }
       friends_authored_posts_new_to_old = Post.where(id: friends_authored_posts_ids).order(created_at: :desc)
 
-      render json: friends_authored_posts_new_to_old
+      render json: friends_authored_posts_new_to_old, include: ['comments', 'comments.author', 'likes', 'author']
     else
       render json: {error: 'Not authorized'}, status: :unauthorized
     end
