@@ -36,16 +36,19 @@ function FormToSubmitComment({post, user, setPostsCommentsWrapperToAddNewComment
   }
 
   return (
-    <form onSubmit={submitCommentFormDataHandler}>
-        <input
-          type='text'
-          name='body'
-          placeholder='Write a comment...'
-          value={commentFormData.body}
-          onChange={changeCommentFormDataHandler}
-        />
-        <button>Comment</button>
-      </form>
+    <form onSubmit={submitCommentFormDataHandler} className='form-to-submit-comment'>
+      <fieldset className='form-to-submit-comment-fieldset'>
+        <div className='form-to-submit-comment-input'>
+          <input
+            type='text'
+            name='body'
+            placeholder='Write a comment...'
+            value={commentFormData.body}
+            onChange={changeCommentFormDataHandler}
+          />
+        </div>
+      </fieldset>
+    </form>
   );
 }
 
