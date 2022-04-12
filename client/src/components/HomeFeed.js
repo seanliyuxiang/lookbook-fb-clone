@@ -51,8 +51,12 @@ function HomeFeed({user}) {
 
   return (
     <main className='content'>
-      <FormToSubmitPost user={user} setFriendsAuthoredPostsWrapperToAddNewAuthoredPost={setFriendsAuthoredPostsWrapperToAddNewAuthoredPost} />
-      {friendsAuthoredPostsArrJSX}
+      <section className='content-main home-feed'>
+        <FormToSubmitPost user={user} setFriendsAuthoredPostsWrapperToAddNewAuthoredPost={setFriendsAuthoredPostsWrapperToAddNewAuthoredPost} />
+        <div className='posts'>
+          {friendsAuthoredPostsArrJSX}
+        </div>
+      </section>
     </main>
   );
 }
