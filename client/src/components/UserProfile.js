@@ -21,7 +21,13 @@ function UserProfile({user, setUser}) {
 
   // need this if-statement for `TypeError: Cannot read properties of null`
   if (!arbitraryUser) {
-    return <h1>Loading...</h1>;
+    return (
+      <main className='content'>
+        <section className='content-main' style={{margin: '0 auto', textAlign: 'center'}}>
+          Loading...
+        </section>
+      </main>
+    );
   }
 
   function setArbitraryUserWrapperToRemoveWallPost(deletedWallPost) {
