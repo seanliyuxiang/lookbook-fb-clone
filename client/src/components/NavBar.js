@@ -1,5 +1,5 @@
 import Login from './Login';
-import {NavLink, useHistory} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
 import SearchLookbook from './SearchLookbook';
 
 function NavBar({user, setUser}) {
@@ -25,9 +25,9 @@ function NavBar({user, setUser}) {
       <header className='header'>
         <nav className='header-nav'>
           <h1 className='header-logo'>
-            <NavLink exact to='/'>
+            <Link exact to='/'>
               l👀kbook
-            </NavLink>
+            </Link>
           </h1>
           <Login setUser={setUser} />
         </nav>
@@ -40,16 +40,16 @@ function NavBar({user, setUser}) {
     <header className='header'>
       <nav className='header-nav'>
         <h1 className='header-logo'>
-          <NavLink exact to='/home_feed'>
+          <Link exact to='/home_feed'>
             l👀kbook
-          </NavLink>
+          </Link>
         </h1>
         <SearchLookbook />
         <ul className='header-list'>
           <li>
-            <NavLink exact to={`/users/${user.id}`}>
+            <Link exact to={`/users/${user.id}`}>
               {user.first_name}
-            </NavLink>
+            </Link>
           </li>
           <li>Notifications</li>
           <li><button onClick={logoutHandler}>Logout</button></li>
