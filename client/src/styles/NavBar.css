@@ -45,3 +45,11 @@ body {
 .header-list > li:hover {
   background: rgb(40,73,125);
 }
+
+.header-list > li:nth-child(2) {
+  padding: 10px 20px;
+}
+
+.header-list button {
+  padding: 10px 20px;
+}
