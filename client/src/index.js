@@ -16,6 +16,8 @@ import './styles/posts.css';
 import './styles/comments.css';
 import './styles/FormToSubmitComment.css';
 import './styles/HomeFeed.css';
+import './styles/SearchLookbook.css';
+import './styles/SearchResultsContainer.css';
 
 ReactDOM.render(
   <BrowserRouter>
