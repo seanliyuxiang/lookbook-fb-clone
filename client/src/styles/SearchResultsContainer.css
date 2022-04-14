@@ -1,0 +1,26 @@
+.search-results {
+  z-index: 1;
+  position: absolute;
+  background: #fff;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.search-results > li {
+  display: flex;
+  color: #000;
+  width: 350px;
+  padding: 4px;
+}
+
+.search-results > li:hover {
+  background: #eee;
+}
+
+a.search-results-thumb {
+  /* need this to overwrite (padding: 10px 20px) of (.header a) in NavBar.css */
+  padding: 0;
+}

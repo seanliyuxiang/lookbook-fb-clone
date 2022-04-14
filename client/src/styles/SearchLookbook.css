@@ -1,0 +1,17 @@
+.search-lookbook {
+  position: relative;
+}
+
+.search-lookbook > input {
+  display: block;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+}
+
+.search-lookbook > input:focus {
+  border-color: rgb(40, 73, 125);
+}

@@ -21,7 +21,7 @@ function SearchLookbook() {
   }
 
   return (
-    <div>
+    <div className='search-lookbook'>
       <input
         type='search'
         placeholder='Search L👀kbook'
