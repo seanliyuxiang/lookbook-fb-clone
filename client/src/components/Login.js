@@ -63,7 +63,7 @@ function Login({setUser}) {
   }
 
   return (
-    <div>
+    <div className='login'>
       <form onSubmit={submitLoginFormDataHandler} className='login-form'>
         <div>
           <label>Email</label>
@@ -72,7 +72,6 @@ function Login({setUser}) {
             name='email'
             value={loginFormData.email}
             onChange={changeLoginFormDataHandler}
-            className='login-email-input-field'
           />
         </div>
         <div>
@@ -82,12 +81,11 @@ function Login({setUser}) {
             name='password'
             value={loginFormData.password}
             onChange={changeLoginFormDataHandler}
-            className='login-password-input-field'
           />
         </div>
-        <button className='login-btn'>Login</button>
+        <button>Login</button>
       </form>
-      <form onSubmit={submitDemoUserLoginFormDataHandler}>
+      <form onSubmit={submitDemoUserLoginFormDataHandler} className='login-form-demo-user'>
         <button>Demo User</button>
       </form>
     </div>
