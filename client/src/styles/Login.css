@@ -1,0 +1,42 @@
+.login {
+  display: flex;
+  align-items: flex-end;
+}
+
+.login-form {
+  display: flex;
+  align-items: flex-end;
+  margin: 10px;
+}
+
+.login-form > div {
+  margin-right: 10px;
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.login-form input {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+}
+
+.login-form > button {
+  background: rgb(97, 117, 165);
+  border: 1px solid rgb(46, 68, 122);
+  padding: 2px 8px;
+}
+
+.login-form-demo-user {
+  margin: 10px 10px 10px 0;
+}
+
+.login-form-demo-user > button {
+  background: rgb(255, 172, 68);
+  border: 1px solid rgb(179, 120, 47);
+  padding: 2px 8px;
+}

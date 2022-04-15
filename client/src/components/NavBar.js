@@ -23,8 +23,8 @@ function NavBar({user, setUser}) {
   if (!user) {
     return (
       <header className='header'>
-        <nav className='header-nav'>
-          <h1 className='header-logo'>
+        <nav className='header-nav-logged-out'>
+          <h1 className='header-logo-logged-out'>
             <Link exact to='/'>
               l👀kbook
             </Link>

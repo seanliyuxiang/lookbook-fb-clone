@@ -1,3 +1,24 @@
+/* if no user is logged in */
+
+.header .header-logo-logged-out > a {
+  padding: 0 20px 0 20px;
+}
+
+.header-nav-logged-out {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 1100px;
+  align-items: flex-end;
+}
+
+.header-logo-logged-out {
+  font-weight: 700;
+  font-size: 40px;
+}
+
+/* if an user is logged in */
+
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
