@@ -75,7 +75,6 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         {/* file input is currently not set up as controlled form,
         need to change it in the future if want to have image preview */}
         <input type='file' name='post_photo' />
-        <br />
         <div className='form-to-submit-post-submit'>
           <button>Post to Wall</button>
           <span className='btn-alternative'>or <strong>Cancel</strong></span>
