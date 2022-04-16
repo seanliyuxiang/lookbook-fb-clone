@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
+import worldMap from '../images/world_map.png';
 
 function Signup({setUser}) {
 
@@ -94,47 +95,61 @@ function Signup({setUser}) {
   }
 
   return (
-    <div className='signup-page'>
-      <p className='welcome-message'>L👀kbook helps you connect and share with the people in your life.</p>
-      <form onSubmit={submitSignupFormDataHandler} className='signup-form'>
-        <p>Sign Up</p>
-        <p>It's free and anyone can join</p>
-        <label>First Name:</label>
-        <input type='text' name='first_name' value={signupFormData.first_name} onChange={changeSignupFormDataHandler} />
-        <br />
-        <label>Last Name:</label>
-        <input type='text' name='last_name' value={signupFormData.last_name} onChange={changeSignupFormDataHandler} />
-        <br />
-        <label>Your Email:</label>
-        <input type='text' name='email' value={signupFormData.email} onChange={changeSignupFormDataHandler} />
-        <br />
-        <label>New Password:</label>
-        <input type='password' name='password' value={signupFormData.password} onChange={changeSignupFormDataHandler} />
-        <br />
-        <label>I am:</label>
-        <select name='gender' onChange={changeSignupFormDataHandler}>
-          <option>Select Sex:</option>
-          <option value='Female'>Female</option>
-          <option value='Male'>Male</option>
-        </select>
-        <br />
-        <label>Birthday:</label>
-        <select name='birthdayMonth' onChange={changeSignupFormDataHandler}>
-          <option>Month:</option>
-          {generateMonthOptionTags()}
-        </select>
-        <select name='birthdayDay' onChange={changeSignupFormDataHandler}>
-          <option>Day:</option>
-          {generateDayOptionTags()}
-        </select>
-        <select name='birthdayYear' onChange={changeSignupFormDataHandler}>
-          <option>Year:</option>
-          {generateYearOptionTags()}
-        </select>
-        <br />
-        <button className='signup-btn'>Sign Up</button>
-      </form>
-    </div>
+    <main className='content-logged-out'>
+      <div className='signup'>
+        <section className='left'>
+          <h2>L👀kbook helps you connect and share with the people in your life.</h2>
+          <img src={worldMap} alt='' />
+        </section>
+        <section className='right'>
+          <h2>Sign Up</h2>
+          <h2>It's free and anyone can join</h2>
+          <form onSubmit={submitSignupFormDataHandler} className='signup-form'>
+            <div>
+              <label>First Name:</label>
+              <input type='text' name='first_name' value={signupFormData.first_name} onChange={changeSignupFormDataHandler} />
+            </div>
+            <div>
+              <label>Last Name:</label>
+              <input type='text' name='last_name' value={signupFormData.last_name} onChange={changeSignupFormDataHandler} />
+            </div>
+            <div>
+              <label>Your Email:</label>
+              <input type='text' name='email' value={signupFormData.email} onChange={changeSignupFormDataHandler} />
+            </div>
+            <div>
+              <label>New Password:</label>
+              <input type='password' name='password' value={signupFormData.password} onChange={changeSignupFormDataHandler} />
+            </div>
+            <div>
+              <label>I am:</label>
+              <select name='gender' onChange={changeSignupFormDataHandler}>
+                <option>Select Sex:</option>
+                <option value='Female'>Female</option>
+                <option value='Male'>Male</option>
+              </select>
+            </div>
+            <div>
+              <label>Birthday:</label>
+              <select name='birthdayMonth' onChange={changeSignupFormDataHandler}>
+                <option>Month:</option>
+                {generateMonthOptionTags()}
+              </select>
+              <select name='birthdayDay' onChange={changeSignupFormDataHandler}>
+                <option>Day:</option>
+                {generateDayOptionTags()}
+              </select>
+              <select name='birthdayYear' onChange={changeSignupFormDataHandler}>
+                <option>Year:</option>
+                {generateYearOptionTags()}
+              </select>
+            </div>
+            <small>By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy.</small>
+            <button>Sign Up</button>
+          </form>
+        </section>
+      </div>
+    </main>
   );
 }
 

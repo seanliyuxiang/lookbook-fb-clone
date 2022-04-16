@@ -7,6 +7,7 @@ import './styles/my_reset.css';
 // import './styles/index.css';
 import './styles/NavBar.css';
 import './styles/Login.css';
+import './styles/Signup.css';
 import './styles/layout.css';
 import './styles/Footer.css';
 import './styles/cover_photo.css';
