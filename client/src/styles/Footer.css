@@ -1,3 +1,52 @@
+/* if no user is logged in */
+
+.footer-logged-out {
+  width: 1100px;
+  margin: 0 auto 50px auto;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.footer-language {
+  display: block;
+  padding: 20px;
+  padding-bottom: 10px;
+}
+
+.footer-logged-out > div {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #aaa;
+}
+
+.footer-copy-logged-out {
+  display: block;
+  padding: 20px;
+  padding-top: 10px;
+}
+
+.footer-links-logged-out {
+  display: flex;
+  padding: 20px;
+  padding-top: 10px;
+}
+
+.footer-links-logged-out > li {
+  padding: 0 0 0 20px;
+}
+
+.footer-logged-out a:hover {
+  color: #000;
+}
+
+.footer-tech-stack {
+  display: block;
+  padding: 20px;
+  padding-top: 0;
+}
+
+/* if an user is logged in */
+
 .footer {
   display: flex;
   justify-content: space-between;
