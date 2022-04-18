@@ -22,15 +22,15 @@ function App() {
   // if no user is logged in
   if (!user) {
     return (
-      <div>
+      <>
         <NavBar user={user} setUser={setUser} />
         <Switch>
           <Route exact path='/'>
             <Signup setUser={setUser} />
           </Route>
         </Switch>
-        <Footer />
-      </div>
+        <Footer user={user} />
+      </>
     );
   }
 
@@ -49,7 +49,7 @@ function App() {
           <UserProfile user={user} setUser={setUser} />
         </Route>
       </Switch>
-      <Footer />
+      <Footer user={user} />
     </>
   );
 }
