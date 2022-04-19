@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
+import blankProfilePicture from '../images/blank_profile_picture.png';
 
 function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredPost, setArbitraryUserWrapperToAddNewWallPost, arbitraryUser}) {
 
@@ -54,7 +55,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
     <form onSubmit={submitPostFormDataHandler} className='form-to-submit-post'>
       <Link to={`/users/${user.id}`} title={user.first_name} className='thumb'>
         <img
-          src={user.profile_picture_url}
+          src={!user.profile_picture_url ? blankProfilePicture : user.profile_picture_url}
           alt=''
         />
       </Link>
