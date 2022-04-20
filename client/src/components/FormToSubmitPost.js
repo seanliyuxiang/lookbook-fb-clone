@@ -51,6 +51,13 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
     postFormData.body = '';
   }
 
+  function cancelPostFormDataHandler() {
+    setPostFormData({
+      ...postFormData,
+      body: ''
+    });
+  }
+
   return (
     <form onSubmit={submitPostFormDataHandler} className='form-to-submit-post'>
       <Link to={`/users/${user.id}`} title={user.first_name} className='thumb'>
@@ -78,7 +85,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         <input type='file' name='post_photo' />
         <div className='form-to-submit-post-submit'>
           <button>Post to Wall</button>
-          <span className='btn-alternative'>or <strong>Cancel</strong></span>
+          <span className='btn-alternative'>or <strong onClick={cancelPostFormDataHandler}>Cancel</strong></span>
         </div>
       </fieldset>
     </form>
