@@ -15,6 +15,7 @@ import './styles/sidebar.css';
 import './styles/thumbs.css';
 import './styles/FormToSubmitPost.css';
 import './styles/posts.css';
+import './styles/FormToEditPost.css';
 import './styles/comments.css';
 import './styles/FormToSubmitComment.css';
 import './styles/HomeFeed.css';

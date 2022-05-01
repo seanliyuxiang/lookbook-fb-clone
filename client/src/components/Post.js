@@ -45,15 +45,19 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
 
   if (isEditingPost) {
     return (
-      <div>
         <FormToEditPost
           post={post}
           setArbitraryUserWrapperToUpdateWallPost={setArbitraryUserWrapperToUpdateWallPost}
           setIsEditingPost={setIsEditingPost}
           setFriendsAuthoredPostsWrapperToUpdateAuthoredPost={setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}
+          user={user}
+          postsLikes={postsLikes}
+          isPostLiked={isPostLiked}
+          toggleLikePostHandler={toggleLikePostHandler}
+          editPostHandler={editPostHandler}
+          postsCommentsArrJSX={postsCommentsArrJSX}
+          setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment}
         />
-        {postsCommentsArrJSX}
-      </div>
     );
   }
 
@@ -82,7 +86,13 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
     setIsEditingPost(!isEditingPost);
   }
 
-  function toggleLikePostHandler() {
+  function toggleLikePostHandler(event) {
+    /*
+    to prevent invoking `submitEditedPostFormDataHandler` function, use
+    `stopPropagation()`, `stopImmediatePropagation()`, or `preventDefault()` method here?
+    */
+    event.preventDefault();
+
     if (!isPostLiked) { // if post is NOT already liked, create a like
       fetch('/api/likes', {
         method: 'POST',
