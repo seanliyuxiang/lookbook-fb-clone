@@ -13,6 +13,7 @@ function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment, se
         postsComment={postsComment}
         setPostsCommentsWrapperToUpdateComment={setPostsCommentsWrapperToUpdateComment}
         setIsEditingComment={setIsEditingComment}
+        editCommentHandler={editCommentHandler}
       />
     );
   }

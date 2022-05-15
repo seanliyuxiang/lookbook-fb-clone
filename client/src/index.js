@@ -17,6 +17,7 @@ import './styles/FormToSubmitPost.css';
 import './styles/posts.css';
 import './styles/FormToEditPost.css';
 import './styles/comments.css';
+import './styles/FormToEditComment.css';
 import './styles/FormToSubmitComment.css';
 import './styles/HomeFeed.css';
 import './styles/SearchLookbook.css';
