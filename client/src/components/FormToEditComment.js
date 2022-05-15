@@ -1,6 +1,8 @@
 import {useState} from 'react';
+import {Link} from 'react-router-dom';
+import blankProfilePicture from '../images/blank_profile_picture.png';
 
-function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment, setIsEditingComment}) {
+function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment, setIsEditingComment, editCommentHandler}) {
 
   const [editedCommentFormData, setEditedCommentFormData] = useState({
     body: postsComment.body
@@ -34,18 +36,35 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
   }
 
   return (
-    <div>
-      <h1>coming from FormToEditComment.js</h1>
-      <form onSubmit={submitEditedCommentFormDataHandler}>
-        <input
-          type='text'
-          name='body'
-          value={editedCommentFormData.body}
-          onChange={changeEditedCommentFormDataHandler}
+    <article className='comment'>
+      <Link to={`/users/${postsComment.author_id}`} title={postsComment.author.first_name} className='thumb'>
+        <img
+          src={!postsComment.author.profile_picture_url ? blankProfilePicture : postsComment.author.profile_picture_url}
+          alt=''
         />
-        <button>Save</button>
-      </form>
-    </div>
+      </Link>
+      <div className='comment-body'>
+        <h2>
+          <Link to={`/users/${postsComment.author.id}`}>
+            {`${postsComment.author.first_name} ${postsComment.author.last_name}`}
+          </Link>
+        </h2>
+        <form onSubmit={submitEditedCommentFormDataHandler}>
+          <input
+            type='text'
+            name='body'
+            value={editedCommentFormData.body}
+            onChange={changeEditedCommentFormDataHandler}
+          />
+          <footer className='comment-footer'>
+            <ul className='comment-footer-tools'>
+              <li><button onClick={editCommentHandler}>Cancel</button></li>
+              <li><button>Save</button></li>
+            </ul>
+          </footer>
+        </form>
+      </div>
+    </article>
   );
 }
 
