@@ -33,7 +33,9 @@
 }
 
 .profile-nav a {
-  display: block;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
   padding: 5px;
   font-weight: 700;
 }
