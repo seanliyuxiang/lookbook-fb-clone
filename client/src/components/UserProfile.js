@@ -4,6 +4,10 @@ import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
 import blankCoverPhoto from '../images/blank_cover_photo.png';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import SmsIcon from '@mui/icons-material/Sms';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import GroupsIcon from '@mui/icons-material/Groups';
+import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 
 function UserProfile({user, setUser}) {
 
@@ -255,10 +259,10 @@ function UserProfile({user, setUser}) {
           </p>
         </div>
         <ul className='profile-nav'>
-          <li><a href=''>Wall</a></li>
-          <li><a href=''>About</a></li>
-          <li><a href=''>Friends</a></li>
-          <li><a href=''>Photos</a></li>
+          <li><a href=''><SmsIcon />Wall</a></li>
+          <li><a href=''><AccountBoxIcon />About</a></li>
+          <li><a href=''><GroupsIcon />Friends</a></li>
+          <li><a href=''><PhotoLibraryIcon />Photos</a></li>
         </ul>
         <ul className='profile-friends'>
           {arbitraryUsersFriendsArrJSX}
