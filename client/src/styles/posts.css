@@ -29,3 +29,14 @@
   display: flex;
   justify-content: space-between;
 }
+
+.post-footer-tools button {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.post-body > p.total-likes {
+  color: rgb(65, 89, 147);
+  margin-top: 5px;
+}

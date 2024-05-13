@@ -4,6 +4,9 @@ import FormToSubmitComment from './FormToSubmitComment';
 import {useState} from 'react';
 import FormToEditPost from './FormToEditPost';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import ThumbUpIconOutlined from '@mui/icons-material/ThumbUpOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAuthoredPostsWrapperToRemoveAuthoredPost, setArbitraryUserWrapperToUpdateWallPost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}) {
 
@@ -150,7 +153,19 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
         : null}
         <footer className='post-footer'>
           <ul className='post-footer-tools'>
-            <li><button onClick={toggleLikePostHandler}>{isPostLiked ? 'Liked' : 'Not liked'}</button></li>
+            <li>
+              <button onClick={toggleLikePostHandler} style={{color: isPostLiked ? 'rgb(65, 89, 147)' : undefined}}>
+                {isPostLiked ?
+                  <>
+                    <ThumbUpIcon />
+                    Liked
+                  </>
+                : <>
+                  <ThumbUpIconOutlined />
+                  Like
+                </>}
+              </button>
+            </li>
             <li>Comment</li>
             {post.author_id === user.id ?
               <>
@@ -160,7 +175,11 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
             : null}
           </ul>
         </footer>
-        <p>{postsLikes.length > 1 ? `${postsLikes.length} Likes` : (postsLikes.length === 1 ? '1 Like' : null)}</p> {/* ternary within a ternary */}
+        {postsLikes.length >= 1 &&
+          <p className='total-likes'>
+            {`${postsLikes.length} Like${postsLikes.length === 1 ? '' : 's'}`}
+          </p>
+        }
         <div className='comments'>
           {postsCommentsArrJSX}
         </div>
