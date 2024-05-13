@@ -234,7 +234,7 @@ function UserProfile({user, setUser}) {
 
   return (
     <main className='content'>
-      <header className='content-header' style={{ background: `url(${!arbitraryUser.cover_photo_url ? blankCoverPhoto : arbitraryUser.cover_photo_url})`}}>
+      <header className='content-header' style={{ backgroundImage: `url(${!arbitraryUser.cover_photo_url ? blankCoverPhoto : arbitraryUser.cover_photo_url})`}}>
         <h1>{`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
         {arbitraryUser.id === user.id ?
           <form onSubmit={submitCoverPhotoHandler}>
