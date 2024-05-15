@@ -5,6 +5,8 @@ import {useState} from 'react';
 import FormToEditPost from './FormToEditPost';
 import blankProfilePicture from '../images/blank_profile_picture.png';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpIconOutlined from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
@@ -142,11 +144,20 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
         />
       </Link>
       <div className='post-body'>
-        <h2>
-          <Link to={`/users/${post.author.id}`}>
-            {`${post.author.first_name} ${post.author.last_name}`}
-          </Link>
-        </h2>
+        <div className='post-body-top-section'>
+          <h2>
+            <Link to={`/users/${post.author.id}`}>
+              {`${post.author.first_name} ${post.author.last_name}`}
+            </Link>
+          </h2>
+          <div className='post-dropdown'>
+            <MoreHorizIcon className='post-dropdown-icon' />
+            <ul className='post-dropdown-list'>
+              <li><button><EditIcon />Edit</button></li>
+              <li><button><DeleteIcon />Delete</button></li>
+            </ul>
+          </div>
+        </div>
         <p>{post.body}</p>
         {post.post_photo_url ?
           <img src={post.post_photo_url} alt='' />
