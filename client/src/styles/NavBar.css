@@ -40,6 +40,7 @@ body {
 .header-nav {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin: 0 auto;
   width: 900px;
   border-left: 1px solid #ccc;
@@ -57,6 +58,7 @@ body {
 
 .header-list {
   display: flex;
+  align-items: center;
 }
 
 .header-list > li {
@@ -67,10 +69,9 @@ body {
   background: rgb(40,73,125);
 }
 
-.header-list > li:nth-child(2) {
-  padding: 10px 20px;
-}
-
 .header-list button {
   padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
 }

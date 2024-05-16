@@ -9,6 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpIconOutlined from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import CommentIcon from '@mui/icons-material/Comment';
 
 function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAuthoredPostsWrapperToRemoveAuthoredPost, setArbitraryUserWrapperToUpdateWallPost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}) {
 
@@ -153,7 +154,7 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
             </Link>
           </h2>
           {/*
-            only allow post to be deleted by the user 
+            only allow post to be edited/deleted by the user 
             if post's author is the user 
             or post is on the user's wall
           */}
@@ -186,11 +187,12 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
                 </>}
               </button>
             </li>
-            <li>Comment</li>
+            <li><button><CommentIcon />Comment</button></li>
           </ul>
         </footer>
         {postsLikes.length >= 1 &&
           <p className='total-likes'>
+            <ThumbUpIcon fontSize='small' />
             {`${postsLikes.length} Like${postsLikes.length === 1 ? '' : 's'}`}
           </p>
         }

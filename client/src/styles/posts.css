@@ -83,4 +83,7 @@
 .post-body > p.total-likes {
   color: rgb(65, 89, 147);
   margin-top: 5px;
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
 }

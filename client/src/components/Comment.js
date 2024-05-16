@@ -2,6 +2,8 @@ import {Link} from 'react-router-dom';
 import {useState} from 'react';
 import FormToEditComment from './FormToEditComment';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment, setPostsCommentsWrapperToUpdateComment}) {
 
@@ -52,8 +54,8 @@ function Comment({postsComment, user, setPostsCommentsWrapperToRemoveComment, se
           <ul className='comment-footer-tools'>
             {postsComment.author_id === user.id ?
               <>
-                <li><button onClick={deleteCommentHandler}>Delete</button></li>
-                <li><button onClick={editCommentHandler}>Edit</button></li>
+                <li><button onClick={editCommentHandler}><EditIcon />Edit</button></li>
+                <li><button onClick={deleteCommentHandler}><DeleteIcon />Delete</button></li>
               </>
             : null}
           </ul>
