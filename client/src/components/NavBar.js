@@ -1,6 +1,8 @@
 import Login from './Login';
 import {Link, useHistory} from 'react-router-dom';
 import SearchLookbook from './SearchLookbook';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function NavBar({user, setUser}) {
 
@@ -51,8 +53,8 @@ function NavBar({user, setUser}) {
               {user.first_name}
             </Link>
           </li>
-          <li>Notifications</li>
-          <li><button onClick={logoutHandler}>Logout</button></li>
+          <li><button><NotificationsIcon />Notifications</button></li>
+          <li><button onClick={logoutHandler}><LogoutIcon />Logout</button></li>
         </ul>
       </nav>
     </header>
