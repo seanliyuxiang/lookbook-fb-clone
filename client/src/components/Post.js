@@ -1,10 +1,12 @@
 import Comment from './Comment';
-import {Link} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import FormToSubmitComment from './FormToSubmitComment';
 import {useState} from 'react';
 import FormToEditPost from './FormToEditPost';
 import blankProfilePicture from '../images/blank_profile_picture.png';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpIconOutlined from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
@@ -15,6 +17,8 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
   
   const [postsLikes, setPostsLikes] = useState(post.likes);
   const isPostLiked = postsLikes.map(like => like.liker_id).includes(user.id);
+
+  const params = useParams();
 
   function setPostsCommentsWrapperToRemoveComment(deletedComment) {
     setPostsComments(postsComments.filter(
@@ -142,11 +146,27 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
         />
       </Link>
       <div className='post-body'>
-        <h2>
-          <Link to={`/users/${post.author.id}`}>
-            {`${post.author.first_name} ${post.author.last_name}`}
-          </Link>
-        </h2>
+        <div className='post-body-top-section'>
+          <h2>
+            <Link to={`/users/${post.author.id}`}>
+              {`${post.author.first_name} ${post.author.last_name}`}
+            </Link>
+          </h2>
+          {/*
+            only allow post to be deleted by the user 
+            if post's author is the user 
+            or post is on the user's wall
+          */}
+          {(post.author_id === user.id || Number(params.id) === user.id) &&
+            <div className='post-dropdown'>
+              <MoreHorizIcon className='post-dropdown-icon' />
+              <ul className='post-dropdown-list'>
+                <li><button onClick={editPostHandler}><EditIcon />Edit</button></li>
+                <li><button onClick={deletePostHandler}><DeleteIcon />Delete</button></li>
+              </ul>
+            </div>
+          }
+        </div>
         <p>{post.body}</p>
         {post.post_photo_url ?
           <img src={post.post_photo_url} alt='' />
@@ -167,12 +187,6 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
               </button>
             </li>
             <li>Comment</li>
-            {post.author_id === user.id ?
-              <>
-                <li><button onClick={deletePostHandler}>Delete</button></li>
-                <li><button onClick={editPostHandler}>Edit</button></li>
-              </>
-            : null}
           </ul>
         </footer>
         {postsLikes.length >= 1 &&
