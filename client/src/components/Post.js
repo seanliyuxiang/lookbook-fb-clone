@@ -1,5 +1,5 @@
 import Comment from './Comment';
-import {Link} from 'react-router-dom';
+import {useParams, Link} from 'react-router-dom';
 import FormToSubmitComment from './FormToSubmitComment';
 import {useState} from 'react';
 import FormToEditPost from './FormToEditPost';
@@ -17,6 +17,8 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
   
   const [postsLikes, setPostsLikes] = useState(post.likes);
   const isPostLiked = postsLikes.map(like => like.liker_id).includes(user.id);
+
+  const params = useParams();
 
   function setPostsCommentsWrapperToRemoveComment(deletedComment) {
     setPostsComments(postsComments.filter(
@@ -150,13 +152,20 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
               {`${post.author.first_name} ${post.author.last_name}`}
             </Link>
           </h2>
-          <div className='post-dropdown'>
-            <MoreHorizIcon className='post-dropdown-icon' />
-            <ul className='post-dropdown-list'>
-              <li><button><EditIcon />Edit</button></li>
-              <li><button><DeleteIcon />Delete</button></li>
-            </ul>
-          </div>
+          {/*
+            only allow post to be deleted by the user 
+            if post's author is the user 
+            or post is on the user's wall
+          */}
+          {(post.author_id === user.id || Number(params.id) === user.id) &&
+            <div className='post-dropdown'>
+              <MoreHorizIcon className='post-dropdown-icon' />
+              <ul className='post-dropdown-list'>
+                <li><button onClick={editPostHandler}><EditIcon />Edit</button></li>
+                <li><button onClick={deletePostHandler}><DeleteIcon />Delete</button></li>
+              </ul>
+            </div>
+          }
         </div>
         <p>{post.body}</p>
         {post.post_photo_url ?
@@ -178,12 +187,6 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
               </button>
             </li>
             <li>Comment</li>
-            {post.author_id === user.id ?
-              <>
-                <li><button onClick={deletePostHandler}>Delete</button></li>
-                <li><button onClick={editPostHandler}>Edit</button></li>
-              </>
-            : null}
           </ul>
         </footer>
         {postsLikes.length >= 1 &&
