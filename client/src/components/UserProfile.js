@@ -232,7 +232,7 @@ function UserProfile({user, setUser}) {
 
   function openCoverPhotoFilePickerHandler() {
     // using `click()` method to open the file picker of hidden file input element
-    coverPhotoFileInputRef.click();
+    coverPhotoFileInputRef.current.click();
   }
 
   return (
