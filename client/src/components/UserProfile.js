@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {useParams, Link} from 'react-router-dom';
 import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
@@ -13,6 +13,8 @@ function UserProfile({user, setUser}) {
 
   const [arbitraryUser, setArbitraryUser] = useState(null);
   const params = useParams();
+
+  const coverPhotoFileInputRef = useRef(null);
 
   useEffect(() => {
     fetch(`/api/users/${params.id}`)
@@ -209,17 +211,13 @@ function UserProfile({user, setUser}) {
     });
   }
 
-  function submitCoverPhotoHandler(event) {
-    event.preventDefault();
-
+  function changeCoverPhotoFileInputHandler(event) {
     /*
     when calling the `.append` method,
     don't nest the key under `user` because strong params is not required in the backend
     */
     const coverPhoto = new FormData();
-    if (event.target.cover_photo.files.length > 0) {  // if there is file attached
-      coverPhoto.append('cover_photo', event.target.cover_photo.files[0], event.target.cover_photo.value);
-    }
+    coverPhoto.append('cover_photo', event.target.files[0], event.target.value);
 
     fetch(`/api/users/${arbitraryUser.id}/attach_new_cover_photo`, {
       method: 'POST',
@@ -232,17 +230,32 @@ function UserProfile({user, setUser}) {
     });
   }
 
+  function openCoverPhotoFilePickerHandler() {
+    // using `click()` method to open the file picker of hidden file input element
+    coverPhotoFileInputRef.click();
+  }
+
   return (
     <main className='content'>
       <header className='content-header' style={{ backgroundImage: `url(${!arbitraryUser.cover_photo_url ? blankCoverPhoto : arbitraryUser.cover_photo_url})`}}>
         <h1>{`${arbitraryUser.first_name} ${arbitraryUser.last_name}`}</h1>
         {arbitraryUser.id === user.id ?
-          <form onSubmit={submitCoverPhotoHandler}>
+          <>
             {/* file input is currently not set up as controlled form,
             need to change it in the future if want to have image preview */}
-            <input type='file' name='cover_photo' />
-            <button className='content-header-btn'>Add Cover Photo</button>
-          </form>
+            <input
+              ref={coverPhotoFileInputRef}
+              type='file'
+              name='cover_photo'
+              onChange={changeCoverPhotoFileInputHandler}
+            />
+            <button
+              className='content-header-btn'
+              onClick={openCoverPhotoFilePickerHandler}
+            >
+              Add Cover Photo
+            </button>
+          </>
           : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button onClick={deleteFriendshipHandler} className='content-header-btn'>Friends</button> : <button onClick={addFriendshipHandler} className='content-header-btn'>Add Friend</button>)}  {/* ternary within a ternary */}
       </header>
 
