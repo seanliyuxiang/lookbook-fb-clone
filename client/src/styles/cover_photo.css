@@ -27,6 +27,9 @@
   padding: 10px 20px;
   border: 1px solid #000;
   border-radius: 5px;
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
 }
 
 .content-header-btn:hover {

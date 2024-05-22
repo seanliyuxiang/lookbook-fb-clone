@@ -4,6 +4,7 @@ import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
 import blankCoverPhoto from '../images/blank_cover_photo.png';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import SmsIcon from '@mui/icons-material/Sms';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import GroupsIcon from '@mui/icons-material/Groups';
@@ -253,6 +254,7 @@ function UserProfile({user, setUser}) {
               className='content-header-btn'
               onClick={openCoverPhotoFilePickerHandler}
             >
+              <PhotoCameraIcon />
               Add Cover Photo
             </button>
           </>
