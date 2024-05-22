@@ -262,11 +262,15 @@ function UserProfile({user, setUser}) {
       </header>
 
       <section className='content-sidebar'>
-        <img
-          src={!arbitraryUser.profile_picture_url ? blankProfilePicture : arbitraryUser.profile_picture_url}
-          alt=''
-          className='profile-picture'
-        />
+        <div className='profile-picture'>
+          <img
+            src={!arbitraryUser.profile_picture_url ? blankProfilePicture : arbitraryUser.profile_picture_url}
+            alt=''
+          />
+          <button>
+            <PhotoCameraIcon />
+          </button>
+        </div>
         <div className='profile-info'>
           <h2>{arbitraryUser.first_name}</h2>
           <p>
