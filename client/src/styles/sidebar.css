@@ -7,6 +7,27 @@
   position: relative;
 }
 
+.profile-picture > img {
+  border-radius: 5px;
+}
+
+.profile-picture > button {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: -12px;
+  right: -12px;
+  background-color: #eee;
+  border-radius: 50%;
+}
+
+.profile-picture > button:hover {
+  background-color: #ccc;
+}
+
 .profile-info {
   margin: 20px 0;
 }
