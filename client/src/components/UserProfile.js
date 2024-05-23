@@ -16,6 +16,7 @@ function UserProfile({user, setUser}) {
   const params = useParams();
 
   const coverPhotoFileInputRef = useRef(null);
+  const profilePictureFileInputRef = useRef(null);
 
   useEffect(() => {
     fetch(`/api/users/${params.id}`)
@@ -189,29 +190,6 @@ function UserProfile({user, setUser}) {
     });
   }
 
-  function submitProfilePictureHandler(event) {
-    event.preventDefault();
-
-    /*
-    when calling the `.append` method,
-    don't nest the key under `user` because strong params is not required in the backend
-    */
-    const profilePicture = new FormData();
-    if (event.target.profile_picture.files.length > 0) {  // if there is file attached
-      profilePicture.append('profile_picture', event.target.profile_picture.files[0], event.target.profile_picture.value);
-    }
-
-    fetch(`/api/users/${arbitraryUser.id}/attach_new_profile_picture`, {
-      method: 'POST',
-      body: profilePicture
-    })
-    .then(response => response.json())
-    .then(user => {
-      setArbitraryUser(user);
-      setUser(user);
-    });
-  }
-
   function changeCoverPhotoFileInputHandler(event) {
     /*
     when calling the `.append` method,
@@ -234,6 +212,30 @@ function UserProfile({user, setUser}) {
   function openCoverPhotoFilePickerHandler() {
     // using `click()` method to open the file picker of hidden file input element
     coverPhotoFileInputRef.current.click();
+  }
+
+  function changeProfilePictureFileInputHandler(event) {
+    /*
+    when calling the `.append` method,
+    don't nest the key under `user` because strong params is not required in the backend
+    */
+    const profilePicture = new FormData();
+    profilePicture.append('profile_picture', event.target.files[0], event.target.value);
+
+    fetch(`/api/users/${arbitraryUser.id}/attach_new_profile_picture`, {
+      method: 'POST',
+      body: profilePicture
+    })
+    .then(response => response.json())
+    .then(user => {
+      setArbitraryUser(user);
+      setUser(user);
+    });
+  }
+
+  function openProfilePictureFilePickerHandler() {
+    // using `click()` method to open the file picker of hidden file input element
+    profilePictureFileInputRef.current.click();
   }
 
   return (
@@ -267,7 +269,15 @@ function UserProfile({user, setUser}) {
             src={!arbitraryUser.profile_picture_url ? blankProfilePicture : arbitraryUser.profile_picture_url}
             alt=''
           />
-          <button>
+          {/* file input is currently not set up as controlled form,
+          need to change it in the future if want to have image preview */}
+          <input
+            ref={profilePictureFileInputRef}
+            type='file'
+            name='profile_picture'
+            onChange={changeProfilePictureFileInputHandler}
+          />
+          <button onClick={openProfilePictureFilePickerHandler}>
             <PhotoCameraIcon />
           </button>
         </div>
@@ -289,14 +299,6 @@ function UserProfile({user, setUser}) {
       </section>
 
       <section className='content-main'>
-        {arbitraryUser.id === user.id ?
-          <form onSubmit={submitProfilePictureHandler}>
-            {/* file input is currently not set up as controlled form,
-            need to change it in the future if want to have image preview */}
-            <input type='file' name='profile_picture' />
-            <button>Update Profile Picture</button>
-          </form>
-        : null}
         {((arbitraryUser.id !== user.id) && (!arbitraryUser.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend_id).includes(user.id))) ?
           null
         : <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewWallPost={setArbitraryUserWrapperToAddNewWallPost} arbitraryUser={arbitraryUser} />}
