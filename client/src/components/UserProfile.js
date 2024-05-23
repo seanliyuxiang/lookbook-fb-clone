@@ -211,6 +211,7 @@ function UserProfile({user, setUser}) {
 
   function openCoverPhotoFilePickerHandler() {
     // using `click()` method to open the file picker of hidden file input element
+    // could possibly be refactored together with `openProfilePictureFilePickerHandler` function to be more DRY
     coverPhotoFileInputRef.current.click();
   }
 
@@ -235,6 +236,7 @@ function UserProfile({user, setUser}) {
 
   function openProfilePictureFilePickerHandler() {
     // using `click()` method to open the file picker of hidden file input element
+    // could possibly be refactored together with `openCoverPhotoFilePickerHandler` function to be more DRY
     profilePictureFileInputRef.current.click();
   }
 
