@@ -11,6 +11,10 @@
   border-radius: 5px;
 }
 
+.profile-picture > input[type="file"] {
+  display: none;
+}
+
 .profile-picture > button {
   width: 36px;
   height: 36px;
