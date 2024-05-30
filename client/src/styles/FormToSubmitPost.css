@@ -29,6 +29,22 @@
   border-color: rgb(40, 73, 125);
 }
 
+.form-to-submit-post-fieldset > input[type="file"] {
+  display: none;
+}
+
+.form-to-submit-post-file {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.form-to-submit-post-file > button {
+  display: flex;
+  align-items: flex-end;
+  column-gap: 5px;
+}
+
 .form-to-submit-post-submit {
   margin: 20px 0 0 0;
   padding: 0 0 3px 0;
