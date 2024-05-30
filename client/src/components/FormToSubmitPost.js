@@ -1,6 +1,7 @@
-import {useState} from 'react';
+import {useState, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 
 function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredPost, setArbitraryUserWrapperToAddNewWallPost, arbitraryUser}) {
 
@@ -8,6 +9,10 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
     author_id: user.id,
     body: ''
   });
+
+  const [fileName, setFileName] = useState(null);
+
+  const postAttachmentFileInputRef = useRef(null);
 
   function changePostFormDataHandler(event) {
     setPostFormData({
@@ -23,17 +28,17 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
     when calling the `.append` method,
     don't nest the keys under `post` because strong params is not required in the backend
     */
-    const postFormDataWithImage = new FormData();
-    postFormDataWithImage.append('author_id', postFormData.author_id);
-    postFormDataWithImage.append('body', postFormData.body);
-    postFormDataWithImage.append('recipient_id', (!arbitraryUser ? user.id : arbitraryUser.id));
+    const postFormDataWithFile = new FormData();
+    postFormDataWithFile.append('author_id', postFormData.author_id);
+    postFormDataWithFile.append('body', postFormData.body);
+    postFormDataWithFile.append('recipient_id', (!arbitraryUser ? user.id : arbitraryUser.id));
     if (event.target.post_photo.files.length > 0) { // if there is file attached
-      postFormDataWithImage.append('post_photo', event.target.post_photo.files[0], event.target.post_photo.value);
+      postFormDataWithFile.append('post_photo', event.target.post_photo.files[0], event.target.post_photo.value);
     }
 
     fetch('/api/posts', {
       method: 'POST',
-      body: postFormDataWithImage
+      body: postFormDataWithFile
     })
     .then(response => response.json())
     .then(post => {
@@ -56,6 +61,14 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
       ...postFormData,
       body: ''
     });
+  }
+
+  function changePostAttachmentFileInputHandler(event) {
+    setFileName(event.target.files[0].name);
+  }
+
+  function openPostAttachmentFilePickerHandler() {
+    postAttachmentFileInputRef.current.click();
   }
 
   return (
@@ -82,7 +95,22 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         </div>
         {/* file input is currently not set up as controlled form,
         need to change it in the future if want to have image preview */}
-        <input type='file' name='post_photo' />
+        <input
+          ref={postAttachmentFileInputRef}
+          type='file'
+          name='post_photo'
+          onChange={changePostAttachmentFileInputHandler}
+        />
+        <div className='form-to-submit-post-file'>
+          <button
+            type='button'
+            onClick={openPostAttachmentFilePickerHandler}
+          >
+            <AddAPhotoIcon />
+            Photo/Video
+          </button>
+          {fileName && <p>{fileName}</p>}
+        </div>
         <div className='form-to-submit-post-submit'>
           <button>Post to Wall</button>
           <span className='btn-alternative'>or <strong onClick={cancelPostFormDataHandler}>Cancel</strong></span>
