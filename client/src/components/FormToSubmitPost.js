@@ -64,7 +64,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
   }
 
   function changePostAttachmentFileInputHandler(event) {
-    setFileName(event.target.files[0].name);
+    setFileName(event.target.files[0]?.name);
   }
 
   function openPostAttachmentFilePickerHandler() {
