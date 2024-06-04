@@ -2,6 +2,9 @@ import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import blankProfilePicture from '../images/blank_profile_picture.png';
 import FormToSubmitComment from './FormToSubmitComment';
+import ThumbUpIconOutlined from '@mui/icons-material/ThumbUpOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import CommentIcon from '@mui/icons-material/Comment';
 
 function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEditingPost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost, user, postsLikes, isPostLiked, toggleLikePostHandler, editPostHandler, postsCommentsArrJSX, setPostsCommentsWrapperToAddNewComment}) {
 
@@ -66,14 +69,29 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
           : null}
           <footer className='post-footer'>
             <ul className='post-footer-tools'>
-              <li><button onClick={toggleLikePostHandler}>{isPostLiked ? 'Liked' : 'Not liked'}</button></li>
-              <li>Comment</li>
-              <li><button onClick={editPostHandler}>Cancel</button></li>
-              <li><button>Save</button></li>
+              <li>
+                <button onClick={toggleLikePostHandler} style={{color: isPostLiked ? 'rgb(65, 89, 147)' : undefined}}>
+                  {isPostLiked ?
+                    <>
+                      <ThumbUpIcon />
+                      Liked
+                    </>
+                  : <>
+                    <ThumbUpIconOutlined />
+                    Like
+                  </>}
+                </button>
+              </li>
+              <li><button><CommentIcon />Comment</button></li>
             </ul>
           </footer>
         </form>
-        <p>{postsLikes.length > 1 ? `${postsLikes.length} Likes` : (postsLikes.length === 1 ? '1 Like' : null)}</p> {/* ternary within a ternary */}
+        {postsLikes.length >= 1 &&
+          <p className='total-likes'>
+            <ThumbUpIcon fontSize='small' />
+            {`${postsLikes.length} Like${postsLikes.length === 1 ? '' : 's'}`}
+          </p>
+        }
         <div className='comments'>
           {postsCommentsArrJSX}
         </div>
