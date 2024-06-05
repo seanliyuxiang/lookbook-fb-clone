@@ -1,3 +1,25 @@
-.post-body > form > input {
+.post-body > form > div {
   margin: 0 0 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 40px;
+}
+
+.post-body > form > div > input {
+  flex-grow: 1;
+  display: block;
+  background: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.post-body > form > div > input:focus {
+  border-color: rgb(40, 73, 125);
+}
+
+.post-body-edit-tools {
+  display: flex;
+  column-gap: 5px;
 }
