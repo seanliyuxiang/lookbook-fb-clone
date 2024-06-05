@@ -2,6 +2,9 @@ import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import blankProfilePicture from '../images/blank_profile_picture.png';
 import FormToSubmitComment from './FormToSubmitComment';
+import Tooltip from '@mui/material/Tooltip';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import ThumbUpIconOutlined from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
@@ -58,12 +61,26 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
           </Link>
         </h2>
         <form onSubmit={submitEditedPostFormDataHandler}>
-          <input
-            type='text'
-            name='body'
-            value={editedPostFormData.body}
-            onChange={changeEditedPostFormDataHandler}
-          />
+          <div>
+            <input
+              type='text'
+              name='body'
+              value={editedPostFormData.body}
+              onChange={changeEditedPostFormDataHandler}
+            />
+            <div className='post-body-edit-tools'>
+              <Tooltip title='Cancel' arrow>
+                <button onClick={editPostHandler}>
+                  <CancelIcon />
+                </button>
+              </Tooltip>
+              <Tooltip title='Save' arrow>
+                <button>
+                  <SaveAltIcon />
+                </button>
+              </Tooltip>
+            </div>
+          </div>
           {post.post_photo_url ?
             <img src={post.post_photo_url} alt='' />
           : null}
