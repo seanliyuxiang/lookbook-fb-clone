@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import blankProfilePicture from '../images/blank_profile_picture.png';
 import FormToSubmitComment from './FormToSubmitComment';
@@ -14,6 +14,17 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
   const [editedPostFormData, setEditedPostFormData] = useState({
     body: post.body
   });
+
+  /*
+  https://react.dev/learn/synchronizing-with-effects#focus-a-field-on-mount
+  In this case, the side effect is caused by the component appearing rather than by any specific interaction, so it makes sense to put it in an Effect.
+  Then, to ensure that this Effect runs only on mount rather than after every render, add the empty [] dependencies to it.
+  */
+  const postBodyTextInputRef = useRef(null);
+  
+  useEffect(() => {
+    postBodyTextInputRef.current.focus();
+  }, []);
 
   function changeEditedPostFormDataHandler(event) {
     setEditedPostFormData({
@@ -63,6 +74,7 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
         <form onSubmit={submitEditedPostFormDataHandler}>
           <div>
             <input
+              ref={postBodyTextInputRef}
               type='text'
               name='body'
               value={editedPostFormData.body}
