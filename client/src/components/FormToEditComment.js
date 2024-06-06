@@ -1,12 +1,25 @@
-import {useState} from 'react';
+import {useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import CancelIcon from '@mui/icons-material/Cancel';
+import SaveAltIcon from '@mui/icons-material/SaveAlt';
 
 function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment, setIsEditingComment, editCommentHandler}) {
 
   const [editedCommentFormData, setEditedCommentFormData] = useState({
     body: postsComment.body
   });
+
+  /*
+  https://react.dev/learn/synchronizing-with-effects#focus-a-field-on-mount
+  In this case, the side effect is caused by the component appearing rather than by any specific interaction, so it makes sense to put it in an Effect.
+  Then, to ensure that this Effect runs only on mount rather than after every render, add the empty [] dependencies to it.
+  */
+  const commentBodyTextInputRef = useRef(null);
+
+  useEffect(() => {
+    commentBodyTextInputRef.current.focus();
+  }, []);
 
   function changeEditedCommentFormDataHandler(event) {
     setEditedCommentFormData({
@@ -51,6 +64,7 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
         </h2>
         <form onSubmit={submitEditedCommentFormDataHandler}>
           <input
+            ref={commentBodyTextInputRef}
             type='text'
             name='body'
             value={editedCommentFormData.body}
@@ -58,8 +72,8 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
           />
           <footer className='comment-footer'>
             <ul className='comment-footer-tools'>
-              <li><button onClick={editCommentHandler}>Cancel</button></li>
-              <li><button>Save</button></li>
+              <li><button onClick={editCommentHandler}><CancelIcon />Cancel</button></li>
+              <li><button><SaveAltIcon />Save</button></li>
             </ul>
           </footer>
         </form>
