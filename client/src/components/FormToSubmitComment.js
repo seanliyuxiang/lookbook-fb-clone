@@ -1,6 +1,7 @@
-import {useState} from 'react';
+import {useState, forwardRef} from 'react';
 
-function FormToSubmitComment({post, user, setPostsCommentsWrapperToAddNewComment}) {
+// https://react.dev/reference/react/forwardRef#usage
+const FormToSubmitComment = forwardRef(function FormToSubmitComment({post, user, setPostsCommentsWrapperToAddNewComment}, ref) {
 
   const [commentFormData, setCommentFormData] = useState({
     author_id: user.id,
@@ -40,6 +41,7 @@ function FormToSubmitComment({post, user, setPostsCommentsWrapperToAddNewComment
       <fieldset className='form-to-submit-comment-fieldset'>
         <div className='form-to-submit-comment-input'>
           <input
+            ref={ref}
             type='text'
             name='body'
             placeholder='Write a comment...'
@@ -50,6 +52,6 @@ function FormToSubmitComment({post, user, setPostsCommentsWrapperToAddNewComment
       </fieldset>
     </form>
   );
-}
+});
 
 export default FormToSubmitComment;
