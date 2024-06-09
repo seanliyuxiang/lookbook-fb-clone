@@ -1,7 +1,7 @@
 import Comment from './Comment';
 import {useParams, Link} from 'react-router-dom';
 import FormToSubmitComment from './FormToSubmitComment';
-import {useState} from 'react';
+import {useState, useRef} from 'react';
 import FormToEditPost from './FormToEditPost';
 import blankProfilePicture from '../images/blank_profile_picture.png';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -18,6 +18,8 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
   
   const [postsLikes, setPostsLikes] = useState(post.likes);
   const isPostLiked = postsLikes.map(like => like.liker_id).includes(user.id);
+
+  const commentTextInputRef = useRef(null);
 
   const params = useParams();
 
@@ -138,6 +140,10 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
     }
   }
 
+  function clickCommentPostButtonHandler() {
+    commentTextInputRef.current.focus();
+  }
+
   return (
     <article className='post'>
       <Link to={`/users/${post.author_id}`} title={post.author.first_name} className='thumb'>
@@ -187,7 +193,12 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
                 </>}
               </button>
             </li>
-            <li><button><CommentIcon />Comment</button></li>
+            <li>
+              <button onClick={clickCommentPostButtonHandler}>
+                <CommentIcon />
+                Comment
+              </button>
+            </li>
           </ul>
         </footer>
         {postsLikes.length >= 1 &&
@@ -199,7 +210,12 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
         <div className='comments'>
           {postsCommentsArrJSX}
         </div>
-        <FormToSubmitComment post={post} user={user} setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment} />
+        <FormToSubmitComment
+          post={post}
+          user={user}
+          setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment}
+          ref={commentTextInputRef}
+        />
       </div>
     </article>
   );
