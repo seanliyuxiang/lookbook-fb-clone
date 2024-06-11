@@ -4,6 +4,10 @@ import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
 import blankCoverPhoto from '../images/blank_cover_photo.png';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import CancelScheduleSendIcon from '@mui/icons-material/CancelScheduleSend';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
 import SmsIcon from '@mui/icons-material/Sms';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
@@ -262,7 +266,23 @@ function UserProfile({user, setUser}) {
               Add Cover Photo
             </button>
           </>
-          : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ? <button onClick={deleteFriendshipHandler} className='content-header-btn'>Friends</button> : <button onClick={addFriendshipHandler} className='content-header-btn'>Add Friend</button>)}  {/* ternary within a ternary */}
+          : (user.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend.id).includes(arbitraryUser.id) ?
+              <button
+                onClick={deleteFriendshipHandler}
+                className='content-header-btn'
+              >
+                <PeopleAltIcon />
+                Friends
+              </button>
+            : <button
+              onClick={addFriendshipHandler}
+              className='content-header-btn'
+            >
+              <PersonAddIcon />
+              Add Friend
+            </button>
+          )
+        }  {/* ternary within a ternary */}
       </header>
 
       <section className='content-sidebar'>
