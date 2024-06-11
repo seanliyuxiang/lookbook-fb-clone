@@ -291,17 +291,21 @@ function UserProfile({user, setUser}) {
             src={!arbitraryUser.profile_picture_url ? blankProfilePicture : arbitraryUser.profile_picture_url}
             alt=''
           />
-          {/* file input is currently not set up as controlled form,
-          need to change it in the future if want to have image preview */}
-          <input
-            ref={profilePictureFileInputRef}
-            type='file'
-            name='profile_picture'
-            onChange={changeProfilePictureFileInputHandler}
-          />
-          <button onClick={openProfilePictureFilePickerHandler}>
-            <PhotoCameraIcon />
-          </button>
+          {arbitraryUser.id === user.id &&
+            <>
+              {/* file input is currently not set up as controlled form,
+              need to change it in the future if want to have image preview */}
+              <input
+                ref={profilePictureFileInputRef}
+                type='file'
+                name='profile_picture'
+                onChange={changeProfilePictureFileInputHandler}
+              />
+              <button onClick={openProfilePictureFilePickerHandler}>
+                <PhotoCameraIcon />
+              </button>
+            </>
+          }
         </div>
         <div className='profile-info'>
           <h2>{arbitraryUser.first_name}</h2>
