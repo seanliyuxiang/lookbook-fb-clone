@@ -121,9 +121,11 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
             {`${postsLikes.length} Like${postsLikes.length === 1 ? '' : 's'}`}
           </p>
         }
-        <div className='comments'>
-          {postsCommentsArrJSX}
-        </div>
+        {postsCommentsArrJSX.length >= 1 &&
+          <div className='comments'>
+            {postsCommentsArrJSX}
+          </div>
+        }
         <FormToSubmitComment post={post} user={user} setPostsCommentsWrapperToAddNewComment={setPostsCommentsWrapperToAddNewComment} />
       </div>
     </article>
