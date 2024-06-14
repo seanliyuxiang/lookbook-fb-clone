@@ -69,6 +69,10 @@
   margin: 0 0 20px 0;
 }
 
+.post-body img {
+  margin: 0 0 20px 0;
+}
+
 .post-footer-tools {
   display: flex;
   justify-content: space-between;
