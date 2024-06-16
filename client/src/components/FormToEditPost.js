@@ -71,6 +71,9 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
             {`${post.author.first_name} ${post.author.last_name}`}
           </Link>
         </h2>
+        <p className='post-body-timestamp'>
+          {post.created_at}
+        </p>
         <form onSubmit={submitEditedPostFormDataHandler}>
           <div>
             <input

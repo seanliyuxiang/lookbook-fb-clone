@@ -154,11 +154,16 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
       </Link>
       <div className='post-body'>
         <div className='post-body-top-section'>
-          <h2>
-            <Link to={`/users/${post.author.id}`}>
-              {`${post.author.first_name} ${post.author.last_name}`}
-            </Link>
-          </h2>
+          <div>
+            <h2>
+              <Link to={`/users/${post.author.id}`}>
+                {`${post.author.first_name} ${post.author.last_name}`}
+              </Link>
+            </h2>
+            <p className='post-body-timestamp'>
+              {post.created_at}
+            </p>
+          </div>
           {/*
             only allow post to be edited/deleted by the user 
             if post's author is the user 
