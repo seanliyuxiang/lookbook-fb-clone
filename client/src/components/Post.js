@@ -4,12 +4,16 @@ import FormToSubmitComment from './FormToSubmitComment';
 import {useState, useRef} from 'react';
 import FormToEditPost from './FormToEditPost';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import {formatDistanceToNow, monthFullNames} from '../lib/dateTimeHelpers';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ThumbUpIconOutlined from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
+
+// 1 year = 12.0082 months = 31557584000 milliseconds
+const millisecondsInOneYear = 31557584000;
 
 function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAuthoredPostsWrapperToRemoveAuthoredPost, setArbitraryUserWrapperToUpdateWallPost, setFriendsAuthoredPostsWrapperToUpdateAuthoredPost}) {
 
@@ -144,6 +148,8 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
     commentTextInputRef.current.focus();
   }
 
+  const postCreatedAtDateObj = new Date(post.created_at);
+
   return (
     <article className='post'>
       <Link to={`/users/${post.author_id}`} title={post.author.first_name} className='thumb'>
@@ -161,7 +167,10 @@ function Post({post, user, setArbitraryUserWrapperToRemoveWallPost, setFriendsAu
               </Link>
             </h2>
             <p className='post-body-timestamp'>
-              {post.created_at}
+              {Date.now() - postCreatedAtDateObj.getTime() <= millisecondsInOneYear
+                ? formatDistanceToNow(post.created_at)
+                : `${monthFullNames[postCreatedAtDateObj.getMonth()]} ${postCreatedAtDateObj.getDate()}, ${postCreatedAtDateObj.getFullYear()}`
+              }
             </p>
           </div>
           {/*

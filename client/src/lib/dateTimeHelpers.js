@@ -1,3 +1,8 @@
+export const monthFullNames = [
+  'January', 'February', 'March', 'April', 'May', 'June', 
+  'July', 'August', 'September', 'October', 'November', 'December'
+];
+
 /**
  * Return the distance between the given date and now in words.
  * @param {string} pastDateStr 
