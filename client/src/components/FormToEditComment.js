@@ -1,8 +1,12 @@
 import {useState, useEffect, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import blankProfilePicture from '../images/blank_profile_picture.png';
+import {formatDistanceToNow, monthFullNames} from '../lib/dateTimeHelpers';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
+
+// 1 year = 12.0082 months = 31557584000 milliseconds
+const millisecondsInOneYear = 31557584000;
 
 function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment, setIsEditingComment, editCommentHandler}) {
 
@@ -48,6 +52,8 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
     });
   }
 
+  const commentCreatedAtDateObj = new Date(postsComment.created_at);
+
   return (
     <article className='comment'>
       <Link to={`/users/${postsComment.author_id}`} title={postsComment.author.first_name} className='thumb'>
@@ -62,6 +68,12 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
             {`${postsComment.author.first_name} ${postsComment.author.last_name}`}
           </Link>
         </h2>
+        <p className='comment-body-timestamp'>
+          {Date.now() - commentCreatedAtDateObj.getTime() <= millisecondsInOneYear
+            ? formatDistanceToNow(postsComment.created_at)
+            : `${monthFullNames[commentCreatedAtDateObj.getMonth()]} ${commentCreatedAtDateObj.getDate()}, ${commentCreatedAtDateObj.getFullYear()}`
+          }
+        </p>
         <form onSubmit={submitEditedCommentFormDataHandler}>
           <input
             ref={commentBodyTextInputRef}
