@@ -56,7 +56,8 @@ class User < ApplicationRecord
   has_many :wall_posts,
     primary_key: :id,
     foreign_key: :recipient_id,
-    class_name: :Post
+    class_name: :Post,
+    dependent: :destroy
 
   has_one_attached :profile_picture
 
