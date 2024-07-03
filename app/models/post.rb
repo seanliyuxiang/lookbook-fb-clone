@@ -37,6 +37,8 @@ class Post < ApplicationRecord
     foreign_key: :recipient_id,
     class_name: :User
   
+  # If the `:dependent` option isn't set, the attachment will be purged (i.e. destroyed) whenever the record is destroyed.
+  #   - https://api.rubyonrails.org/v6.1.7.8/classes/ActiveStorage/Attached/Model.html#method-i-has_one_attached
   has_one_attached :post_photo
 
 end
