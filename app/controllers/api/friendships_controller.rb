@@ -15,10 +15,19 @@ class Api::FriendshipsController < ApplicationController
     render json: friendship
   end
 
+  def update
+    friendship = Friendship.find_by(id: params[:id])
+    if friendship.update(friendship_params)
+      render json: friendship
+    else
+      render json: {error: 'Edit unsuccessful'}, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def friendship_params
-    params.permit(:user_id, :friend_id)
+    params.permit(:user_id, :friend_id, :status)
   end
 
 end

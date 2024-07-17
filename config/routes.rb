@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :destroy, :update]
 
     # friendships
-    resources :friendships, only: [:create, :destroy]
+    resources :friendships, only: [:create, :destroy, :update]
 
     # likes
     resources :likes, only: [:create, :destroy]
