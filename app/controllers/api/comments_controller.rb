@@ -20,7 +20,7 @@ class Api::CommentsController < ApplicationController
     if comment.update(comment_params)
       render json: comment
     else
-      render json: {error: 'Edit unsucessful'}, status: :unprocessable_entity
+      render json: {error: 'Edit unsuccessful'}, status: :unprocessable_entity
     end
   end
 
