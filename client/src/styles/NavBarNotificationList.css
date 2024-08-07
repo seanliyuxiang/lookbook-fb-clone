@@ -1,0 +1,61 @@
+.header-notifications {
+  position: absolute;
+  right: -1px;
+  font-size: 14px;
+  white-space: nowrap;
+  background: #fff;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  /* z-index: ; */
+}
+
+.header-notifications > li {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+  border-top: 1px solid #ccc;
+  color: #000;
+}
+
+.header-notifications > li:hover {
+  background: #eee;
+}
+
+.header-notifications > li > p {
+  flex-grow: 1;
+}
+
+.header-notifications > li > p > a {
+  display: inline; /* need this to overwrite (display: block) of (.header a) in NavBar.css */
+  padding: 0; /* need this to overwrite (padding: 10px 20px) of (.header a) in NavBar.css */
+}
+
+.header-notification-list-item-tools {
+  display: flex;
+  column-gap: 10px;
+}
+
+.header-notification-list-item-tools > button:nth-child(1) {
+  color: #fff;
+  background: rgb(65, 89, 147);
+  border-radius: 5px;
+}
+
+.header-notification-list-item-tools > button:nth-child(1):hover {
+  background: rgb(40, 73, 125);
+}
+
+.header-notification-list-item-tools > button:nth-child(2) {
+  background: #ccc;
+  border-radius: 5px;
+}
+
+.header-notification-list-item-tools > button:nth-child(2):hover {
+  background: #808080; /* gray */
+}
