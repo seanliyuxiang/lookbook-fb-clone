@@ -151,7 +151,10 @@ function AddFriendButton({user, setUser, arbitraryUser}) {
               setUser({
                 ...user,
                 passive_friendships: user.passive_friendships.filter(passiveFriendship => {
-                  return (passiveFriendship.id !== friendship.id); // filter out the deleted friendship
+                  return (passiveFriendship.id !== friendship.id); // filter out the deleted friendship if it is in passive_friendships
+                }),
+                assertive_friendships: user.assertive_friendships.filter(assertiveFriendship => {
+                  return (assertiveFriendship.id !== friendship.id); // filter out the deleted friendship if it is in assertive_friendships
                 })
               })
             );
@@ -215,7 +218,9 @@ function AddFriendButton({user, setUser, arbitraryUser}) {
   } else if (friendIDsFromPendingAssertiveFriendshipsThatLoggedInUserSent.includes(arbitraryUser.id)) {
     // else if the currently displayed user is whom the logged-in user already sent friendship request to
     return (
-      <button onClick={deleteFriendshipHandler(findPendingAssertiveFriendshipID(user.assertive_friendships, arbitraryUser.id))}>
+      <button
+        onClick={deleteFriendshipHandler(findPendingAssertiveFriendshipID(user.assertive_friendships, arbitraryUser.id))}
+      >
         <CancelIcon />
         Cancel request
       </button>
@@ -224,7 +229,9 @@ function AddFriendButton({user, setUser, arbitraryUser}) {
     // else if the currently displayed user is friends with the logged-in user
     return (
       <div>
-        <button>
+        <button
+          onClick={toggleButtonMenuOpenHandler}
+        >
           <PeopleAltIcon />
           Friends
         </button>
