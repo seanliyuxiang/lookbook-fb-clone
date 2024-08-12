@@ -190,15 +190,16 @@ function AddFriendButton({user, setUser, arbitraryUser}) {
   if (userIDsFromPendingPassiveFriendshipsThatLoggedInUserReceived.includes(arbitraryUser.id)) {
     // if the currently displayed user is whom the logged-in user already received friendship request from
     return (
-      <div>
+      <div className='content-header-btn-dropdown'>
         <button
+          className='content-header-btn position-static'
           onClick={toggleButtonMenuOpenHandler}
         >
           <PersonAddAltIcon />
           Respond
         </button>
         {isButtonMenuOpen &&
-          <ul>
+          <ul className='content-header-btn-dropdown-list'>
             <li>
               <button onClick={confirmFriendshipHandler(findPendingPassiveFriendshipID(user.passive_friendships, arbitraryUser.id))}>
                 <CheckIcon />
@@ -219,6 +220,7 @@ function AddFriendButton({user, setUser, arbitraryUser}) {
     // else if the currently displayed user is whom the logged-in user already sent friendship request to
     return (
       <button
+        className='content-header-btn'
         onClick={deleteFriendshipHandler(findPendingAssertiveFriendshipID(user.assertive_friendships, arbitraryUser.id))}
       >
         <CancelIcon />
@@ -228,15 +230,16 @@ function AddFriendButton({user, setUser, arbitraryUser}) {
   } else if (userIDsAndFriendIDsFromConfirmedFriendshipsOfLoggedInUser.includes(arbitraryUser.id)) {
     // else if the currently displayed user is friends with the logged-in user
     return (
-      <div>
+      <div className='content-header-btn-dropdown'>
         <button
+          className='content-header-btn position-static'
           onClick={toggleButtonMenuOpenHandler}
         >
           <PeopleAltIcon />
           Friends
         </button>
         {isButtonMenuOpen &&
-          <ul>
+          <ul className='content-header-btn-dropdown-list'>
             <li>
               <button onClick={deleteFriendshipHandler(findConfirmedFriendshipID(user.assertive_friendships, user.passive_friendships, arbitraryUser.id))}>
                 <PersonRemoveIcon />
@@ -255,6 +258,7 @@ function AddFriendButton({user, setUser, arbitraryUser}) {
     // else if the currently displayed user is NOT friends with the logged-in user
     return (
       <button
+        className='content-header-btn'
         onClick={createFriendshipHandler}
       >
         <PersonAddAlt1Icon />
@@ -263,7 +267,7 @@ function AddFriendButton({user, setUser, arbitraryUser}) {
     );
   } else {
     return (
-      <button>
+      <button className='content-header-btn'>
         <ErrorIcon />
         Error
       </button>
