@@ -1,12 +1,20 @@
+import {useState} from 'react';
 import Login from './Login';
 import {Link, useHistory} from 'react-router-dom';
 import SearchLookbook from './SearchLookbook';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import NavBarNotificationList from './NavBarNotificationList';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 function NavBar({user, setUser}) {
 
+  const [isNavBarNotificationListOpen, setIsNavBarNotificationListOpen] = useState(false);
+
   const history = useHistory();
+
+  function toggleNavBarNotificationListHandler() {
+    setIsNavBarNotificationListOpen(!isNavBarNotificationListOpen);
+  }
 
   // logout
   function logoutHandler() {
@@ -53,7 +61,18 @@ function NavBar({user, setUser}) {
               {user.first_name}
             </Link>
           </li>
-          <li><button><NotificationsIcon />Notifications</button></li>
+          <li>
+            <button onClick={toggleNavBarNotificationListHandler}>
+              <NotificationsIcon />
+              Notifications
+            </button>
+            {isNavBarNotificationListOpen &&
+              <NavBarNotificationList
+                user={user}
+                setUser={setUser}
+              />
+            }
+          </li>
           <li><button onClick={logoutHandler}><LogoutIcon />Logout</button></li>
         </ul>
       </nav>

@@ -22,6 +22,7 @@ import './styles/FormToSubmitComment.css';
 import './styles/HomeFeed.css';
 import './styles/SearchLookbook.css';
 import './styles/SearchResultsContainer.css';
+import './styles/NavBarNotificationList.css';
 
 ReactDOM.render(
   <BrowserRouter>
