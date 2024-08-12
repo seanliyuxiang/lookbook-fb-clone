@@ -39,3 +39,34 @@
 .content-header input[type="file"] {
   display: none;
 }
+
+.content-header-btn-dropdown {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.position-static {
+  position: static; /* need this to overwrite (position: absolute) of (.content-header-btn) from above */
+}
+
+.content-header-btn-dropdown-list {
+  white-space: nowrap;
+  position: absolute;
+  right: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.content-header-btn-dropdown-list > li:hover {
+  background-color: #eee;
+}
+
+.content-header-btn-dropdown-list button {
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
