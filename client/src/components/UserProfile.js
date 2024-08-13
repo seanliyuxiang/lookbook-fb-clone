@@ -88,13 +88,30 @@ function UserProfile({user, setUser}) {
     });
   }
 
-  const arbitraryUsersFriendsArrJSX = arbitraryUser.assertive_friendships.map(
+  // optimization: could be refactored into an `useMemo` that will only run when `arbitraryUser` changes
+  const arbitraryUsersAssertiveFriendsArrJSX = arbitraryUser.assertive_friendships.filter(assertiveFriendship => assertiveFriendship.status.toLowerCase() === 'confirmed').map(
     assertiveFriendship => {
       return (
-        <li key={assertiveFriendship.friend.id}>
+        <li key={`assertive-friendship-friend-id-${assertiveFriendship.friend.id}`}>
           <Link to={`/users/${assertiveFriendship.friend.id}`} title={assertiveFriendship.friend.first_name} className='thumb'>
             <img
               src={!assertiveFriendship.friend.profile_picture_url ? blankProfilePicture : assertiveFriendship.friend.profile_picture_url}
+              alt=''
+            />
+          </Link>
+        </li>
+      );
+    }
+  );
+
+  // optimization: could be refactored into an `useMemo` that will only run when `arbitraryUser` changes
+  const arbitraryUsersPassiveFriendsArrJSX = arbitraryUser.passive_friendships.filter(passiveFriendship => passiveFriendship.status.toLowerCase() === 'confirmed').map(
+    passiveFriendship => {
+      return (
+        <li key={`passive-friendship-user-id-${passiveFriendship.user.id}`}>
+          <Link to={`/users/${passiveFriendship.user.id}`} title={passiveFriendship.user.first_name} className='thumb'>
+            <img
+              src={!passiveFriendship.user.profile_picture_url ? blankProfilePicture : passiveFriendship.user.profile_picture_url}
               alt=''
             />
           </Link>
