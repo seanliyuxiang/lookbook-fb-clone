@@ -235,7 +235,7 @@ function UserProfile({user, setUser}) {
           <li><a href=''><PhotoLibraryIcon />Photos</a></li>
         </ul>
         <ul className='profile-friends'>
-          {arbitraryUsersFriendsArrJSX}
+          {arbitraryUsersAssertiveFriendsArrJSX.concat(arbitraryUsersPassiveFriendsArrJSX)}
         </ul>
       </section>
 
