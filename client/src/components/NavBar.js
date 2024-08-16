@@ -3,6 +3,7 @@ import Login from './Login';
 import {Link, useHistory} from 'react-router-dom';
 import SearchLookbook from './SearchLookbook';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NavBarNotificationList from './NavBarNotificationList';
 import LogoutIcon from '@mui/icons-material/Logout';
 
@@ -45,6 +46,10 @@ function NavBar({user, setUser}) {
     );
   }
 
+  const passiveFriendshipsPending = user.passive_friendships.filter(
+    passiveFriendship => passiveFriendship.status.toLowerCase() === 'pending'
+  );
+
   // if an user is logged in
   return (
     <header className='header'>
@@ -63,7 +68,10 @@ function NavBar({user, setUser}) {
           </li>
           <li>
             <button onClick={toggleNavBarNotificationListHandler}>
-              <NotificationsIcon />
+              {passiveFriendshipsPending.length > 0
+                ? <NotificationsActiveIcon sx={{color: 'rgb(230, 31, 56)'}} />
+                : <NotificationsIcon />
+              }
               Notifications
             </button>
             {isNavBarNotificationListOpen &&
