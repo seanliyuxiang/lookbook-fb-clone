@@ -170,6 +170,10 @@ function UserProfile({user, setUser}) {
     profilePictureFileInputRef.current.click();
   }
 
+  const canLoggedInUserSubmitPostOnUserProfilePage = user.id === arbitraryUser.id ||
+    user.assertive_friendships.filter(assertiveFriendship => assertiveFriendship.status.toLowerCase() === 'confirmed').map(assertiveFriendship => assertiveFriendship.friend_id).includes(arbitraryUser.id) ||
+    user.passive_friendships.filter(passiveFriendship => passiveFriendship.status.toLowerCase() === 'confirmed').map(passiveFriendship => passiveFriendship.user_id).includes(arbitraryUser.id);
+
   return (
     <main className='content'>
       <header className='content-header' style={{ backgroundImage: `url(${!arbitraryUser.cover_photo_url ? blankCoverPhoto : arbitraryUser.cover_photo_url})`}}>
@@ -240,9 +244,13 @@ function UserProfile({user, setUser}) {
       </section>
 
       <section className='content-main'>
-        {((arbitraryUser.id !== user.id) && (!arbitraryUser.assertive_friendships.map(assertiveFriendship => assertiveFriendship.friend_id).includes(user.id))) ?
-          null
-        : <FormToSubmitPost user={user} setArbitraryUserWrapperToAddNewWallPost={setArbitraryUserWrapperToAddNewWallPost} arbitraryUser={arbitraryUser} />}
+        {canLoggedInUserSubmitPostOnUserProfilePage &&
+          <FormToSubmitPost
+            user={user}
+            setArbitraryUserWrapperToAddNewWallPost={setArbitraryUserWrapperToAddNewWallPost}
+            arbitraryUser={arbitraryUser}
+          />
+        }
         <div className='posts'>
           {arbitraryUsersWallPostsArrJSX}
         </div>
