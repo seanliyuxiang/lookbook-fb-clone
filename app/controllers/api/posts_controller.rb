@@ -14,9 +14,26 @@ class Api::PostsController < ApplicationController
     user = User.find_by(id: session[:user_id])
 
     if user
+      # array containing all of user's friends where the friendship is confirmed
+      confirmed_friends = []
+
+      # get user's friends from assertive friendships that are confirmed
+      user.assertive_friendships.each do |assertive_friendship|
+        if assertive_friendship.status == 'confirmed'
+          confirmed_friends << assertive_friendship.friend
+        end
+      end
+
+      # get user's friends from passive friendships that are confirmed
+      user.passive_friendships.each do |passive_friendship|
+        if passive_friendship.status == 'confirmed'
+          confirmed_friends << passive_friendship.user
+        end
+      end
+
       friends_authored_posts = []
 
-      user.friends.each do |users_friend|
+      confirmed_friends.each do |users_friend|
         users_friend.authored_posts.each do |users_friends_authored_post|
           friends_authored_posts << users_friends_authored_post
         end
