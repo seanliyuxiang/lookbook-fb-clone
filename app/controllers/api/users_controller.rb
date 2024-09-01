@@ -1,5 +1,7 @@
 class Api::UsersController < ApplicationController
 
+  skip_before_action :authorized, only: [:create]
+
   def index
     users = User.all
     render json: users, status: :ok

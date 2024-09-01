@@ -1,5 +1,7 @@
 class Api::SessionsController < ApplicationController
 
+  skip_before_action :authorized, only: [:create, :auto_login]
+
   def create
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
