@@ -15,8 +15,15 @@
 #
 class User < ApplicationRecord
 
-  validates :email, uniqueness: true
+  validates :first_name, presence: true, length: { maximum: 40 }
+  validates :last_name, presence: true, length: { maximum: 40 }
+  validates :email, presence: true, uniqueness: true, length: { maximum: 80 }
+  validates :password, length: { minimum: 12, message: 'must have minimum 12 and maximum 72 characters' }
+  validates :gender, presence: true, inclusion: { in: %w(Female Male) }
+  validates :birthday, presence: true
 
+  # automatically checks password for presence true and length to be less than or equal to 72 characters
+  # https://api.rubyonrails.org/v6.1.7.8/classes/ActiveModel/SecurePassword/ClassMethods.html#method-i-has_secure_password
   has_secure_password
 
   has_many :authored_posts,

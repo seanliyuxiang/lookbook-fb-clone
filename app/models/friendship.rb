@@ -10,6 +10,10 @@
 #
 class Friendship < ApplicationRecord
 
+  validates :user_id, presence: true
+  validates :friend_id, presence: true
+  validates :status, presence: true, inclusion: { in: %w(pending confirmed) }
+
   belongs_to :user,
     primary_key: :id,
     foreign_key: :user_id,
