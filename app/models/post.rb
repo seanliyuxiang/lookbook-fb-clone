@@ -11,6 +11,10 @@
 #
 class Post < ApplicationRecord
 
+  validates :author_id, presence: true
+  validates :body, presence: true, length: { maximum: 500 }
+  validates :recipient_id, presence: true
+
   belongs_to :author,
     primary_key: :id,
     foreign_key: :author_id,
