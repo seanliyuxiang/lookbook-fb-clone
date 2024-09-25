@@ -49,7 +49,7 @@ function Login({setUser}) {
       },
       body: JSON.stringify({
         email: 'zuckerberg@fb.com',
-        password: 'password'
+        password: 'password1234'
       })
     })
     .then(response => {
