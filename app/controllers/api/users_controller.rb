@@ -13,7 +13,17 @@ class Api::UsersController < ApplicationController
       session[:user_id] ||= user.id
       render json: user, status: :created
     else
-      render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
+      render(
+        json: {
+          first_name: user.errors[:first_name].map { |message| "First name #{message}." },
+          last_name: user.errors[:last_name].map { |message| "Last name #{message}." },
+          email: user.errors[:email].map { |message| "Email #{message}." },
+          password: user.errors[:password].map { |message| "Password #{message}." },
+          gender: user.errors[:gender].map { |message| "Gender #{message}." },
+          birthday: user.errors[:birthday].map { |message| "Birthday #{message}." }
+        },
+        status: :unprocessable_entity
+      )
     end
   end
 

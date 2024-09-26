@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import worldMap from '../images/world_map.png';
+import ValidationErrorMessage from './ValidationErrorMessage';
 
 function Signup({setUser}) {
 
@@ -14,6 +15,8 @@ function Signup({setUser}) {
     birthdayDay: '',
     birthdayYear: ''
   });
+
+  const [validationErrors, setValidationErrors] = useState(null);
 
   const history = useHistory();
 
@@ -47,6 +50,8 @@ function Signup({setUser}) {
           setUser(jsonData);
           history.push('/home_feed'); // automatically go to home feed page after signup
         });
+      } else {
+        response.json().then(errorData => setValidationErrors(errorData));
       }
     });
   }
@@ -108,18 +113,30 @@ function Signup({setUser}) {
             <div>
               <label>First Name:</label>
               <input type='text' name='first_name' value={signupFormData.first_name} onChange={changeSignupFormDataHandler} />
+              {validationErrors?.first_name?.length > 0 &&
+                <ValidationErrorMessage messageStr={validationErrors.first_name.join(' ')} />
+              }
             </div>
             <div>
               <label>Last Name:</label>
               <input type='text' name='last_name' value={signupFormData.last_name} onChange={changeSignupFormDataHandler} />
+              {validationErrors?.last_name?.length > 0 &&
+                <ValidationErrorMessage messageStr={validationErrors.last_name.join(' ')} />
+              }
             </div>
             <div>
               <label>Your Email:</label>
               <input type='text' name='email' value={signupFormData.email} onChange={changeSignupFormDataHandler} />
+              {validationErrors?.email?.length > 0 &&
+                <ValidationErrorMessage messageStr={validationErrors.email.join(' ')} />
+              }
             </div>
             <div>
               <label>New Password:</label>
               <input type='password' name='password' value={signupFormData.password} onChange={changeSignupFormDataHandler} />
+              {validationErrors?.password?.length > 0 &&
+                <ValidationErrorMessage messageStr={validationErrors.password.join(' ')} />
+              }
             </div>
             <div>
               <label>I am:</label>
@@ -128,6 +145,9 @@ function Signup({setUser}) {
                 <option value='Female'>Female</option>
                 <option value='Male'>Male</option>
               </select>
+              {validationErrors?.gender?.length > 0 &&
+                <ValidationErrorMessage messageStr={validationErrors.gender.join(' ')} />
+              }
             </div>
             <div>
               <label>Birthday:</label>
@@ -143,6 +163,9 @@ function Signup({setUser}) {
                 <option>Year:</option>
                 {generateYearOptionTags()}
               </select>
+              {validationErrors?.birthday?.length > 0 &&
+                <ValidationErrorMessage messageStr={validationErrors?.birthday.join(' ')} />
+              }
             </div>
             <small>By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy.</small>
             <button>Sign Up</button>
