@@ -164,7 +164,7 @@ function Signup({setUser}) {
                 {generateYearOptionTags()}
               </select>
               {validationErrors?.birthday?.length > 0 &&
-                <ValidationErrorMessage messageStr={validationErrors?.birthday.join(' ')} />
+                <ValidationErrorMessage messageStr={validationErrors.birthday.join(' ')} />
               }
             </div>
             <small>By clicking Sign Up, you agree to our Terms, Data Policy and Cookies Policy.</small>
