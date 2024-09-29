@@ -23,6 +23,7 @@ import './styles/HomeFeed.css';
 import './styles/SearchLookbook.css';
 import './styles/SearchResultsContainer.css';
 import './styles/NavBarNotificationList.css';
+import './styles/ValidationErrorMessage.css';
 
 ReactDOM.render(
   <BrowserRouter>

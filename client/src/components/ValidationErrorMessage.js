@@ -1,6 +1,6 @@
 function ValidationErrorMessage({messageStr}) {
   return (
-    <p>
+    <p className='error-validation'>
       {messageStr}
     </p>
   );
