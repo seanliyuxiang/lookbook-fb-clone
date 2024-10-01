@@ -6,10 +6,14 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import NavBarNotificationList from './NavBarNotificationList';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ValidationErrorMessage from './ValidationErrorMessage';
 
 function NavBar({user, setUser}) {
 
   const [isNavBarNotificationListOpen, setIsNavBarNotificationListOpen] = useState(false);
+
+  // error state variables declared here instead of in `Login.js` due to CSS layout reasons
+  const [authenticationError, setAuthenticationError] = useState(null);
 
   const history = useHistory();
 
@@ -40,8 +44,21 @@ function NavBar({user, setUser}) {
               l👀kbook
             </Link>
           </h1>
-          <Login setUser={setUser} />
+          <Login
+            setUser={setUser}
+            setAuthenticationError={setAuthenticationError}
+          />
         </nav>
+        {authenticationError?.error &&
+          <ValidationErrorMessage
+            messageStr={authenticationError.error}
+            errorStyle={{
+              textAlign: 'right',
+              margin: '0 auto',
+              width: '1100px'
+            }}
+          />
+        }
       </header>
     );
   }

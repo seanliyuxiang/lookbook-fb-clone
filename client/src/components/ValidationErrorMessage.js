@@ -1,6 +1,9 @@
-function ValidationErrorMessage({messageStr}) {
+function ValidationErrorMessage({messageStr, errorStyle}) {
   return (
-    <p className='error-validation'>
+    <p
+      className='error-validation'
+      style={errorStyle}
+    >
       {messageStr}
     </p>
   );

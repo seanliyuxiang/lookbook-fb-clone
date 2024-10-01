@@ -8,7 +8,7 @@ class Api::SessionsController < ApplicationController
       session[:user_id] = user.id
       render json: user, include: ['wall_posts', 'assertive_friendships', 'assertive_friendships.friend', 'passive_friendships', 'passive_friendships.user'], status: :created
     else
-      render json: {error: 'Invalid email or password'}, status: :unauthorized
+      render json: {error: 'Invalid email and/or password'}, status: :unauthorized
     end
   end
 
