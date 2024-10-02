@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 
-function Login({setUser}) {
+function Login({setUser, setAuthenticationError}) {
 
   const history = useHistory();
 
@@ -34,7 +34,10 @@ function Login({setUser}) {
         response.json().then(jsonData => {
           setUser(jsonData);
           history.push('/home_feed'); // automatically go to home feed page after login
+          setAuthenticationError(null); // clear out error
         });
+      } else {
+        response.json().then(errorData => setAuthenticationError(errorData));
       }
     });
   }
@@ -57,6 +60,7 @@ function Login({setUser}) {
         response.json().then(jsonData => {
           setUser(jsonData);
           history.push('/home_feed'); // automatically go to home feed page after login as demo user
+          setAuthenticationError(null); // clear out error
         });
       }
     });
