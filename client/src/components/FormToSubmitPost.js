@@ -78,6 +78,8 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
     postAttachmentFileInputRef.current.click();
   }
 
+  const isButtonToPostDisabled = postFormData.body.trim() === '';
+
   return (
     <form onSubmit={submitPostFormDataHandler} className='form-to-submit-post'>
       <Link to={`/users/${user.id}`} title={user.first_name} className='thumb'>
@@ -119,7 +121,16 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
           {fileName && <p>{fileName}</p>}
         </div>
         <div className='form-to-submit-post-submit'>
-          <button>Post to Wall</button>
+          <button
+            disabled={isButtonToPostDisabled}
+            style={{
+              color: isButtonToPostDisabled ? '#eee' : undefined,
+              backgroundColor: isButtonToPostDisabled ? 'gray' : undefined,
+              cursor: isButtonToPostDisabled ? 'not-allowed' : undefined
+            }}
+          >
+            Post to Wall
+          </button>
           <span className='btn-alternative'>or <strong onClick={cancelPostFormDataHandler}>Cancel</strong></span>
         </div>
         {validationErrors && (Object.keys(validationErrors).length > 0) &&
