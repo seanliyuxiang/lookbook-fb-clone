@@ -14,6 +14,35 @@ class Post < ApplicationRecord
   validates :author_id, presence: true
   validates :body, presence: true, length: { maximum: 500 }
   validates :recipient_id, presence: true
+  validate :file_extension_must_be_valid, :file_size_maximum
+
+  def file_extension_must_be_valid
+    valid_file_extensions = ['jpeg', 'jpg', 'png']
+
+    # maybe use `post_photo.present?` instead of just `post_photo`
+    # to check if there is an attachment
+    if post_photo && post_photo.blob
+      file_extension = post_photo.blob.content_type.split('/')[1].downcase
+
+      if !valid_file_extensions.include?(file_extension)
+        errors.add(:file, 'must be jpeg, jpg, or png')
+      end
+    end
+  end
+
+  def file_size_maximum
+    max_file_size = 3 * (10 ** 6) # 3 MB
+
+    # maybe use `post_photo.present?` instead of just `post_photo`
+    # to check if there is an attachment
+    if post_photo && post_photo.blob
+      file_size = post_photo.blob.byte_size
+
+      if file_size > max_file_size
+        errors.add(:file, 'cannot be greater than 3 MB')
+      end
+    end
+  end
 
   belongs_to :author,
     primary_key: :id,

@@ -2,6 +2,7 @@ import {useState, useRef} from 'react';
 import {Link} from 'react-router-dom';
 import blankProfilePicture from '../images/blank_profile_picture.png';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import ValidationErrorMessage from './ValidationErrorMessage';
 
 function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredPost, setArbitraryUserWrapperToAddNewWallPost, arbitraryUser}) {
 
@@ -11,6 +12,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
   });
 
   const [fileName, setFileName] = useState(null);
+  const [validationErrors, setValidationErrors] = useState(null);
 
   const postAttachmentFileInputRef = useRef(null);
 
@@ -40,14 +42,19 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
       method: 'POST',
       body: postFormDataWithFile
     })
-    .then(response => response.json())
-    .then(post => {
-      if (!setArbitraryUserWrapperToAddNewWallPost) {
-        setFriendsAuthoredPostsWrapperToAddNewAuthoredPost(post);
+    .then(response => {
+      if (response.ok) {
+        response.json().then(post => {
+          if (!setArbitraryUserWrapperToAddNewWallPost) {
+            setFriendsAuthoredPostsWrapperToAddNewAuthoredPost(post);
+          } else {
+            setArbitraryUserWrapperToAddNewWallPost(post);
+          }
+        });
       } else {
-        setArbitraryUserWrapperToAddNewWallPost(post);
+        response.json().then(errorData => setValidationErrors(errorData));
       }
-    });  // may need to change the 2nd `.then()` to render errors based on the response status
+    });
 
     /*
     may need to use 'setPostFormData' setter function to clear out user input data after submit
@@ -70,6 +77,8 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
   function openPostAttachmentFilePickerHandler() {
     postAttachmentFileInputRef.current.click();
   }
+
+  const isButtonToPostDisabled = postFormData.body.trim() === '';
 
   return (
     <form onSubmit={submitPostFormDataHandler} className='form-to-submit-post'>
@@ -112,9 +121,24 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
           {fileName && <p>{fileName}</p>}
         </div>
         <div className='form-to-submit-post-submit'>
-          <button>Post to Wall</button>
+          <button
+            disabled={isButtonToPostDisabled}
+            style={{
+              color: isButtonToPostDisabled ? '#eee' : undefined,
+              backgroundColor: isButtonToPostDisabled ? 'gray' : undefined,
+              cursor: isButtonToPostDisabled ? 'not-allowed' : undefined
+            }}
+          >
+            Post to Wall
+          </button>
           <span className='btn-alternative'>or <strong onClick={cancelPostFormDataHandler}>Cancel</strong></span>
         </div>
+        {validationErrors && (Object.keys(validationErrors).length > 0) &&
+          <ValidationErrorMessage
+            messageStr={Object.values(validationErrors).flat(Infinity).join(' ')}
+            errorStyle={{marginTop: '10px'}}
+          />
+        }
       </fieldset>
     </form>
   );
