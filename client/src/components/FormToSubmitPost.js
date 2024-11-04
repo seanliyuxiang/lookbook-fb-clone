@@ -126,6 +126,8 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
             style={{
               color: isButtonToPostDisabled ? '#eee' : undefined,
               backgroundColor: isButtonToPostDisabled ? 'gray' : undefined,
+              boxShadow: isButtonToPostDisabled ? '0 3px 0 0 rgb(8, 15, 27)' : undefined,
+              top: isButtonToPostDisabled ? '0' : undefined,
               cursor: isButtonToPostDisabled ? 'not-allowed' : undefined
             }}
           >
