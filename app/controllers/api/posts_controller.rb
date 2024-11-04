@@ -71,7 +71,7 @@ class Api::PostsController < ApplicationController
         json: {
           author_id: post.errors[:author_id].map { |message| "Author #{message}." },
           body: post.errors[:body].map { |message| "Body #{message}." },
-          recipient_id: post.errors[:recipient_id].map { |message| "Recipient #{message}." },
+          recipient_id: post.errors[:recipient_id].map { |message| "Recipient #{message}." }
         },
         status: :unprocessable_entity
       )
