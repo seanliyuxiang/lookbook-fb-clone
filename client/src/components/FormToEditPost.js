@@ -9,6 +9,7 @@ import SaveAltIcon from '@mui/icons-material/SaveAlt';
 import ThumbUpIconOutlined from '@mui/icons-material/ThumbUpOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import CommentIcon from '@mui/icons-material/Comment';
+import ValidationErrorMessage from './ValidationErrorMessage';
 
 // 1 year = 12.0082 months = 31557584000 milliseconds
 const millisecondsInOneYear = 31557584000;
@@ -18,6 +19,8 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
   const [editedPostFormData, setEditedPostFormData] = useState({
     body: post.body
   });
+
+  const [validationErrors, setValidationErrors] = useState(null);
 
   /*
   https://react.dev/learn/synchronizing-with-effects#focus-a-field-on-mount
@@ -57,6 +60,8 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
           }
           setIsEditingPost(false);
         });
+      } else {
+        response.json().then(errorData => setValidationErrors(errorData));
       }
     });
   }
@@ -105,6 +110,15 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
               </Tooltip>
             </div>
           </div>
+          {validationErrors && (Object.keys(validationErrors).length > 0) &&
+            <ValidationErrorMessage
+              messageStr={Object.values(validationErrors).flat(Infinity).join(' ')}
+              errorStyle={{
+                marginTop: '-10px',
+                marginBottom: '20px'
+              }}
+            />
+          }
           {post.post_photo_url ?
             <img src={post.post_photo_url} alt='' />
           : null}
