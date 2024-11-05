@@ -68,6 +68,8 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
 
   const postCreatedAtDateObj = new Date(post.created_at);
 
+  const isButtonToSaveDisabled = editedPostFormData.body.trim() === '';
+
   return (
     <article className='post'>
       <Link to={`/users/${post.author_id}`} title={post.author.first_name} className='thumb'>
@@ -104,8 +106,11 @@ function FormToEditPost({post, setArbitraryUserWrapperToUpdateWallPost, setIsEdi
                 </button>
               </Tooltip>
               <Tooltip title='Save' arrow>
-                <button>
-                  <SaveAltIcon />
+                <button
+                  disabled={isButtonToSaveDisabled}
+                  style={{cursor: isButtonToSaveDisabled ? 'not-allowed' : undefined}}
+                >
+                  <SaveAltIcon color={isButtonToSaveDisabled ? 'disabled' : undefined} />
                 </button>
               </Tooltip>
             </div>
