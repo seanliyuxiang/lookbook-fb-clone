@@ -5,7 +5,14 @@ class Api::CommentsController < ApplicationController
     if comment.save
       render json: comment, status: :created
     else
-      render json: {error: 'Comment unsuccessful'}, status: :unprocessable_entity
+      render(
+        json: {
+          author_id: comment.errors[:author_id].map { |message| "Author #{message}." },
+          post_id: comment.errors[:post_id].map { |message| "Post #{message}." },
+          body: comment.errors[:body].map { |message| "Body #{message}." }
+        },
+        status: :unprocessable_entity
+      )
     end
   end
 
