@@ -4,6 +4,7 @@ import blankProfilePicture from '../images/blank_profile_picture.png';
 import {formatDistanceToNow, monthFullNames} from '../lib/dateTimeHelpers';
 import CancelIcon from '@mui/icons-material/Cancel';
 import SaveAltIcon from '@mui/icons-material/SaveAlt';
+import ValidationErrorMessage from './ValidationErrorMessage';
 
 // 1 year = 12.0082 months = 31557584000 milliseconds
 const millisecondsInOneYear = 31557584000;
@@ -13,6 +14,8 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
   const [editedCommentFormData, setEditedCommentFormData] = useState({
     body: postsComment.body
   });
+
+  const [validationErrors, setValidationErrors] = useState(null);
 
   /*
   https://react.dev/learn/synchronizing-with-effects#focus-a-field-on-mount
@@ -48,6 +51,8 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
           setPostsCommentsWrapperToUpdateComment(comment);
           setIsEditingComment(false);
         });
+      } else {
+        response.json().then(errorData => setValidationErrors(errorData));
       }
     });
   }
@@ -82,6 +87,15 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
             value={editedCommentFormData.body}
             onChange={changeEditedCommentFormDataHandler}
           />
+          {validationErrors && (Object.keys(validationErrors).length > 0) &&
+            <ValidationErrorMessage
+              messageStr={Object.values(validationErrors).flat(Infinity).join(' ')}
+              errorStyle={{
+                marginTop: '-10px',
+                marginBottom: '20px'
+              }}
+            />
+          }
           <footer className='comment-footer'>
             <ul className='comment-footer-tools'>
               <li><button onClick={editCommentHandler}><CancelIcon />Cancel</button></li>
