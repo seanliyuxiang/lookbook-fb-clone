@@ -1,4 +1,5 @@
 import {useState, forwardRef} from 'react';
+import ValidationErrorMessage from './ValidationErrorMessage';
 
 // https://react.dev/reference/react/forwardRef#usage
 const FormToSubmitComment = forwardRef(function FormToSubmitComment({post, user, setPostsCommentsWrapperToAddNewComment}, ref) {
@@ -8,6 +9,8 @@ const FormToSubmitComment = forwardRef(function FormToSubmitComment({post, user,
     post_id: post.id,
     body: ''
   });
+
+  const [validationErrors, setValidationErrors] = useState(null);
 
   function changeCommentFormDataHandler(event) {
     setCommentFormData({
@@ -26,8 +29,13 @@ const FormToSubmitComment = forwardRef(function FormToSubmitComment({post, user,
       },
       body: JSON.stringify(commentFormData)
     })
-    .then(response => response.json())
-    .then(comment => setPostsCommentsWrapperToAddNewComment(comment)); // may need to change the 2nd `.then()` to render errors based on the response status
+    .then(response => {
+      if (response.ok) {
+        response.json().then(comment => setPostsCommentsWrapperToAddNewComment(comment));
+      } else {
+        response.json().then(errorData => setValidationErrors(errorData));
+      }
+    });
 
     /*
     may need to use 'setCommentFormData' setter function to clear out user input data after submit
@@ -49,6 +57,12 @@ const FormToSubmitComment = forwardRef(function FormToSubmitComment({post, user,
             onChange={changeCommentFormDataHandler}
           />
         </div>
+        {validationErrors && (Object.keys(validationErrors).length > 0) &&
+          <ValidationErrorMessage
+            messageStr={Object.values(validationErrors).flat(Infinity).join(' ')}
+            errorStyle={{marginTop: '10px'}}
+          />
+        }
       </fieldset>
     </form>
   );
