@@ -59,6 +59,8 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
 
   const commentCreatedAtDateObj = new Date(postsComment.created_at);
 
+  const isButtonToSaveDisabled = editedCommentFormData.body.trim() === '';
+
   return (
     <article className='comment'>
       <Link to={`/users/${postsComment.author_id}`} title={postsComment.author.first_name} className='thumb'>
@@ -98,8 +100,24 @@ function FormToEditComment({postsComment, setPostsCommentsWrapperToUpdateComment
           }
           <footer className='comment-footer'>
             <ul className='comment-footer-tools'>
-              <li><button onClick={editCommentHandler}><CancelIcon />Cancel</button></li>
-              <li><button><SaveAltIcon />Save</button></li>
+              <li>
+                <button onClick={editCommentHandler}>
+                  <CancelIcon />
+                  Cancel
+                </button>
+              </li>
+              <li>
+                <button
+                  disabled={isButtonToSaveDisabled}
+                  style={{
+                    color: isButtonToSaveDisabled ? 'rgb(189, 189, 189)' : undefined,
+                    cursor: isButtonToSaveDisabled ? 'not-allowed' : undefined
+                  }}
+                >
+                  <SaveAltIcon color={isButtonToSaveDisabled ? 'disabled' : undefined} />
+                  Save
+                </button>
+              </li>
             </ul>
           </footer>
         </form>
