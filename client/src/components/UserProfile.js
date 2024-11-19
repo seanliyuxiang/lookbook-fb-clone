@@ -151,17 +151,20 @@ function UserProfile({user, setUser}) {
     don't nest the key under `user` because strong params is not required in the backend
     */
     const profilePicture = new FormData();
-    profilePicture.append('profile_picture', event.target.files[0], event.target.value);
 
-    fetch(`/api/users/${arbitraryUser.id}/attach_new_profile_picture`, {
-      method: 'POST',
-      body: profilePicture
-    })
-    .then(response => response.json())
-    .then(user => {
-      setArbitraryUser(user);
-      setUser(user);
-    });
+    if (event.target.files.length > 0) { // if there is file attached
+      profilePicture.append('profile_picture', event.target.files[0], event.target.value);
+  
+      fetch(`/api/users/${arbitraryUser.id}/attach_new_profile_picture`, {
+        method: 'POST',
+        body: profilePicture
+      })
+      .then(response => response.json())
+      .then(user => {
+        setArbitraryUser(user);
+        setUser(user);
+      });
+    }
   }
 
   function openProfilePictureFilePickerHandler() {
