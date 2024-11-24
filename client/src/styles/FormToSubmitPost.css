@@ -45,6 +45,15 @@
   column-gap: 5px;
 }
 
+.form-to-submit-post-file > p {
+  /* width must be constrained for text-overflow ellipsis to work */
+  width: 250px;
+  /* https: //tailwindcss.com/docs/text-overflow#ellipsis */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .form-to-submit-post-submit {
   margin: 20px 0 0 0;
   padding: 0 0 3px 0;
