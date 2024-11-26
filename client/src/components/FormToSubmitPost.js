@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import blankProfilePicture from '../images/blank_profile_picture.png';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import ValidationErrorMessage from './ValidationErrorMessage';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredPost, setArbitraryUserWrapperToAddNewWallPost, arbitraryUser}) {
 
@@ -13,6 +14,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
 
   const [fileName, setFileName] = useState(null);
   const [validationErrors, setValidationErrors] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const postAttachmentFileInputRef = useRef(null);
 
@@ -25,6 +27,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
 
   function submitPostFormDataHandler(event) {
     event.preventDefault();
+    setIsLoading(true);
 
     /*
     when calling the `.append` method,
@@ -47,12 +50,17 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         response.json().then(post => {
           if (!setArbitraryUserWrapperToAddNewWallPost) {
             setFriendsAuthoredPostsWrapperToAddNewAuthoredPost(post);
+            setIsLoading(false);
           } else {
             setArbitraryUserWrapperToAddNewWallPost(post);
+            setIsLoading(false);
           }
         });
       } else {
-        response.json().then(errorData => setValidationErrors(errorData));
+        response.json().then(errorData => {
+          setValidationErrors(errorData);
+          setIsLoading(false);
+        });
       }
     });
 
@@ -78,7 +86,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
     postAttachmentFileInputRef.current.click();
   }
 
-  const isButtonToPostDisabled = postFormData.body.trim() === '';
+  const isButtonToPostDisabled = postFormData.body.trim() === '' || isLoading;
 
   return (
     <form onSubmit={submitPostFormDataHandler} className='form-to-submit-post'>
@@ -131,6 +139,11 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
               cursor: isButtonToPostDisabled ? 'not-allowed' : undefined
             }}
           >
+            <ClipLoader
+              loading={isLoading}
+              color='#fff'
+              size='15px'
+            />
             Post to Wall
           </button>
           <span className='btn-alternative'>or <strong onClick={cancelPostFormDataHandler}>Cancel</strong></span>

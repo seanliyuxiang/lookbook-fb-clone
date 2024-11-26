@@ -68,6 +68,10 @@
   font-weight: 700;
   border-radius: 5px;
   box-shadow: 0 3px 0 0 rgb(8, 15, 27);
+  /* display flex moves `or Cancel` to next line */
+  /* display inline-flex makes the flex container display inline */
+  display: inline-flex;
+  column-gap: 6px;
 }
 
 .form-to-submit-post-submit > button:hover {
