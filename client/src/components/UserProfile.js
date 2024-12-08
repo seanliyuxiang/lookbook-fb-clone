@@ -10,10 +10,14 @@ import SmsIcon from '@mui/icons-material/Sms';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 function UserProfile({user, setUser}) {
 
   const [arbitraryUser, setArbitraryUser] = useState(null);
+  const [isUploadingCoverPhoto, setIsUploadingCoverPhoto] = useState(false);
+  const [isUploadingProfilePicture, setIsUploadingProfilePicture] = useState(false);
+
   const params = useParams();
 
   const coverPhotoFileInputRef = useRef(null);
@@ -129,6 +133,8 @@ function UserProfile({user, setUser}) {
 
     if (event.target.files.length > 0) { // if there is file attached
       coverPhoto.append('cover_photo', event.target.files[0], event.target.value);
+
+      setIsUploadingCoverPhoto(true);
   
       fetch(`/api/users/${arbitraryUser.id}/attach_new_cover_photo`, {
         method: 'POST',
@@ -138,6 +144,7 @@ function UserProfile({user, setUser}) {
       .then(user => {
         setArbitraryUser(user);
         setUser(user);
+        setIsUploadingCoverPhoto(false);
       });
     }
   }
@@ -157,6 +164,8 @@ function UserProfile({user, setUser}) {
 
     if (event.target.files.length > 0) { // if there is file attached
       profilePicture.append('profile_picture', event.target.files[0], event.target.value);
+
+      setIsUploadingProfilePicture(true);
   
       fetch(`/api/users/${arbitraryUser.id}/attach_new_profile_picture`, {
         method: 'POST',
@@ -166,6 +175,7 @@ function UserProfile({user, setUser}) {
       .then(user => {
         setArbitraryUser(user);
         setUser(user);
+        setIsUploadingProfilePicture(false);
       });
     }
   }
@@ -197,8 +207,19 @@ function UserProfile({user, setUser}) {
             <button
               className='content-header-btn'
               onClick={openCoverPhotoFilePickerHandler}
+              disabled={isUploadingCoverPhoto}
+              style={{
+                backgroundColor: isUploadingCoverPhoto ? '#ccc' : undefined,
+                cursor: isUploadingCoverPhoto ? 'not-allowed' : undefined
+              }}
             >
-              <PhotoCameraIcon />
+              {isUploadingCoverPhoto
+                ? <ClipLoader
+                  color='gray'
+                  size='20px'
+                />
+                : <PhotoCameraIcon />
+              }
               Add Cover Photo
             </button>
           </>
@@ -226,8 +247,21 @@ function UserProfile({user, setUser}) {
                 name='profile_picture'
                 onChange={changeProfilePictureFileInputHandler}
               />
-              <button onClick={openProfilePictureFilePickerHandler}>
-                <PhotoCameraIcon />
+              <button
+                onClick={openProfilePictureFilePickerHandler}
+                disabled={isUploadingProfilePicture}
+                style={{
+                  backgroundColor: isUploadingProfilePicture ? '#ccc' : undefined,
+                  cursor: isUploadingProfilePicture ? 'not-allowed' : undefined
+                }}
+              >
+                {isUploadingProfilePicture
+                  ? <ClipLoader
+                    color='gray'
+                    size='28px'
+                  />
+                  : <PhotoCameraIcon />
+                }
               </button>
             </>
           }
