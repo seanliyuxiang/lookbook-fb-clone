@@ -16,6 +16,7 @@ function UserProfile({user, setUser}) {
 
   const [arbitraryUser, setArbitraryUser] = useState(null);
   const [isUploadingCoverPhoto, setIsUploadingCoverPhoto] = useState(false);
+  const [isUploadingProfilePicture, setIsUploadingProfilePicture] = useState(false);
 
   const params = useParams();
 
@@ -163,6 +164,8 @@ function UserProfile({user, setUser}) {
 
     if (event.target.files.length > 0) { // if there is file attached
       profilePicture.append('profile_picture', event.target.files[0], event.target.value);
+
+      setIsUploadingProfilePicture(true);
   
       fetch(`/api/users/${arbitraryUser.id}/attach_new_profile_picture`, {
         method: 'POST',
@@ -172,6 +175,7 @@ function UserProfile({user, setUser}) {
       .then(user => {
         setArbitraryUser(user);
         setUser(user);
+        setIsUploadingProfilePicture(false);
       });
     }
   }
@@ -243,8 +247,21 @@ function UserProfile({user, setUser}) {
                 name='profile_picture'
                 onChange={changeProfilePictureFileInputHandler}
               />
-              <button onClick={openProfilePictureFilePickerHandler}>
-                <PhotoCameraIcon />
+              <button
+                onClick={openProfilePictureFilePickerHandler}
+                disabled={isUploadingProfilePicture}
+                style={{
+                  backgroundColor: isUploadingProfilePicture ? '#ccc' : undefined,
+                  cursor: isUploadingProfilePicture ? 'not-allowed' : undefined
+                }}
+              >
+                {isUploadingProfilePicture
+                  ? <ClipLoader
+                    color='gray'
+                    size='28px'
+                  />
+                  : <PhotoCameraIcon />
+                }
               </button>
             </>
           }
