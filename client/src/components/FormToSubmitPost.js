@@ -50,9 +50,11 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         response.json().then(post => {
           if (!setArbitraryUserWrapperToAddNewWallPost) {
             setFriendsAuthoredPostsWrapperToAddNewAuthoredPost(post);
+            setValidationErrors(null);
             setIsLoading(false);
           } else {
             setArbitraryUserWrapperToAddNewWallPost(post);
+            setValidationErrors(null);
             setIsLoading(false);
           }
         });
