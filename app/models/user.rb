@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validate :password_length_minimum
   validates :gender, presence: true, inclusion: { in: %w(Female Male) }
   validates :birthday, presence: true
+  validate :profile_picture_file_extension_must_be_valid, :profile_picture_file_size_maximum
 
   # using custom method to validate password minimum length
   # because the built-in Active Record validation helper
@@ -31,6 +32,34 @@ class User < ApplicationRecord
   def password_length_minimum
     if password && password.length < 12
       errors.add(:password, 'must have minimum 12 and maximum 72 characters')
+    end
+  end
+
+  def profile_picture_file_extension_must_be_valid
+    valid_file_extensions = ['jpeg', 'jpg', 'png']
+
+    # maybe use `profile_picture.present?` instead of just `profile_picture`
+    # to check if there is an attachment
+    if profile_picture && profile_picture.blob
+      file_extension = profile_picture.blob.content_type.split('/')[1].downcase
+
+      if !valid_file_extensions.include?(file_extension)
+        errors.add(:profile_picture, 'must be jpeg, jpg, or png')
+      end
+    end
+  end
+
+  def profile_picture_file_size_maximum
+    max_file_size = 3 * (10 ** 6) # 3 MB
+
+    # maybe use `profile_picture.present?` instead of just `profile_picture`
+    # to check if there is an attachment
+    if profile_picture && profile_picture.blob
+      file_size = profile_picture.blob.byte_size
+
+      if file_size > max_file_size
+        errors.add(:profile_picture, 'cannot be greater than 3 MB')
+      end
     end
   end
 

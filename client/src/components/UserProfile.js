@@ -11,12 +11,15 @@ import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import GroupsIcon from '@mui/icons-material/Groups';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import ClipLoader from 'react-spinners/ClipLoader';
+import ValidationErrorMessage from './ValidationErrorMessage';
 
 function UserProfile({user, setUser}) {
 
   const [arbitraryUser, setArbitraryUser] = useState(null);
   const [isUploadingCoverPhoto, setIsUploadingCoverPhoto] = useState(false);
   const [isUploadingProfilePicture, setIsUploadingProfilePicture] = useState(false);
+
+  const [profilePictureValidationErrors, setProfilePictureValidationErrors] = useState(null);
 
   const params = useParams();
 
@@ -171,11 +174,20 @@ function UserProfile({user, setUser}) {
         method: 'POST',
         body: profilePicture
       })
-      .then(response => response.json())
-      .then(user => {
-        setArbitraryUser(user);
-        setUser(user);
-        setIsUploadingProfilePicture(false);
+      .then(response => {
+        if (response.ok) {
+          response.json().then(user => {
+            setArbitraryUser(user);
+            setUser(user);
+            setProfilePictureValidationErrors(null);
+            setIsUploadingProfilePicture(false);
+          });
+        } else {
+          response.json().then(errorData => {
+            setProfilePictureValidationErrors(errorData);
+            setIsUploadingProfilePicture(false);
+          });
+        }
       });
     }
   }
@@ -266,6 +278,12 @@ function UserProfile({user, setUser}) {
             </>
           }
         </div>
+        {profilePictureValidationErrors && (Object.keys(profilePictureValidationErrors).length > 0) &&
+          <ValidationErrorMessage
+            messageStr={Object.values(profilePictureValidationErrors).flat(Infinity).join(' ')}
+            errorStyle={{margin: '20px 0'}}
+          />
+        }
         <div className='profile-info'>
           <h2>{arbitraryUser.first_name}</h2>
           <p>
