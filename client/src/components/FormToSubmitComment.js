@@ -31,7 +31,10 @@ const FormToSubmitComment = forwardRef(function FormToSubmitComment({post, user,
     })
     .then(response => {
       if (response.ok) {
-        response.json().then(comment => setPostsCommentsWrapperToAddNewComment(comment));
+        response.json().then(comment => {
+          setPostsCommentsWrapperToAddNewComment(comment);
+          setValidationErrors(null);
+        });
       } else {
         response.json().then(errorData => setValidationErrors(errorData));
       }
