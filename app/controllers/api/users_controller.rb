@@ -49,11 +49,17 @@ class Api::UsersController < ApplicationController
 
   def attach_new_cover_photo
     user = User.find_by(id: params[:id])
-    if user.cover_photo.attached?   # need to remove the attachment from the model first before attaching another
-      user.cover_photo.purge_later  # `.purge_later` or `.purge` ???; purging deletes the blob and the file from the storage service
+
+    if user.cover_photo.attach(params[:cover_photo])
+      render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.comments.author', 'wall_posts.likes', 'wall_posts.author', 'assertive_friendships', 'assertive_friendships.friend', 'passive_friendships', 'passive_friendships.user']
+    else
+      render(
+        json: {
+          cover_photo: user.errors[:cover_photo].map { |message| "Cover photo #{message}." }
+        },
+        status: :unprocessable_entity
+      )
     end
-    user.cover_photo.attach(params[:cover_photo])
-    render json: user, include: ['wall_posts', 'wall_posts.comments', 'wall_posts.comments.author', 'wall_posts.likes', 'wall_posts.author', 'assertive_friendships', 'assertive_friendships.friend', 'passive_friendships', 'passive_friendships.user']
   end
 
   private
