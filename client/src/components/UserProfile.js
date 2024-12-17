@@ -20,6 +20,7 @@ function UserProfile({user, setUser}) {
   const [isUploadingProfilePicture, setIsUploadingProfilePicture] = useState(false);
 
   const [profilePictureValidationErrors, setProfilePictureValidationErrors] = useState(null);
+  const [coverPhotoValidationErrors, setCoverPhotoValidationErrors] = useState(null);
 
   const params = useParams();
 
@@ -143,11 +144,20 @@ function UserProfile({user, setUser}) {
         method: 'POST',
         body: coverPhoto
       })
-      .then(response => response.json())
-      .then(user => {
-        setArbitraryUser(user);
-        setUser(user);
-        setIsUploadingCoverPhoto(false);
+      .then(response => {
+        if (response.ok) {
+          response.json().then(user => {
+            setArbitraryUser(user);
+            setUser(user);
+            setCoverPhotoValidationErrors(null);
+            setIsUploadingCoverPhoto(false);
+          });
+        } else {
+          response.json().then(errorData => {
+            setCoverPhotoValidationErrors(errorData);
+            setIsUploadingCoverPhoto(false);
+          });
+        }
       });
     }
   }
@@ -302,6 +312,15 @@ function UserProfile({user, setUser}) {
       </section>
 
       <section className='content-main'>
+        {coverPhotoValidationErrors && (Object.keys(coverPhotoValidationErrors).length > 0) &&
+          <ValidationErrorMessage
+            messageStr={Object.values(coverPhotoValidationErrors).flat(Infinity).join(' ')}
+            errorStyle={{
+              margin: '0 0 20px 0',
+              textAlign: 'center'
+            }}
+          />
+        }
         {canLoggedInUserSubmitPostOnUserProfilePage &&
           <FormToSubmitPost
             user={user}

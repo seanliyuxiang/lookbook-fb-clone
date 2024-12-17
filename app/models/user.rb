@@ -22,6 +22,7 @@ class User < ApplicationRecord
   validates :gender, presence: true, inclusion: { in: %w(Female Male) }
   validates :birthday, presence: true
   validate :profile_picture_file_extension_must_be_valid, :profile_picture_file_size_maximum
+  validate :cover_photo_file_extension_must_be_valid, :cover_photo_file_size_maximum
 
   # using custom method to validate password minimum length
   # because the built-in Active Record validation helper
@@ -59,6 +60,34 @@ class User < ApplicationRecord
 
       if file_size > max_file_size
         errors.add(:profile_picture, 'cannot be greater than 3 MB')
+      end
+    end
+  end
+
+  def cover_photo_file_extension_must_be_valid
+    valid_file_extensions = ['jpeg', 'jpg', 'png']
+
+    # maybe use `cover_photo.present?` instead of just `cover_photo`
+    # to check if there is an attachment
+    if cover_photo && cover_photo.blob
+      file_extension = cover_photo.blob.content_type.split('/')[1].downcase
+
+      if !valid_file_extensions.include?(file_extension)
+        errors.add(:cover_photo, 'must be jpeg, jpg, or png')
+      end
+    end
+  end
+
+  def cover_photo_file_size_maximum
+    max_file_size = 3 * (10 ** 6) # 3 MB
+
+    # maybe use `cover_photo.present?` instead of just `cover_photo`
+    # to check if there is an attachment
+    if cover_photo && cover_photo.blob
+      file_size = cover_photo.blob.byte_size
+
+      if file_size > max_file_size
+        errors.add(:cover_photo, 'cannot be greater than 3 MB')
       end
     end
   end
