@@ -30,7 +30,11 @@ function UserProfile({user, setUser}) {
   useEffect(() => {
     fetch(`/api/users/${params.id}`)
     .then(response => response.json())
-    .then(user => setArbitraryUser(user));
+    .then(user => {
+      setArbitraryUser(user);
+      setProfilePictureValidationErrors(null);
+      setCoverPhotoValidationErrors(null);
+    });
 
     // scroll to top of user's page after user's name is clicked
     window.scrollTo(0, 0);
