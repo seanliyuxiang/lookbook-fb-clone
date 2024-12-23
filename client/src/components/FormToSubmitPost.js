@@ -51,7 +51,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
           if (!setArbitraryUserWrapperToAddNewWallPost) {
             setFriendsAuthoredPostsWrapperToAddNewAuthoredPost(post);
             /*
-            may need to use `setPostFormData` setter function or `postFormData.body = ''` to clear out user input data after submit
+            may need to use `setPostFormData` setter function or `postFormData.body = ''` statement to clear out user input data after submit
             `HTMLFormElement.reset()` doesn't seem to work in React!
             */
             setPostFormData({
@@ -66,7 +66,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
           } else {
             setArbitraryUserWrapperToAddNewWallPost(post);
             /*
-            may need to use `setPostFormData` setter function or `postFormData.body = ''` to clear out user input data after submit
+            may need to use `setPostFormData` setter function or `postFormData.body = ''` statement to clear out user input data after submit
             `HTMLFormElement.reset()` doesn't seem to work in React!
             */
             setPostFormData({
