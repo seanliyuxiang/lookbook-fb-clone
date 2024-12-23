@@ -94,6 +94,9 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
       ...postFormData,
       body: ''
     });
+    // https://stackoverflow.com/questions/3144419/how-do-i-remove-a-file-from-the-filelist/3162319#3162319
+    postAttachmentFileInputRef.current.value = ''; // remove file list from the file picker
+    setFileName(null); // remove file name displayed to the user
   }
 
   function changePostAttachmentFileInputHandler(event) {
