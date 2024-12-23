@@ -50,10 +50,32 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         response.json().then(post => {
           if (!setArbitraryUserWrapperToAddNewWallPost) {
             setFriendsAuthoredPostsWrapperToAddNewAuthoredPost(post);
+            /*
+            may need to use `setPostFormData` setter function or `postFormData.body = ''` to clear out user input data after submit
+            `HTMLFormElement.reset()` doesn't seem to work in React!
+            */
+            setPostFormData({
+              author_id: user.id,
+              body: ''
+            });
+            // https://stackoverflow.com/questions/3144419/how-do-i-remove-a-file-from-the-filelist/3162319#3162319
+            postAttachmentFileInputRef.current.value = ''; // remove file list from the file picker
+            setFileName(null); // remove file name displayed to the user
             setValidationErrors(null);
             setIsLoading(false);
           } else {
             setArbitraryUserWrapperToAddNewWallPost(post);
+            /*
+            may need to use `setPostFormData` setter function or `postFormData.body = ''` to clear out user input data after submit
+            `HTMLFormElement.reset()` doesn't seem to work in React!
+            */
+            setPostFormData({
+              author_id: user.id,
+              body: ''
+            });
+            // https://stackoverflow.com/questions/3144419/how-do-i-remove-a-file-from-the-filelist/3162319#3162319
+            postAttachmentFileInputRef.current.value = ''; // remove file list from the file picker
+            setFileName(null); // remove file name displayed to the user
             setValidationErrors(null);
             setIsLoading(false);
           }
@@ -65,12 +87,6 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
         });
       }
     });
-
-    /*
-    may need to use 'setPostFormData' setter function to clear out user input data after submit
-    'HTMLFormElement.reset()' doesn't seem to work in React!
-    */
-    postFormData.body = '';
   }
 
   function cancelPostFormDataHandler() {
