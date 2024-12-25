@@ -31,6 +31,15 @@ function UserProfile({user, setUser}) {
     fetch(`/api/users/${params.id}`)
     .then(response => response.json())
     .then(user => {
+      /*
+      only purpose of this if-block is to clear out the form in FormToSubmitPost.js
+      (i.e. clear out user inputs and error messages)
+      by unmounting and then mounting FormToSubmitPost.js (** maybe not the best solution??? **)
+      (otherwise, would need to move some states up from FormToSubmitPost.js)
+      */
+      if (arbitraryUser !== null) {
+        setArbitraryUser(null);
+      }
       setArbitraryUser(user);
       setProfilePictureValidationErrors(null);
       setCoverPhotoValidationErrors(null);
