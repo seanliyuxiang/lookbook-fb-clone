@@ -12,6 +12,7 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
 import ClipLoader from 'react-spinners/ClipLoader';
 import ValidationErrorMessage from './ValidationErrorMessage';
+import TryPosting from './TryPosting';
 
 function UserProfile({user, setUser}) {
 
@@ -341,9 +342,17 @@ function UserProfile({user, setUser}) {
             arbitraryUser={arbitraryUser}
           />
         }
-        <div className='posts'>
-          {arbitraryUsersWallPostsArrJSX}
-        </div>
+        {arbitraryUsersWallPostsArrJSX.length > 0
+          ? <div className='posts'>
+            {arbitraryUsersWallPostsArrJSX}
+          </div>
+          : <div className='container-content-to-end'>
+            <TryPosting
+              name={arbitraryUser.id === user.id ? undefined : arbitraryUser.first_name}
+              canLoggedInUserSubmitPostOnUserProfilePage={canLoggedInUserSubmitPostOnUserProfilePage}
+            />
+          </div>
+        }
       </section>
 
     </main>

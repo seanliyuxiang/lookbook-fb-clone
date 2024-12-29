@@ -24,6 +24,8 @@ import './styles/SearchLookbook.css';
 import './styles/SearchResultsContainer.css';
 import './styles/NavBarNotificationList.css';
 import './styles/ValidationErrorMessage.css';
+import './styles/Card.css';
+import './styles/TryPosting.css';
 
 ReactDOM.render(
   <BrowserRouter>
