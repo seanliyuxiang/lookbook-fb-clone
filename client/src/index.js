@@ -26,6 +26,7 @@ import './styles/NavBarNotificationList.css';
 import './styles/ValidationErrorMessage.css';
 import './styles/Card.css';
 import './styles/TryPosting.css';
+import './styles/TrySearching.css';
 
 ReactDOM.render(
   <BrowserRouter>
