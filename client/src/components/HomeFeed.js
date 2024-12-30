@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
+import TrySearching from './TrySearching';
 
 // container component for logged-in user's friends' authored posts
 function HomeFeed({user}) {
@@ -53,9 +54,15 @@ function HomeFeed({user}) {
     <main className='content'>
       <section className='content-main home-feed'>
         <FormToSubmitPost user={user} setFriendsAuthoredPostsWrapperToAddNewAuthoredPost={setFriendsAuthoredPostsWrapperToAddNewAuthoredPost} />
-        <div className='posts'>
-          {friendsAuthoredPostsArrJSX}
-        </div>
+        {friendsAuthoredPostsArrJSX.length > 0
+          ? <div className='posts'>
+            {friendsAuthoredPostsArrJSX}
+          </div>
+          : <div className='container-content-to-end'>
+            <TrySearching />
+          </div>
+
+        }
       </section>
     </main>
   );
