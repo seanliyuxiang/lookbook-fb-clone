@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useMemo} from 'react';
 import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
 import TrySearching from './TrySearching';
@@ -13,6 +13,37 @@ import donovanVenturesLogo from '../images/donovan_ventures.png';
 function HomeFeed({user}) {
 
   const [friendsAuthoredPosts, setFriendsAuthoredPosts] = useState([]);
+
+  // friends with confirmed assertive_friendships and passive_friendships of the logged-in user
+  const friendsConfirmed = useMemo(() => {
+    const friendsFromConfirmedAssertiveFriendships = user.assertive_friendships.filter(
+      assertiveFriendship => assertiveFriendship.status.toLowerCase() === 'confirmed'
+    ).map(
+      assertiveFriendship => {
+        return ({
+          id: assertiveFriendship.friend.id,
+          firstName: assertiveFriendship.friend.first_name,
+          lastName: assertiveFriendship.friend.last_name,
+          birthday: assertiveFriendship.friend.birthday
+        });
+      }
+    );
+
+    const usersFromConfirmedPassiveFriendships = user.passive_friendships.filter(
+      passiveFriendship => passiveFriendship.status.toLowerCase() === 'confirmed'
+    ).map(
+      passiveFriendship => {
+        return ({
+          id: passiveFriendship.user.id,
+          firstName: passiveFriendship.user.first_name,
+          lastName: passiveFriendship.user.last_name,
+          birthday: passiveFriendship.user.birthday
+        });
+      }
+    );
+
+    return friendsFromConfirmedAssertiveFriendships.concat(usersFromConfirmedPassiveFriendships);
+  }, [user]);
 
   useEffect(() => {
     fetch('/api/home_feed')
