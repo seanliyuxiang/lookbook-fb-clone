@@ -2,6 +2,12 @@ import {useState, useEffect} from 'react';
 import Post from './Post';
 import FormToSubmitPost from './FormToSubmitPost';
 import TrySearching from './TrySearching';
+import {Link} from 'react-router-dom';
+import {monthAbbreviatedNames} from '../lib/dateTimeHelpers';
+import CakeIcon from '@mui/icons-material/Cake';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import energiaLogo from '../images/energia.png';
+import donovanVenturesLogo from '../images/donovan_ventures.png';
 
 // container component for logged-in user's friends' authored posts
 function HomeFeed({user}) {
@@ -52,7 +58,7 @@ function HomeFeed({user}) {
 
   return (
     <main className='content'>
-      <section className='content-main home-feed'>
+      <section className='content-main'>
         <FormToSubmitPost user={user} setFriendsAuthoredPostsWrapperToAddNewAuthoredPost={setFriendsAuthoredPostsWrapperToAddNewAuthoredPost} />
         {friendsAuthoredPostsArrJSX.length > 0
           ? <div className='posts'>
@@ -61,8 +67,10 @@ function HomeFeed({user}) {
           : <div className='container-content-to-end'>
             <TrySearching />
           </div>
-
         }
+      </section>
+
+      <section className='content-sidebar home-feed'>
       </section>
     </main>
   );
