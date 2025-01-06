@@ -9,6 +9,19 @@ import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import energiaLogo from '../images/energia.png';
 import donovanVenturesLogo from '../images/donovan_ventures.png';
 
+const upperTimeLimitForUpcomingBirthday = 518400000; // 6 days = 518400000 milliseconds
+
+/**
+ * Function that filters down to just the people whose upcoming birthdays will occur within the specified range
+ * @param {{ id: number; firstName: string; lastName: string; birthday: string; }[]} friends 
+ * @param {{ id: number; firstName: string; lastName: string; birthday: string; }} loggedInUser 
+ * @returns 
+ */
+function getFriendsWithUpcomingBirthdays(friends, loggedInUser) {
+  // want to include the logged-in user's own birthday as well
+  const friendsAndLoggedInUser = friends.concat(loggedInUser);
+}
+
 // container component for logged-in user's friends' authored posts
 function HomeFeed({user}) {
 
