@@ -20,6 +20,21 @@ const upperTimeLimitForUpcomingBirthday = 518400000; // 6 days = 518400000 milli
 function getFriendsWithUpcomingBirthdays(friends, loggedInUser) {
   // want to include the logged-in user's own birthday as well
   const friendsAndLoggedInUser = friends.concat(loggedInUser);
+
+  // filter people with birthdays to within the range between today and the upper limit inclusive
+  return friendsAndLoggedInUser.filter(person => {
+    const birthdayArr = person.birthday.split('-');
+    birthdayArr[0] = String((new Date()).getUTCFullYear()); // `getUTCFullYear` or `getFullYear` ???
+
+    const birthdayThisYear = birthdayArr.join('-');
+    // `Date.parse(birthdayThisYear)` evaluates to the same value as `(new Date(birthdayThisYear)).getTime()`
+    const timestampOfBirthdayThisYear = Date.parse(birthdayThisYear);
+
+    return (
+      (Date.now() <= timestampOfBirthdayThisYear) &&
+      (timestampOfBirthdayThisYear <= (Date.now() + upperTimeLimitForUpcomingBirthday))
+    );
+  });
 }
 
 // container component for logged-in user's friends' authored posts
