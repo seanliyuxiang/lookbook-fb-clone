@@ -115,6 +115,30 @@ function HomeFeed({user}) {
     setFriendsAuthoredPosts([newAuthoredPost, ...friendsAuthoredPosts]);
   }
 
+  const friendsWithUpcomingBirthdays = getFriendsWithUpcomingBirthdays(friendsConfirmed, {
+    id: user.id,
+    firstName: user.first_name,
+    lastName: user.last_name,
+    birthday: user.birthday
+  });
+
+  // sorted in the order the birthdays will occur (array is sorted in place)
+  friendsWithUpcomingBirthdays.sort((person1, person2) => {
+    // for person 1
+    const birthdayArrForPerson1 = person1.birthday.split('-');
+    birthdayArrForPerson1[0] = String((new Date()).getUTCFullYear()); // `getUTCFullYear` or `getFullYear` ???
+    const birthdayThisYearForPerson1 = birthdayArrForPerson1.join('-');
+    const timestampOfBirthdayThisYearForPerson1 = Date.parse(birthdayThisYearForPerson1);
+
+    // for person 2
+    const birthdayArrForPerson2 = person2.birthday.split('-');
+    birthdayArrForPerson2[0] = String((new Date()).getUTCFullYear()); // `getUTCFullYear` or `getFullYear` ???
+    const birthdayThisYearForPerson2 = birthdayArrForPerson2.join('-');
+    const timestampOfBirthdayThisYearForPerson2 = Date.parse(birthdayThisYearForPerson2);
+
+    return timestampOfBirthdayThisYearForPerson1 - timestampOfBirthdayThisYearForPerson2;
+  });
+
   return (
     <main className='content'>
       <section className='content-main'>
