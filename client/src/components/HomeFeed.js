@@ -154,6 +154,37 @@ function HomeFeed({user}) {
       </section>
 
       <section className='content-sidebar home-feed'>
+        <div className='sidebar-events'>
+          <h2>Events</h2>
+          <ul>
+            {friendsWithUpcomingBirthdays.length > 0
+              ? friendsWithUpcomingBirthdays.map(person => {
+                const bdayArr = person.birthday.split('-');
+                return (
+                  <li key={person.id}>
+                    <CakeIcon />
+                    <p>
+                      <Link to={`/users/${person.id}`}>
+                        {person.id === user.id
+                          ? 'Your'
+                          : `${person.firstName} ${person.lastName}`
+                        }
+                      </Link>
+                      {person.id === user.id ? ' birthday ' : `'s birthday `}
+                      <span className='sidebar-events-date'>
+                        {`${monthAbbreviatedNames[Number(bdayArr[1])-1]} ${Number(bdayArr[2])}`}
+                      </span>
+                    </p>
+                  </li>
+                );
+              })
+              : <li>
+                <CakeIcon />
+                <p>No birthdays coming up</p>
+              </li>
+            }
+          </ul>
+        </div>
       </section>
     </main>
   );

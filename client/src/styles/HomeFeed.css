@@ -9,3 +9,20 @@
   display: flex;
   justify-content: flex-end;
 }
+
+.sidebar-events > h2 {
+  padding: 5px;
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar-events > ul > li {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 5px;
+  padding: 5px;
+}
+
+.sidebar-events-date {
+  color: #aaa;
+}
