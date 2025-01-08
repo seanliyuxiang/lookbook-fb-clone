@@ -185,6 +185,44 @@ function HomeFeed({user}) {
             }
           </ul>
         </div>
+        <div className='sidebar-sponsored'>
+          <h2>Sponsored</h2>
+          <ul>
+            <li>
+              <a href='https://www.energia.com/' target='_blank'>
+                <img src={energiaLogo} alt='' />
+              </a>
+            </li>
+            <li>
+              <a href='https://www.dv-llc.com/' target='_blank'>
+                <img src={donovanVenturesLogo} alt='' />
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div className='sidebar-trending'>
+          <h2>Trending</h2>
+          <ul>
+            <li>
+              <TrendingUpIcon />
+              <a href='https://onepetro.org/SJ/article-abstract/22/05/1349/206025/Scaling-of-Low-Interfacial-Tension-Imbibition-in?redirectedFrom=fulltext' target='_blank'>
+                A new analytical model predicts oil recovery based on rock fracture spacing
+              </a>
+            </li>
+            <li>
+              <TrendingUpIcon />
+              <a href='https://repositories.lib.utexas.edu/items/0a9c2732-1a97-4020-b5f8-f473656506c9' target='_blank'>
+                Lab experiments shed new light in oil recovery under low interfacial tension conditions
+              </a>
+            </li>
+            <li>
+              <TrendingUpIcon />
+              <a href='https://onepetro.org/SPEIOR/proceedings-abstract/16IOR/16IOR/SPE-179684-MS/186591' target='_blank'>
+                A novel method to recover oil from low-permeability rocks
+              </a>
+            </li>
+          </ul>
+        </div>
       </section>
     </main>
   );

@@ -26,3 +26,30 @@
 .sidebar-events-date {
   color: #aaa;
 }
+
+.sidebar-sponsored {
+  margin: 20px 0;
+}
+
+.sidebar-sponsored > h2 {
+  padding: 5px;
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar-sponsored > ul > li {
+  padding: 5px;
+}
+
+.sidebar-trending > h2 {
+  padding: 5px;
+  font-weight: 700;
+  border-bottom: 1px solid #ccc;
+}
+
+.sidebar-trending > ul > li {
+  display: flex;
+  align-items: flex-start;
+  column-gap: 5px;
+  padding: 5px;
+}
