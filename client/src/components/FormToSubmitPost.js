@@ -145,7 +145,7 @@ function FormToSubmitPost({user, setFriendsAuthoredPostsWrapperToAddNewAuthoredP
             onClick={openPostAttachmentFilePickerHandler}
           >
             <AddAPhotoIcon />
-            Photo/Video
+            Photo
           </button>
           {fileName && <p>{fileName}</p>}
         </div>
