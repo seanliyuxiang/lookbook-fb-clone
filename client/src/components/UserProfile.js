@@ -310,9 +310,9 @@ function UserProfile({user, setUser}) {
         }
         <div className='profile-info'>
           <h2>{arbitraryUser.first_name}</h2>
-          <p>
+          {/* <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
+          </p> */}
         </div>
         <ul className='profile-nav'>
           <li><a href=''><SmsIcon />Wall</a></li>
