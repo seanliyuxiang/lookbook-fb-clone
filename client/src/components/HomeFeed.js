@@ -77,7 +77,7 @@ function HomeFeed({user}) {
     fetch('/api/home_feed')
     .then(response => response.json())
     .then(posts => setFriendsAuthoredPosts(posts));
-  }, []);
+  }, [user]);
 
   function setFriendsAuthoredPostsWrapperToRemoveAuthoredPost(deletedAuthoredPost) {
     setFriendsAuthoredPosts(friendsAuthoredPosts.filter(authoredPost => authoredPost.id !== deletedAuthoredPost.id)); // filter out the deleted authored post
