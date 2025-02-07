@@ -65,6 +65,8 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 end
 
+# reference:
+# https://github.com/DakotaLMartinez/active_storage_with_api_tutorial?tab=readme-ov-file#setting-up-a-cors-policy
 Rails.application.routes.default_url_options = {
   host: "http://localhost:3000"
 }

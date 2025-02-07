@@ -111,3 +111,9 @@ Rails.application.configure do
   # config.active_record.database_resolver = ActiveRecord::Middleware::DatabaseSelector::Resolver
   # config.active_record.database_resolver_context = ActiveRecord::Middleware::DatabaseSelector::Resolver::Session
 end
+
+# reference:
+# https://github.com/DakotaLMartinez/active_storage_with_api_tutorial?tab=readme-ov-file#setting-up-a-cors-policy
+Rails.application.routes.default_url_options = {
+  host: "https://herokuapp.com"
+}
