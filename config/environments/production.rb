@@ -115,5 +115,5 @@ end
 # reference:
 # https://github.com/DakotaLMartinez/active_storage_with_api_tutorial?tab=readme-ov-file#setting-up-a-cors-policy
 Rails.application.routes.default_url_options = {
-  host: "https://herokuapp.com"
+  host: "https://lkbk-05bfd83b5c68.herokuapp.com/"
 }
