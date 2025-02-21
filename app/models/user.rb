@@ -132,6 +132,7 @@ class User < ApplicationRecord
     source: :post
   
   has_many :wall_posts,
+    -> { order 'created_at DESC' },  # https://guides.rubyonrails.org/v6.1/association_basics.html#scopes-for-has-many-order
     primary_key: :id,
     foreign_key: :recipient_id,
     class_name: :Post,
