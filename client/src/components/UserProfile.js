@@ -81,12 +81,8 @@ function UserProfile({user, setUser}) {
     });
   }
 
-  /*
-  need to make a copy of the user's wall posts first,
-  then reverse the order of that copied array,
-  so that the user's wall posts are from the newest to the oldest
-  */
-  const arbitraryUsersWallPostsArrJSX = [...arbitraryUser.wall_posts].reverse().map(
+  // the user's wall posts should be from the newest to the oldest by the `created_at` date
+  const arbitraryUsersWallPostsArrJSX = arbitraryUser.wall_posts.map(
     arbitraryUsersWallPost => {
       return (
         <Post
@@ -104,8 +100,8 @@ function UserProfile({user, setUser}) {
     setArbitraryUser({
       ...arbitraryUser,
       wall_posts: [
-        ...arbitraryUser.wall_posts,
-        newWallPost // add the newly submitted wall post
+        newWallPost, // add the newly submitted wall post
+        ...arbitraryUser.wall_posts
       ]
     });
   }
