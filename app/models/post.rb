@@ -50,6 +50,7 @@ class Post < ApplicationRecord
     class_name: :User
   
   has_many :comments,
+    -> { order 'created_at ASC' },  # https://guides.rubyonrails.org/v6.1/association_basics.html#scopes-for-has-many-order
     primary_key: :id,
     foreign_key: :post_id,
     class_name: :Comment,
