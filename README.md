@@ -26,6 +26,8 @@ validate :profile_picture_file_extension_must_be_valid, :profile_picture_file_si
 validate :cover_photo_file_extension_must_be_valid, :cover_photo_file_size_maximum
 ```
 
+![New user sign up](./client/src/images/new_user_sign_up.gif)
+
 Password is hashed using [bcrypt](https://github.com/bcrypt-ruby/bcrypt-ruby) before being stored as `password_digest` in the `users` table in the database. Plaintext password is never stored.
 
 ### User Session
