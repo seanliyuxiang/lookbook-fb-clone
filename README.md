@@ -50,6 +50,8 @@ end
 
 The home feed page displays a list of posts from all of the logged-in user's friends. These posts are arranged from top to bottom in reverse chronological order (i.e. from the newest to the oldest by the `created_at` date). An update-to-date list of posts is obtained when the server successfully responds back to the client's HTTP request for home feed data.
 
+![Home feed](./client/src/images/home_feed.gif)
+
 ### Friend Search
 
 Once logged in, the user is able to search for other users in the top navigation bar. The search bar text field listens for `onChange` event and under the hood actually performs filtering on all of the users' full names to match the case-insensitive search string.
@@ -60,6 +62,8 @@ const displayedUsers = allUsers.filter(
   user => `${user.first_name} ${user.last_name}`.toLowerCase().includes(searchString.toLowerCase())
 );
 ```
+
+![Friend search](./client/src/images/friend_search.gif)
 
 ### Friend Requests
 
@@ -72,6 +76,8 @@ connection.execute(%q(
   create unique index index_friendships_on_interchangeable_friend_id_and_user_id on friendships(least(user_id,friend_id), greatest(user_id,friend_id));
 ))
 ```
+
+![Confirm friend request](./client/src/images/confirm_friend_request.gif)
 
 ### Posts, Likes, and Comments
 
@@ -94,6 +100,8 @@ function submitPostFormDataHandler(event) {
   // fetch
 }
 ```
+
+![Submit post](./client/src/images/submit_post.gif)
 
 Active Storage uses two tables in the database named `active_storage_blobs` and `active_storage_attachments`. The `active_storage_blobs` table contains information about the file such as `filename`, `content_type`, and `byte_size`. The `active_storage_attachments` table is a [polymorphic](https://guides.rubyonrails.org/v6.1/association_basics.html#polymorphic-associations) join table that stores the class name and primary key of the model to which the file is attached.
 
@@ -124,9 +132,13 @@ end
 
 Commenting and liking posts are allowed for all users on all posts. Posts and comments can be edited and deleted.
 
+![Submit comment](./client/src/images/submit_comment.gif)
+
 ### User Profile
 
 On the user profile page, the user can upload a profile picture and cover photo. This is again achieved using Rails Active Storage.
+
+![Profile picture and cover photo uploads](./client/src/images/profile_picture_cover_photo_uploads.gif)
 
 ## Future Features
 - [ ] Responsive layout: optimize layout to respond to different screen sizes using media query and CSS grid
